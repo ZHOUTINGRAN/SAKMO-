@@ -1,0 +1,474 @@
+/* =============================================================
+   Them magazine — Header + Drawer Menu 组件样式
+   零依赖（no jQuery / no TweenLite / no GSAP）
+   使用方式：<link rel="stylesheet" href="components.css">
+   配套 JS：components.js
+   ============================================================= */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --them-bg: #fcfbf7;
+  --them-text: #1c1a16;
+  --them-muted: #999;
+  --them-accent: #7c6a55;
+  --them-white: #ffffff;
+  --them-header-h: 72px;
+  --them-header-h-desk: 100px;
+  --them-header-h-scroll: 54px;
+  --them-header-h-scroll-desk: 70px;
+  --them-logo-w: 108px;
+  --them-logo-h: 45px;
+  --them-logo-w-desk: 146px;
+  --them-logo-h-desk: 60px;
+  --them-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* =========================================================
+   RESET for components area (scoped)
+   ========================================================= */
+.them-header-wrap *,
+.them-header-wrap *::before,
+.them-header-wrap *::after { box-sizing: border-box; }
+
+/* =========================================================
+   1. HEADER (#h)
+   ========================================================= */
+#h {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: var(--them-header-h);
+  opacity: 1;
+  z-index: 100;
+  transition: transform 0.4s var(--them-ease),
+              height 0.4s var(--them-ease);
+  mix-blend-mode: difference;
+}
+@media screen and (min-width: 768px) {
+  #h { height: var(--them-header-h-desk); }
+}
+
+/* ---------- Logo ---------- */
+#h .logo {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  width: var(--them-logo-w);
+  height: var(--them-logo-h);
+  transition: all 0.4s var(--them-ease);
+}
+@media screen and (min-width: 768px) {
+  #h .logo {
+    bottom: 18px;
+    left: 4vw;
+    width: var(--them-logo-w-desk);
+    height: var(--them-logo-h-desk);
+  }
+}
+#h .logo span { display: none; }
+#h .logo a {
+  width: var(--them-logo-w);
+  height: var(--them-logo-h);
+  position: relative;
+  transition: all 0.4s var(--them-ease);
+}
+@media screen and (min-width: 768px) {
+  #h .logo a {
+    width: var(--them-logo-w-desk);
+    height: var(--them-logo-h-desk);
+    left: -14px;
+  }
+}
+#h .logo a svg {
+  width: 100%;
+  height: 100%;
+  fill: #fff;
+}
+
+/* ---------- Hamburger Button ---------- */
+#h #btn-m {
+  position: absolute;
+  width: 92px;
+  height: var(--them-header-h);
+  bottom: 0;
+  right: 0;
+  margin-right: 0;
+  transition: all 0.4s var(--them-ease);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 10;
+}
+@media screen and (min-width: 768px) {
+  #h #btn-m {
+    margin-right: -25px;
+    width: 100px;
+    height: var(--them-header-h-desk);
+    right: 4vw;
+  }
+}
+
+/* Hamburger lines container (open + close layers stacked) */
+#h #btn-m span {
+  width: 42px;
+  height: 14px;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  margin: auto;
+  transition: opacity 0.4s ease;
+}
+@media screen and (min-width: 768px) {
+  #h #btn-m span { width: 50px; height: 14px; }
+}
+
+/* Open layer: visible by default */
+#h #btn-m > span { opacity: 1; }
+/* Close layer: hidden by default */
+#h #btn-m > span.close { opacity: 0; }
+
+/* Top / bottom lines */
+#h #btn-m span .t,
+#h #btn-m span .b {
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+  background-color: #fff;
+}
+#h #btn-m span .t { top: 0; }
+#h #btn-m span .b { bottom: 0; }
+
+/* Cover blocks for hover animation */
+#h #btn-m span .u-target1,
+#h #btn-m span .u-target2 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  background-color: #fff;
+  will-change: transform;
+}
+
+/* .u-target1: initial 0%, hover slides to -101% */
+#h #btn-m span .u-target1 {
+  transform: translateX(0) translateY(0) translateZ(0);
+  transition: transform 0.4s var(--them-ease);
+}
+/* .u-target2: initial -101%, hover slides to 0% */
+#h #btn-m span .u-target2 {
+  transform: translateX(-101%) translateY(0) translateZ(0);
+  transition: transform 0.4s var(--them-ease);
+}
+
+/* Desktop hover trigger */
+@media screen and (min-width: 768px) {
+  #h #btn-m:hover span .u-target1 {
+    transform: translateX(-101%) translateY(0) translateZ(0);
+  }
+  #h #btn-m:hover span .u-target2 {
+    transform: translateX(0%) translateY(0) translateZ(0);
+    transition-delay: 0.2s;
+  }
+}
+
+/* ---------- Close Icon (when menu open) ---------- */
+.is-menu-open #h #btn-m > span { opacity: 0; }
+.is-menu-open #h #btn-m > span.close { opacity: 1; }
+
+#h #btn-m span.close .t {
+  transform: rotate(15deg);
+  top: 5px;
+  background-color: #fff;
+}
+@media screen and (min-width: 768px) {
+  #h #btn-m span.close .t { top: 6px; }
+}
+#h #btn-m span.close .b {
+  transform: rotate(-15deg);
+  bottom: 5px;
+  background-color: #fff;
+}
+@media screen and (min-width: 768px) {
+  #h #btn-m span.close .b { bottom: 6px; }
+}
+
+/* ---------- Scroll shrink (.is-scrolled) ---------- */
+.is-scrolled #h {
+  transform: translateX(0) translateY(-20px) translateZ(0);
+}
+@media screen and (min-width: 768px) {
+  .is-scrolled #h {
+    transform: translateX(0) translateY(-30px) translateZ(0);
+  }
+}
+.is-scrolled #h .logo {
+  bottom: 10px;
+  width: 77px;
+  height: 32px;
+}
+@media screen and (min-width: 768px) {
+  .is-scrolled #h .logo {
+    bottom: 14px;
+    width: 106px;
+    height: 42px;
+  }
+}
+.is-scrolled #h .logo a {
+  width: 77px;
+  height: 32px;
+  left: 4px;
+}
+@media screen and (min-width: 768px) {
+  .is-scrolled #h .logo a {
+    width: 106px;
+    height: 42px;
+    left: -12px;
+  }
+}
+.is-scrolled #h #btn-m {
+  height: var(--them-header-h-scroll);
+}
+@media screen and (min-width: 768px) {
+  .is-scrolled #h #btn-m { height: var(--them-header-h-scroll-desk); }
+}
+
+/* ---------- Menu open state ---------- */
+.is-menu-open #h {
+  transform: translateX(0) translateY(0) translateZ(0);
+}
+.is-menu-open #h .logo a { opacity: 0; }
+.is-menu-open #h #btn-m { height: var(--them-header-h); }
+@media screen and (min-width: 768px) {
+  .is-menu-open #h #btn-m { height: var(--them-header-h-desk); }
+}
+
+/* ---------- Body scroll lock ---------- */
+body.is-hidden { overflow: hidden; }
+
+/* =========================================================
+   2. DRAWER MENU (#menu)
+   ========================================================= */
+#menu {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+/* Background overlay */
+#menu .bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.4s;
+  cursor: pointer;
+}
+
+/* Drawer panel (slides in from right) */
+#menu .in {
+  width: 82vw;
+  position: absolute;
+  top: 0; right: 0;
+  height: 100%;
+  background-color: #ffffff;
+  z-index: 1;
+  overflow-y: scroll;
+  padding-bottom: 60px;
+  transform: translateX(100%) translateY(0) translateZ(0);
+  transition: transform 0.4s var(--them-ease);
+}
+@media screen and (min-width: 768px) {
+  #menu .in { width: 32vw; min-width: 380px; }
+}
+
+/* Inside padding */
+#menu .in .box {
+  padding: 110px 25px 0;
+}
+@media screen and (min-width: 768px) {
+  #menu .in .box { padding: 160px 4vw 0; }
+}
+
+/* Drawer logo */
+#menu .in .logo {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--them-text);
+}
+@media screen and (min-width: 768px) {
+  #menu .in .logo { left: calc(4vw - 10px); top: 32px; }
+}
+
+/* Search bar */
+#menu .in .box .search {
+  width: 100%;
+  position: relative;
+  height: 32px;
+  border-bottom: 1px solid var(--them-text);
+  margin-bottom: 40px;
+}
+#menu .in .box .search input[type=text] {
+  width: 100%;
+  padding: 0;
+  font-size: 1.5rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  color: var(--them-text);
+}
+#menu .in .box .search input[type=text]::placeholder {
+  color: var(--them-muted);
+  letter-spacing: 0.15em;
+  font-size: 0.9rem;
+}
+#menu .in .box .search button {
+  position: absolute;
+  top: 0; right: 0;
+  width: 50px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+#menu .in .box .search svg {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  z-index: 10;
+  fill: var(--them-text);
+  position: absolute;
+  top: 0; right: 10px; bottom: 0;
+  margin: auto;
+}
+
+/* Section labels */
+#menu .in .box .t {
+  font-size: 1rem;
+  color: var(--them-muted);
+  margin: 32px 0 10px;
+  letter-spacing: 0.1em;
+}
+@media screen and (min-width: 768px) {
+  #menu .in .box .t { margin-bottom: 8px; }
+}
+
+/* Menu item container */
+#menu .in .box .cell {
+  overflow: hidden;
+  line-height: 1.3;
+}
+
+/* Menu item */
+#menu .in .box .u-menu {
+  position: relative;
+  font-size: 2rem;
+  line-height: 1.3;
+  display: inline-block;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  color: var(--them-text);
+}
+@media screen and (min-width: 768px) {
+  #menu .in .box .u-menu { font-size: 2.4rem; line-height: 1.2; }
+}
+
+/* Menu item text */
+#menu .in .box .u-menu span {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding-bottom: 2px;
+  transition: color 0.25s ease;
+}
+@media screen and (min-width: 768px) {
+  #menu .in .box .u-menu.is-hover span { color: #fff; }
+}
+
+/* Menu item hover cover block */
+#menu .in .box .u-menu .u-target {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  margin: auto;
+  transform: translateX(-101%) translateY(0) translateZ(0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Menu item hover animation (desktop only) */
+@media screen and (min-width: 768px) {
+  #menu .in .box .u-menu:hover .u-target {
+    transform: translateX(0%) translateY(0) translateZ(0);
+    transition: transform 0.4s var(--them-ease);
+  }
+}
+
+/* SNS icons */
+#menu .in .box .sns {
+  margin: 28px 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+@media screen and (min-width: 768px) {
+  #menu .in .box .sns { margin: 38px 0; }
+}
+#menu .in .box .sns a {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#menu .in .box .sns svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--them-text);
+  transition: fill 0.25s ease;
+}
+#menu .in .box .sns a:hover svg { fill: var(--them-accent); }
+
+/* Footer links */
+#menu .in .box .links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+#menu .in .box .links a {
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: var(--them-text);
+  transition: color 0.2s ease;
+}
+#menu .in .box .links a:hover { color: var(--them-accent); }
+
+/* ---------- Open state ---------- */
+.is-menu-open #menu {
+  opacity: 1;
+  pointer-events: auto;
+}
+.is-menu-open #menu .in {
+  transform: translateX(0) translateY(0%) translateZ(0);
+}
+.is-menu-open #menu .bg {
+  background-color: rgba(0, 0, 0, 0.3);
+}

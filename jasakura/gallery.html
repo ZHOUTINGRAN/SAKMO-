@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>影像画廊 Gallery — 樱茉序 Sakmo</title>
+<meta name="description" content="樱茉序 · 影像画廊：风光、纪实、新地形、静物、创意五类，常驻与客座共创，A/B 双调色对照。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="h">
+  <h1 class="logo"><a href="index.html"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a></h1>
+  <button id="menu-btn" aria-label="菜单"></button>
+</header>
+
+<section style="padding-top:90px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="l"><h2>影像画廊<span class="en">Gallery</span></h2></div>
+      <div class="r">多人共创 · 常驻 + 客座</div>
+    </div>
+    <p class="annot" style="max-width:60ch;margin-bottom:30px;font-size:1.4rem;color:var(--ink-soft);font-family:var(--serif)">五类作品并列陈列。点击图片可放大；每张附带摄影师署名、拍摄参数，并可跳转影像解析专栏。下方为 A/B 双调色对照版面。</p>
+
+    <!-- ============ 筛选 chips ============ -->
+    <div class="filters filterable">
+      <span class="grp-label">CATEGORY</span>
+      <button class="chip active" data-filter="all">全部</button>
+      <button class="chip" data-filter="landscape">风光</button>
+      <button class="chip" data-filter="documentary">纪实</button>
+      <button class="chip" data-filter="newtopographic">新地形</button>
+      <button class="chip" data-filter="stilllife">静物</button>
+      <button class="chip" data-filter="creative">创意</button>
+    </div>
+
+    <!-- ============ 画廊网格 ============ -->
+    <div class="grid-edit filterable">
+
+      <a href="reading.html" class="item s6" data-cat="landscape">
+        <div class="img ar-43" data-zoom><img loading="lazy" alt="山色空蒙" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=muted%20landscape%20photograph%20layered%20mountain%20ridges%20in%20morning%20mist%20serene%20Japanese%20photography%20style%20film%20grain%20soft%20tones&image_size=landscape_4_3"></div>
+        <div class="lbl"><span>风光</span><span>2026.08</span></div>
+        <h3>山色空蒙<span class="en">Mountain in Void</span></h3>
+        <div class="credit"><b>林叙</b> · 常驻</div>
+        <div class="params">35mm · f/8 · 1/60s · ISO 200</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s3" data-cat="landscape">
+        <div class="img ar-34" data-zoom><img loading="lazy" alt="雾松晨雪" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20photograph%20frost%20covered%20pine%20trees%20at%20dawn%20snow%20mist%20vertical%20film%20grain%20Japanese%20photography%20style&image_size=portrait_4_3"></div>
+        <div class="lbl"><span>风光</span><span>2026.08</span></div>
+        <h3>雾松晨雪<span class="en">Frost Pines at Dawn</span></h3>
+        <div class="credit"><b>陆深</b> · 客座</div>
+        <div class="params">85mm · f/4 · 1/250s · ISO 100</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s3" data-cat="documentary">
+        <div class="img ar-43" data-zoom><img loading="lazy" alt="暮色集市" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20documentary%20photograph%20rural%20market%20street%20at%20dusk%20hanging%20laundry%20overhead%20wires%20calm%20film%20grain&image_size=landscape_4_3"></div>
+        <div class="lbl"><span>纪实</span><span>2026.08</span></div>
+        <h3>暮色集市<span class="en">Market at Dusk</span></h3>
+        <div class="credit"><b>周野</b> · 常驻</div>
+        <div class="params">35mm · f/2.8 · 1/125s · ISO 1600</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s4" data-cat="documentary">
+        <div class="img ar-34" data-zoom><img loading="lazy" alt="渡口归人" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20documentary%20photograph%20people%20boarding%20small%20ferry%20at%20dusk%20river%20port%20muted%20film%20grain&image_size=portrait_4_3"></div>
+        <div class="lbl"><span>纪实</span><span>2026.07</span></div>
+        <h3>渡口归人<span class="en">Returners at the Ferry</span></h3>
+        <div class="credit"><b>周野</b> · 客座</div>
+        <div class="params">50mm · f/2 · 1/200s · ISO 800</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s4" data-cat="newtopographic">
+        <div class="img ar-43" data-zoom><img loading="lazy" alt="边缘之郊" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=new%20topographics%20photograph%20suburban%20edge%20empty%20road%20utility%20poles%20overcast%20muted%20color%20film%20grain&image_size=landscape_4_3"></div>
+        <div class="lbl"><span>新地形</span><span>2026.08</span></div>
+        <h3>边缘之郊<span class="en">Edge of Suburbia</span></h3>
+        <div class="credit"><b>沈墨</b> · 常驻</div>
+        <div class="params">24mm · f/11 · 1/100s · ISO 100</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s4" data-cat="newtopographic">
+        <div class="img ar-43" data-zoom><img loading="lazy" alt="仓体几何" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=new%20topographics%20photograph%20industrial%20warehouse%20facade%20geometric%20minimal%20overcast%20muted%20film%20grain&image_size=landscape_4_3"></div>
+        <div class="lbl"><span>新地形</span><span>2026.07</span></div>
+        <h3>仓体几何<span class="en">Warehouse Geometry</span></h3>
+        <div class="credit"><b>陈青</b> · 客座</div>
+        <div class="params">28mm · f/8 · 1/160s · ISO 200</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s3" data-cat="stilllife">
+        <div class="img ar-34" data-zoom><img loading="lazy" alt="枯花与亚麻" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=photograph%20dried%20flowers%20in%20clay%20vase%20on%20linen%20soft%20window%20light%20wabi-sabi%20neutral%20tones&image_size=portrait_4_3"></div>
+        <div class="lbl"><span>静物</span><span>2026.08</span></div>
+        <h3>枯花与亚麻<span class="en">Dried Flowers on Linen</span></h3>
+        <div class="credit"><b>苏砚</b> · 常驻</div>
+        <div class="params">90mm · f/4 · 1/30s · ISO 400</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s3" data-cat="stilllife">
+        <div class="img ar-1" data-zoom><img loading="lazy" alt="陶与影" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=still%20life%20photograph%20ceramic%20bowl%20and%20shadow%20on%20paper%20minimal%20soft%20light%20muted%20tones%20wabi-sabi&image_size=square"></div>
+        <div class="lbl"><span>静物</span><span>2026.07</span></div>
+        <h3>陶与影<span class="en">Clay and Shadow</span></h3>
+        <div class="credit"><b>苏砚</b> · 常驻</div>
+        <div class="params">100mm · f/5.6 · 1/60s · ISO 200</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s6" data-cat="creative">
+        <div class="img ar-43" data-zoom><img loading="lazy" alt="残像重叠" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=creative%20multiple%20exposure%20photograph%20overlapping%20ghostly%20figures%20dreamlike%20muted%20film%20grain%20experimental&image_size=landscape_4_3"></div>
+        <div class="lbl"><span>创意</span><span>2026.08</span></div>
+        <h3>残像重叠<span class="en">Overlapping Afterimages</span></h3>
+        <div class="credit"><b>沈墨</b> · 常驻</div>
+        <div class="params">50mm · f/2.8 · 1/15s · ISO 800 · 多重曝光</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s6" data-cat="creative">
+        <div class="img ar-169" data-zoom><img loading="lazy" alt="镜中之昼" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=creative%20photograph%20reflection%20in%20mirror%20of%20daytime%20scene%20surreal%20muted%20film%20grain%20Japanese%20photography%20style&image_size=landscape_16_9"></div>
+        <div class="lbl"><span>创意</span><span>2026.08</span></div>
+        <h3>镜中之昼<span class="en">Day in the Mirror</span></h3>
+        <div class="credit"><b>陈青</b> · 客座</div>
+        <div class="params">35mm · f/4 · 1/250s · ISO 100</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s6" data-cat="landscape">
+        <div class="img ar-43" data-zoom><img loading="lazy" alt="海雾长滩" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=muted%20landscape%20photograph%20long%20empty%20beach%20in%20sea%20mist%20calm%20horizon%20film%20grain%20Japanese%20photography%20style&image_size=landscape_4_3"></div>
+        <div class="lbl"><span>风光</span><span>2026.07</span></div>
+        <h3>海雾长滩<span class="en">Long Beach in Sea Mist</span></h3>
+        <div class="credit"><b>陆深</b> · 客座</div>
+        <div class="params">45mm · f/5.6 · 1/200s · ISO 200</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+      <a href="reading.html" class="item s6" data-cat="documentary">
+        <div class="img ar-43" data-zoom><img loading="lazy" alt="雨夜便利店" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20documentary%20photograph%20convenience%20store%20at%20night%20in%20rain%20neon%20reflection%20wet%20pavement%20muted%20film%20grain&image_size=landscape_4_3"></div>
+        <div class="lbl"><span>纪实</span><span>2026.07</span></div>
+        <h3>雨夜便利店<span class="en">Store in the Rain</span></h3>
+        <div class="credit"><b>林叙</b> · 常驻</div>
+        <div class="params">28mm · f/1.8 · 1/60s · ISO 3200</div>
+        <a href="reading.html" class="to-read">阅读解析 →</a>
+      </a>
+
+    </div>
+
+    <!-- ============ A/B 双调色对照 ============ -->
+    <div class="sec-head" style="margin-top:80px">
+      <div class="l"><h2>A/B 双调色对照<span class="en">A/B Color Grading</span></h2></div>
+      <div class="r">同一场景 · 两种调色</div>
+    </div>
+    <div class="ab-row">
+      <div class="ab">
+        <div class="cell">
+          <div class="img ar-43" data-zoom><img loading="lazy" alt="A调 暮色集市" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20documentary%20photograph%20rural%20market%20street%20at%20dusk%20cool%20blue%20tones%20calm%20film%20grain&image_size=landscape_4_3"></div>
+          <div class="badge">A</div>
+          <div class="tag-ab">Cool / 冷调</div>
+        </div>
+        <div class="cell">
+          <div class="img ar-43" data-zoom><img loading="lazy" alt="B调 暮色集市" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=documentary%20photograph%20rural%20market%20street%20at%20dusk%20warm%20amber%20tones%20calm%20film%20grain%20muted&image_size=landscape_4_3"></div>
+          <div class="badge">B</div>
+          <div class="tag-ab">Warm / 暖调</div>
+        </div>
+        <div class="foot"><b>暮色集市</b><span>林叙 · 35mm · f/2.8</span></div>
+      </div>
+
+      <div class="ab">
+        <div class="cell">
+          <div class="img ar-43" data-zoom><img loading="lazy" alt="A调 港口晨雾" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20photograph%20harbor%20in%20morning%20mist%20cool%20blue%20tones%20calm%20film%20grain&image_size=landscape_4_3"></div>
+          <div class="badge">A</div>
+          <div class="tag-ab">Cool / 冷调</div>
+        </div>
+        <div class="cell">
+          <div class="img ar-43" data-zoom><img loading="lazy" alt="B调 港口晨雾" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=photograph%20harbor%20in%20morning%20mist%20warm%20amber%20tones%20calm%20film%20grain%20muted&image_size=landscape_4_3"></div>
+          <div class="badge">B</div>
+          <div class="tag-ab">Warm / 暖调</div>
+        </div>
+        <div class="foot"><b>港口晨雾</b><span>周野 · 50mm · f/2</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 页脚 ============ -->
+<footer id="f">
+  <div class="in">
+    <div class="l">
+      <a href="index.html" class="flogo" aria-label="樱茉序 Sakmo 首页"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a>
+      <div class="sns">
+        <a href="#instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.3 2.2.5.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1 .5 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.8-.5 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1 .4-2.2.5-1.3.1-1.7.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.3-2.2-.5-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1-.5-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.3-1.8.5-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1-.4 2.2-.5C8.4 2.2 8.8 2.2 12 2.2zm0 3.3c-1.8 0-2 0-2.7.1-.7 0-1 .2-1.2.3-.3.1-.5.3-.7.5-.2.2-.4.4-.5.7-.1.3-.2.6-.3 1.2C6.5 7.9 6.5 8.2 6.5 10s0 2.1.1 2.8c0 .7.2 1 .3 1.2.1.3.3.5.5.7.2.2.4.4.7.5.3.1.6.2 1.2.3.7.1.9.1 2.8.1s2.1 0 2.8-.1c.7 0 1-.2 1.2-.3.3-.1.5-.3.7-.5.2-.2.4-.4.5-.7.1-.3.2-.6.3-1.2.1-.7.1-.9.1-2.8s0-2.1-.1-2.8c0-.7-.2-1-.3-1.2-.1-.3-.3-.5-.5-.7-.2-.2-.4-.4-.7-.5-.3-.1-.6-.2-1.2-.3C14.1 5.5 13.8 5.5 12 5.5zm0 2.3a3.2 3.2 0 110 6.4 3.2 3.2 0 010-6.4zm0 5.3a2.1 2.1 0 100-4.2 2.1 2.1 0 000 4.2zm3.4-5.6a.8.8 0 110 1.6.8.8 0 010-1.6z"/></svg></a>
+        <a href="#redbook" class="rb" aria-label="小红书">小红书</a>
+        <a href="#website" aria-label="官方网站" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 014.33-3.56A15.65 15.65 0 008.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></a>
+      </div>
+    </div>
+    <div class="r">
+      <div class="flex">
+        <div class="cell">
+          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span><i class="u-target"></i></a>
+          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">长线企划</span><i class="u-target"></i></a>
+          <a href="motion.html" class="u-menu"><span class="en">CINEMA</span><span class="ja">动态影像</span><i class="u-target"></i></a>
+          <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span><i class="u-target"></i></a>
+        </div>
+        <div class="cell">
+          <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span><i class="u-target"></i></a>
+          <a href="creators.html" class="u-menu"><span class="en">ROSTER</span><span class="ja">创作者名册</span><i class="u-target"></i></a>
+          <a href="about.html" class="u-menu"><span class="en">ABOUT</span><span class="ja">关于联络</span><i class="u-target"></i></a>
+          <a href="about.html#archive" class="u-menu"><span class="en">ARCHIVE</span><span class="ja">往期归档</span><i class="u-target"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="in">
+    <div class="links"><a href="about.html#copyright">版权声明</a><a href="about.html#privacy">隐私政策</a><a href="about.html#archive">往期归档</a></div>
+    <small>© 2026 樱茉序 Sakmo · 多人共创</small>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

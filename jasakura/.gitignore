@@ -1,0 +1,83 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+
+# Rollup cache
+.rpt2_cache/
+
+# Rollup2 cache
+.rpt2_cache/
+
+# Rollup4 cache
+.rpt2_cache/
+
+# Vite cache
+.vite
+
+# Yarn production
+.yarn/
+
+# Yarn cache directory
+.yarn/cache
+
+# Yarn uncompiled files
+.yarn/unplugged
+
+# Yarn metadata
+.yarn/install-state.gz
+
+# Yarn integrity files
+.yarn/integrity
+
+# Yarn Release 7
+.yarn/releases
+
+# Yarn Release 8
+.yarn/backups
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
