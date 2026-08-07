@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在线投稿 Submit — 樱茉序 Sakmo</title>
+<meta name="description" content="樱茉序 · 在线投稿表单：填写信息后生成邮件，或手动发送至 sakmo@jasakura.cn">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="h">
+  <h1 class="logo"><a href="index.html"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a></h1>
+  <button id="menu-btn" aria-label="菜单"></button>
+</header>
+
+<!-- ============ 在线投稿 ============ -->
+<section style="padding-top:120px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="l"><h2>在线投稿<span class="en">Submit</span></h2></div>
+      <div class="r">填写后生成邮件</div>
+    </div>
+    <p style="max-width:60ch;margin-bottom:48px;font-family:var(--serif);font-size:clamp(1.3rem,1.6vw,1.5rem);line-height:1.85;color:var(--ink-soft)">填写下方表单，提交后将自动打开邮件客户端并填充内容。也可手动发送至 <a href="mailto:sakmo@jasakura.cn" style="color:var(--ink);border-bottom:1px solid var(--ink)">sakmo@jasakura.cn</a>。</p>
+
+    <form class="submit-form" id="submit-form" novalidate>
+      <div class="field">
+        <label>署名 / Name</label>
+        <input type="text" name="署名" required>
+      </div>
+      <div class="field">
+        <label>邮箱 / Email</label>
+        <input type="email" name="邮箱" required>
+      </div>
+      <div class="field">
+        <label>作品类别 / Category</label>
+        <select name="作品类别">
+          <option value="风光 Landscape">风光 Landscape</option>
+          <option value="纪实 Documentary">纪实 Documentary</option>
+          <option value="新地形 New Topographics">新地形 New Topographics</option>
+          <option value="静物 Still Life">静物 Still Life</option>
+          <option value="创意 Creative">创意 Creative</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>投稿主题 / Theme</label>
+        <select name="投稿主题">
+          <option value="当期征稿「窗」">当期征稿「窗」</option>
+          <option value="共创专栏「岁与光影」">共创专栏「岁与光影」</option>
+          <option value="其他">其他</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>作品手记 / Note</label>
+        <textarea name="作品手记" rows="3" placeholder="一句话手记：拍摄时间、地点与心情"></textarea>
+      </div>
+      <div class="field full">
+        <label>作品链接 / Link</label>
+        <input type="text" name="网盘链接" placeholder="网盘链接或附件地址（单张 / 组图打包）">
+      </div>
+      <div class="form-action">
+        <button type="submit" class="go">提交投稿 → 生成邮件</button>
+        <p class="hint">点击后将打开邮件客户端，内容已自动填充。也可手动发送至 sakmo@jasakura.cn</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ 页脚（Them magazine 风格 · 全幅 · 左 logo+SNS / 右双列菜单 + 黑块 hover） ============ -->
+<footer id="f">
+  <div class="in">
+    <div class="l">
+      <a href="index.html" class="flogo" aria-label="樱茉序 Sakmo 首页"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a>
+      <div class="sns">
+        <a href="#instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.3 2.2.5.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1 .5 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.8-.5 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1 .4-2.2.5-1.3.1-1.7.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.3-2.2-.5-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1-.5-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.3-1.8.5-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1-.4 2.2-.5C8.4 2.2 8.8 2.2 12 2.2zm0 3.3c-1.8 0-2 0-2.7.1-.7 0-1 .2-1.2.3-.3.1-.5.3-.7.5-.2.2-.4.4-.5.7-.1.3-.2.6-.3 1.2C6.5 7.9 6.5 8.2 6.5 10s0 2.1.1 2.8c0 .7.2 1 .3 1.2.1.3.3.5.5.7.2.2.4.4.7.5.3.1.6.2 1.2.3.7.1.9.1 2.8.1s2.1 0 2.8-.1c.7 0 1-.2 1.2-.3.3-.1.5-.3.7-.5.2-.2.4-.4.5-.7.1-.3.2-.6.3-1.2.1-.7.1-.9.1-2.8s0-2.1-.1-2.8c0-.7-.2-1-.3-1.2-.1-.3-.3-.5-.5-.7-.2-.2-.4-.4-.7-.5-.3-.1-.6-.2-1.2-.3C14.1 5.5 13.8 5.5 12 5.5zm0 2.3a3.2 3.2 0 110 6.4 3.2 3.2 0 010-6.4zm0 5.3a2.1 2.1 0 100-4.2 2.1 2.1 0 000 4.2zm3.4-5.6a.8.8 0 110 1.6.8.8 0 010-1.6z"/></svg></a>
+        <a href="https://www.xiaohongshu.com/user/profile/6631e9be00000000030320e9" class="rb" aria-label="小红书" target="_blank" rel="noopener noreferrer">小红书</a>
+        <a href="#website" aria-label="官方网站" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 014.33-3.56A15.65 15.65 0 008.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></a>
+      </div>
+    </div>
+    <div class="r">
+      <div class="flex">
+        <div class="cell">
+          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span><i class="u-target"></i></a>
+          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span><i class="u-target"></i></a>
+          <a href="motion.html" class="u-menu"><span class="en">CINEMA</span><span class="ja">动态影像</span><i class="u-target"></i></a>
+          <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span><i class="u-target"></i></a>
+        </div>
+        <div class="cell">
+          <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span><i class="u-target"></i></a>
+          <a href="creators.html" class="u-menu"><span class="en">ROSTER</span><span class="ja">创作者名册</span><i class="u-target"></i></a>
+          <a href="about.html" class="u-menu"><span class="en">ABOUT</span><span class="ja">关于联络</span><i class="u-target"></i></a>
+          <a href="about.html#archive" class="u-menu"><span class="en">ARCHIVE</span><span class="ja">往期归档</span><i class="u-target"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="in">
+    <div class="links"><a href="about.html#copyright">版权声明</a><a href="about.html#privacy">隐私政策</a><a href="about.html#archive">往期归档</a></div>
+    <small>© 2026 樱茉序 Sakmo · 多人共创</small>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script>
+/* 投稿表单：收集字段 → 构造 mailto 链接 → 打开邮件客户端
+   （比 form action="mailto:" 更可靠，兼容 Chrome/Edge/Safari） */
+(function(){
+  var form = document.getElementById('submit-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var to = 'sakmo@jasakura.cn';
+    var name = form.querySelector('[name="署名"]').value.trim();
+    var email = form.querySelector('[name="邮箱"]').value.trim();
+    var category = form.querySelector('[name="作品类别"]').value;
+    var theme = form.querySelector('[name="投稿主题"]').value;
+    var note = form.querySelector('[name="作品手记"]').value.trim();
+    var link = form.querySelector('[name="网盘链接"]').value.trim();
+
+    if(!name || !email){
+      alert('请填写署名和邮箱');
+      return;
+    }
+
+    var subject = '投稿 · 客座 · ' + name;
+    var body = '署名 / Name：' + name + '\n'
+             + '邮箱 / Email：' + email + '\n'
+             + '作品类别 / Category：' + category + '\n'
+             + '投稿主题 / Theme：' + theme + '\n'
+             + '作品手记 / Note：' + note + '\n'
+             + '作品链接 / Link：' + link + '\n';
+
+    var mailtoUrl = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = mailtoUrl;
+  });
+})();
+</script>
+</body>
+</html>

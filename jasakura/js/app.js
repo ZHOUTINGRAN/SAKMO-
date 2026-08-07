@@ -29,7 +29,7 @@
         '<p class="t-label">CONTENTS 栏目</p>' +
         '<div class="cell"><a href="index.html" class="u-menu"><span class="en">Frontpage</span><span class="ja">卷首首页</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="gallery.html" class="u-menu"><span class="en">Gallery</span><span class="ja">影像画廊</span><i class="u-target"></i></a></div>' +
-        '<div class="cell"><a href="projects.html" class="u-menu"><span class="en">Projects</span><span class="ja">长线企划</span><i class="u-target"></i></a></div>' +
+        '<div class="cell"><a href="projects.html" class="u-menu"><span class="en">Projects</span><span class="ja">专题项目</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="motion.html" class="u-menu"><span class="en">Cinema</span><span class="ja">动态影像</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="creators.html" class="u-menu"><span class="en">Roster</span><span class="ja">创作者名册</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="reading.html" class="u-menu"><span class="en">Analytics</span><span class="ja">影像解析</span><i class="u-target"></i></a></div>' +
@@ -37,7 +37,7 @@
         '<div class="cell"><a href="about.html" class="u-menu"><span class="en">About</span><span class="ja">关于联络</span><i class="u-target"></i></a></div>' +
         '<div class="sns">' +
           '<a href="#instagram" aria-label="Instagram">' + svgIg + '</a>' +
-          '<a href="#redbook" class="rb" aria-label="小红书">小红书</a>' +
+          '<a href="https://www.xiaohongshu.com/user/profile/6631e9be00000000030320e9" class="rb" aria-label="小红书" target="_blank" rel="noopener noreferrer">小红书</a>' +
           '<a href="#website" aria-label="官方网站">' + svgGlobe + '</a>' +
         '</div>' +
         '<p class="t-label">OTHERS 其他</p>' +
@@ -61,12 +61,15 @@
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
     // 页内锚点：关闭抽屉
     menu.querySelectorAll('a[href^="#"]').forEach(function(a){ a.addEventListener('click', closeMenu); });
-    // 搜索 → 跳转画廊
+    // 搜索 → 跳转画廊（带页面过渡）
     menu.querySelector('.search form').addEventListener('submit', function(e){
       e.preventDefault();
       var q = this.querySelector('input').value.trim();
       closeMenu();
-      location.href = 'gallery.html' + (q ? '?q=' + encodeURIComponent(q) : '');
+      sessionStorage.setItem('page-transition', '1');
+      pageTrans.classList.add('is-active');
+      var url = 'gallery.html' + (q ? '?q=' + encodeURIComponent(q) : '');
+      setTimeout(function(){ location.href = url; }, 350);
     });
 
     /* 菜单项 hover：黑块从左滑入盖住文字（文字转白），离开时从右滑出。仅桌面。 */
@@ -199,4 +202,53 @@
   lbClose.addEventListener('click', closeZoom);
   lb.addEventListener('click', function (e) { if (e.target === lb) closeZoom(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeZoom(); });
+
+  /* ---- 页面过渡：footer logo 点击 → 淡入遮罩 → 跳转 → 新页淡出 ----
+     .flogo 点击时遮罩淡入(0→1)，600ms 后跳转；新页面加载时遮罩先满显再淡出。 */
+  var pageTrans = document.createElement('div');
+  pageTrans.id = 'page-transition';
+  document.body.appendChild(pageTrans);
+
+  /* 新页面加载：如果是从过渡跳转来的，遮罩先满显(无过渡)再淡出 */
+  if (sessionStorage.getItem('page-transition') === '1') {
+    sessionStorage.removeItem('page-transition');
+    pageTrans.classList.add('no-transition', 'is-active');
+    pageTrans.offsetHeight; /* 强制回流，确保满显状态生效 */
+    pageTrans.classList.remove('no-transition');
+    requestAnimationFrame(function () { pageTrans.classList.remove('is-active'); });
+  }
+
+  /* bfcache 回退/前进时清除残留遮罩 */
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) { pageTrans.classList.remove('is-active', 'no-transition'); sessionStorage.removeItem('page-transition'); }
+  });
+
+  document.addEventListener('click', function (e) {
+    /* 统一处理导航链接：footer logo + 抽屉/底部菜单项 + .go 按钮 + .flex-e 卡片 + OTHERS 链接 */
+    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (!href || href.charAt(0) === '#') return; /* 跳过纯锚点(#instagram 等) */
+    e.preventDefault();
+    /* 关闭抽屉（如果处于打开状态） */
+    if (document.documentElement.classList.contains('is-menu-open')) {
+      document.documentElement.classList.remove('is-menu-open');
+      document.body.classList.remove('is-hidden');
+      var menuEl = document.getElementById('menu');
+      if (menuEl) menuEl.setAttribute('aria-hidden', 'true');
+    }
+    /* 已在目标页：滚动到顶部或锚点（不触发页面过渡） */
+    var curFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    var targetFile = href.split('#')[0].split('/').pop().toLowerCase() || 'index.html';
+    var hash = href.indexOf('#') > -1 ? href.split('#')[1] : '';
+    if (targetFile === curFile) {
+      if (hash) { var t = document.getElementById(hash); if (t) { t.scrollIntoView({ behavior: 'smooth' }); return; } }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    /* 不同页：淡入遮罩 → 跳转 */
+    sessionStorage.setItem('page-transition', '1');
+    pageTrans.classList.add('is-active');
+    setTimeout(function () { window.location.href = href; }, 350);
+  });
 })();

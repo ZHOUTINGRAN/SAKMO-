@@ -81,3 +81,6 @@ web_modules/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Cloudflare Wrangler
+.wrangler/

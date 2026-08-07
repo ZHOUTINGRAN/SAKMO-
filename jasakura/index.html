@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -18,18 +18,48 @@
   <button id="menu-btn" aria-label="菜单"></button>
 </header>
 
-<!-- ============ 当期封面（全幅大图） ============ -->
+<!-- ============ 当期封面（全幅幻灯片） ============ -->
 <section class="cover">
   <div class="frame">
-    <img loading="lazy" alt="No.001 封面：清晨旧巷" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=wide%20cinematic%20japanese%20photography%20magazine%20cover%20misty%20rural%20town%20at%20dawn%20lone%20figure%20with%20umbrella%20minimalist%20monochrome%2035mm%20film%20editorial%20moody&image_size=landscape_16_9">
+    <div class="slide is-active">
+      <img loading="lazy" alt="No.001 封面：清晨旧巷" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=wide%20cinematic%20japanese%20photography%20magazine%20cover%20misty%20rural%20town%20at%20dawn%20lone%20figure%20with%20umbrella%20minimalist%20monochrome%2035mm%20film%20editorial%20moody&image_size=landscape_16_9">
+    </div>
+    <div class="slide">
+      <img loading="lazy" alt="No.002 封面：竹雾" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=wide%20cinematic%20japanese%20photography%20magazine%20cover%20bamboo%20forest%20in%20morning%20mist%20serene%20monochrome%2035mm%20film%20editorial&image_size=landscape_16_9">
+    </div>
+    <div class="slide">
+      <img loading="lazy" alt="No.003 封面：老乡镇" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=wide%20cinematic%20japanese%20photography%20magazine%20cover%20old%20chinese%20town%20narrow%20alley%20stone%20houses%20quiet%20afternoon%20muted%20film%20editorial&image_size=landscape_16_9">
+    </div>
+    <div class="slide">
+      <img loading="lazy" alt="No.004 封面：新农村" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=wide%20cinematic%20japanese%20photography%20magazine%20cover%20new%20rural%20village%20concrete%20houses%20and%20rice%20fields%20soft%20sky%20muted%20editorial&image_size=landscape_16_9">
+    </div>
   </div>
   <div class="overlay">
     <div class="wrap">
-      <div>
-        <p class="issue">Issue No.001 · 立秋 2026 · Prelude 序</p>
-        <h1>在城乡之间，光落下的一页<span class="en">A Page Where Light Falls</span></h1>
+      <div class="cover-titles">
+        <div class="slide-text is-active">
+          <p class="issue">Issue No.001 · 立秋 2026 · Prelude 序</p>
+          <h1>在城乡之间，光落下的一页<span class="en">A Page Where Light Falls</span></h1>
+        </div>
+        <div class="slide-text">
+          <p class="issue">Issue No.002 · 白露 2026 · Bamboo Mist</p>
+          <h1>竹雾深处，呼吸可闻<span class="en">Bamboo Whisper</span></h1>
+        </div>
+        <div class="slide-text">
+          <p class="issue">Issue No.003 · 长线企划 · Old Towns</p>
+          <h1>老乡镇的最后一道光<span class="en">The Last Light of Old Towns</span></h1>
+        </div>
+        <div class="slide-text">
+          <p class="issue">Issue No.004 · 长线企划 · New Countryside</p>
+          <h1>新农村，旧时光<span class="en">New Country, Old Time</span></h1>
+        </div>
       </div>
-      <p class="annot">封面 · 清晨旧巷<br>摄影 / 林叙</p>
+      <div class="cover-annots">
+        <p class="annot is-active">封面 · 清晨旧巷<br>摄影 / 林叙</p>
+        <p class="annot">封面 · 竹林晨雾<br>摄影 / 苏砚</p>
+        <p class="annot">封面 · 老镇小巷<br>摄影 / 周野</p>
+        <p class="annot">封面 · 田间午后<br>摄影 / 林叙</p>
+      </div>
     </div>
   </div>
 </section>
@@ -48,11 +78,121 @@
   </div>
 </section>
 
+<!-- ============ 杂志陈列（全幅四列网格） ============ -->
+<section class="magazine-archive reveal" style="padding-top:80px;padding-bottom:80px">
+  <div class="head">
+    <h3 class="h3-common">MAGAZINE</h3>
+    <div class="r">
+      <span class="len">Issues: <i>8</i></span>
+      <div class="current">Page: <i>1</i>/1</div>
+    </div>
+  </div>
+  <div class="flex-4">
+
+    <a href="magazine-detail.html?id=001" class="cell">
+      <figure class="img">
+        <span class="scale">
+          <img loading="lazy" alt="No.001 Prelude 序" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20japanese%20photography%20magazine%20cover%20misty%20rural%20town%20at%20dawn%20lone%20figure%20with%20umbrella%20monochrome%2035mm%20film%20editorial%20moody&image_size=portrait_4_3">
+        </span>
+      </figure>
+      <div class="txts">
+        <span>立秋 2026 No.001</span>
+        <strong>PRELUDE 序</strong>
+      </div>
+    </a>
+
+    <a href="magazine-detail.html?id=002" class="cell">
+      <figure class="img">
+        <span class="scale">
+          <img loading="lazy" alt="No.002 Bamboo Mist 竹雾" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20japanese%20photography%20magazine%20cover%20bamboo%20forest%20in%20morning%20mist%20monochrome%2035mm%20film%20editorial%20serene&image_size=portrait_4_3">
+        </span>
+      </figure>
+      <div class="txts">
+        <span>白露 2026 No.002</span>
+        <strong>BAMBOO MIST 竹雾</strong>
+      </div>
+    </a>
+
+    <a href="magazine-detail.html?id=003" class="cell">
+      <figure class="img">
+        <span class="scale">
+          <img loading="lazy" alt="No.003 Old Towns 老乡镇" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20japanese%20photography%20magazine%20cover%20old%20chinese%20town%20narrow%20alley%20stone%20houses%20quiet%20afternoon%20muted%20film%20editorial&image_size=portrait_4_3">
+        </span>
+      </figure>
+      <div class="txts">
+        <span>长线企划 No.003</span>
+        <strong>OLD TOWNS 老乡镇</strong>
+      </div>
+    </a>
+
+    <a href="magazine-detail.html?id=004" class="cell">
+      <figure class="img">
+        <span class="scale">
+          <img loading="lazy" alt="No.004 New Countryside 新农村" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20japanese%20photography%20magazine%20cover%20new%20rural%20village%20concrete%20houses%20and%20rice%20fields%20soft%20sky%20muted%20editorial&image_size=portrait_4_3">
+        </span>
+      </figure>
+      <div class="txts">
+        <span>长线企划 No.004</span>
+        <strong>NEW COUNTRYSIDE 新农村</strong>
+      </div>
+    </a>
+
+    <a href="magazine-detail.html?id=005" class="cell">
+      <figure class="img">
+        <span class="scale">
+          <img loading="lazy" alt="No.005 City's Edge 城市边缘" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20japanese%20photography%20magazine%20cover%20construction%20cranes%20at%20city%20edge%20dusk%20muted%20low%20saturation%20editorial&image_size=portrait_4_3">
+        </span>
+      </figure>
+      <div class="txts">
+        <span>长线企划 No.005</span>
+        <strong>CITY'S EDGE 城市边缘</strong>
+      </div>
+    </a>
+
+    <a href="magazine-detail.html?id=006" class="cell">
+      <figure class="img">
+        <span class="scale">
+          <img loading="lazy" alt="No.006 Roadside Views 路途景观" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20japanese%20photography%20magazine%20cover%20view%20from%20train%20window%20passing%20rural%20landscape%20motion%20blur%20muted%20editorial&image_size=portrait_4_3">
+        </span>
+      </figure>
+      <div class="txts">
+        <span>长线企划 No.006</span>
+        <strong>ROADSIDE VIEWS 路途景观</strong>
+      </div>
+    </a>
+
+    <a href="magazine-detail.html?id=007" class="cell">
+      <figure class="img">
+        <span class="scale">
+          <img loading="lazy" alt="No.007 Seasons & Light 岁与光影" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20japanese%20photography%20magazine%20cover%20old%20tree%20shadow%20on%20white%20wall%20afternoon%20light%20seasonal%20muted%20minimal%20editorial&image_size=portrait_4_3">
+        </span>
+      </figure>
+      <div class="txts">
+        <span>长线企划 No.007</span>
+        <strong>SEASONS &amp; LIGHT 岁与光影</strong>
+      </div>
+    </a>
+
+    <a href="magazine-detail.html?id=008" class="cell">
+      <figure class="img">
+        <span class="scale">
+          <img loading="lazy" alt="No.008 Creature Diary 生灵日记" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20japanese%20photography%20magazine%20cover%20small%20cat%20in%20quiet%20alley%20warm%20muted%20natural%20light%20editorial&image_size=portrait_4_3">
+        </span>
+      </figure>
+      <div class="txts">
+        <span>长线企划 No.008</span>
+        <strong>CREATURE DIARY 生灵日记</strong>
+      </div>
+    </a>
+
+  </div>
+</section>
+
 <!-- ============ 四大板块快捷入口 ============ -->
 <section class="reveal">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="l"><h2>本期入口<span class="en">Enter the Issue</span></h2></div>
+  <div class="wrap wrap--edge">
+    <div class="sec-head sec-head--h3">
+      <div class="l"><h2>SAKMO IMAGERY<span class="ja">樱茉映像</span></h2></div>
       <div class="r">Four Sections · 四大板块</div>
     </div>
     <div class="quick-4">
@@ -64,7 +204,7 @@
       </a>
       <a href="projects.html">
         <div class="n">02</div>
-        <div class="t">长线企划</div>
+        <div class="t">专题项目</div>
         <div class="e">Long-term Projects</div>
         <div class="d">老乡镇、新农村、城市边缘……六个长期专题持续生长。</div>
       </a>
@@ -86,9 +226,9 @@
 
 <!-- ============ 本期精选 (编辑选片) ============ -->
 <section class="reveal" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="l"><h2>本期精选<span class="en">Editor's Pick</span></h2></div>
+  <div class="wrap wrap--edge">
+    <div class="sec-head sec-head--h3">
+      <div class="l"><h2>Editor's Pick<span class="ja">本期精选</span></h2></div>
       <div class="r"><a href="gallery.html">进入画廊 →</a></div>
     </div>
     <div class="grid-edit filterable">
@@ -137,7 +277,7 @@
       <a href="index.html" class="flogo" aria-label="樱茉序 Sakmo 首页"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a>
       <div class="sns">
         <a href="#instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.3 2.2.5.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1 .5 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.8-.5 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1 .4-2.2.5-1.3.1-1.7.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.3-2.2-.5-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1-.5-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.3-1.8.5-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1-.4 2.2-.5C8.4 2.2 8.8 2.2 12 2.2zm0 3.3c-1.8 0-2 0-2.7.1-.7 0-1 .2-1.2.3-.3.1-.5.3-.7.5-.2.2-.4.4-.5.7-.1.3-.2.6-.3 1.2C6.5 7.9 6.5 8.2 6.5 10s0 2.1.1 2.8c0 .7.2 1 .3 1.2.1.3.3.5.5.7.2.2.4.4.7.5.3.1.6.2 1.2.3.7.1.9.1 2.8.1s2.1 0 2.8-.1c.7 0 1-.2 1.2-.3.3-.1.5-.3.7-.5.2-.2.4-.4.5-.7.1-.3.2-.6.3-1.2.1-.7.1-.9.1-2.8s0-2.1-.1-2.8c0-.7-.2-1-.3-1.2-.1-.3-.3-.5-.5-.7-.2-.2-.4-.4-.7-.5-.3-.1-.6-.2-1.2-.3C14.1 5.5 13.8 5.5 12 5.5zm0 2.3a3.2 3.2 0 110 6.4 3.2 3.2 0 010-6.4zm0 5.3a2.1 2.1 0 100-4.2 2.1 2.1 0 000 4.2zm3.4-5.6a.8.8 0 110 1.6.8.8 0 010-1.6z"/></svg></a>
-        <a href="#redbook" class="rb" aria-label="小红书">小红书</a>
+        <a href="https://www.xiaohongshu.com/user/profile/6631e9be00000000030320e9" class="rb" aria-label="小红书" target="_blank" rel="noopener noreferrer">小红书</a>
         <a href="#website" aria-label="官方网站" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 014.33-3.56A15.65 15.65 0 008.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></a>
       </div>
     </div>
@@ -145,7 +285,7 @@
       <div class="flex">
         <div class="cell">
           <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span><i class="u-target"></i></a>
-          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">长线企划</span><i class="u-target"></i></a>
+          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span><i class="u-target"></i></a>
           <a href="motion.html" class="u-menu"><span class="en">CINEMA</span><span class="ja">动态影像</span><i class="u-target"></i></a>
           <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span><i class="u-target"></i></a>
         </div>
@@ -165,5 +305,24 @@
 </footer>
 
 <script src="js/app.js"></script>
+<script>
+/* 封面幻灯片自动播放（慢速 6s 切换，淡入淡出 1.4s） */
+(function(){
+  var slides = document.querySelectorAll('.cover .frame .slide');
+  var titles = document.querySelectorAll('.cover .cover-titles .slide-text');
+  var annots = document.querySelectorAll('.cover .cover-annots .annot');
+  if(slides.length < 2) return;
+  var i = 0;
+  setInterval(function(){
+    slides[i].classList.remove('is-active');
+    titles[i].classList.remove('is-active');
+    annots[i].classList.remove('is-active');
+    i = (i + 1) % slides.length;
+    slides[i].classList.add('is-active');
+    titles[i].classList.add('is-active');
+    annots[i].classList.add('is-active');
+  }, 6000);
+})();
+</script>
 </body>
 </html>
