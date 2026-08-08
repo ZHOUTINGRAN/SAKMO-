@@ -110,8 +110,8 @@
         <div class="cell">
           <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span><i class="u-target"></i></a>
           <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span><i class="u-target"></i></a>
-          <a href="motion.html" class="u-menu"><span class="en">CINEMA</span><span class="ja">动态影像</span><i class="u-target"></i></a>
           <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span><i class="u-target"></i></a>
+          <a href="index.html#magazine-archive" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志专题</span><i class="u-target"></i></a>
         </div>
         <div class="cell">
           <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span><i class="u-target"></i></a>
@@ -342,21 +342,6 @@
     const flipFrontImg = flipLayer.querySelector('.flip-front img');
     const flipBackImg = flipLayer.querySelector('.flip-back img');
 
-    /* 杂志内页图片主题（基于 id 映射） */
-    const galleryThemes = {
-      '001':'misty rural town at dawn lone figure with umbrella monochrome 35mm film editorial moody',
-      '002':'bamboo forest in morning mist serene monochrome 35mm film editorial',
-      '003':'old chinese town narrow alley stone houses quiet afternoon muted film editorial',
-      '004':'new rural village concrete houses and rice fields soft sky muted editorial',
-      '005':'construction cranes at city edge dusk muted low saturation editorial',
-      '006':'view from train window passing rural landscape motion blur muted editorial',
-      '007':'old tree shadow on white wall afternoon light seasonal muted minimal editorial',
-      '008':'small cat in quiet alley warm muted natural light editorial'
-    };
-
-    /* 8 种视角变体，组合主题生成内页图片 */
-    const variants = ['wide shot','close up','detail view','panoramic view','vertical composition','horizontal composition','low angle','high angle'];
-
     /* 合成横幅尺寸：3360×2152（1.56:1，接近 16:10），每跨页两张 portrait_4_3 图左右拼接 */
     const COMP_W = 3360, COMP_H = 2152;
 
@@ -369,9 +354,9 @@
 
     const isMobile = () => window.innerWidth < 768;
 
-    /* 生成内页图片 URL 数组（8 张 portrait_4_3） */
-    function generateGallery(theme){
-      return variants.map(v => `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(v+' '+theme)}&image_size=portrait_4_3`);
+    /* 生成内页图片路径数组（8 张本地内页图，按杂志 id 索引） */
+    function generateGallery(id){
+      return Array.from({length:8}, (_,i) => `images/magazine/${id}/pages/${String(i+1).padStart(2,'0')}.jpg`);
     }
 
     /* 加载单张图片（crossOrigin 以便 canvas 读取，不污染画布） */
@@ -543,8 +528,8 @@
     }
 
     /* 打开模态框 */
-    function openModal(theme){
-      gallery = generateGallery(theme);
+    function openModal(id){
+      gallery = generateGallery(id);
       Object.keys(compositeCache).forEach(k => delete compositeCache[k]);  /* 清缓存 */
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
@@ -640,8 +625,7 @@
         e.preventDefault();
         const params = new URLSearchParams(location.search);
         const id = params.get('id') || '001';
-        const theme = galleryThemes[id] || galleryThemes['001'];
-        openModal(theme);
+        openModal(id);
       });
     }
   })();

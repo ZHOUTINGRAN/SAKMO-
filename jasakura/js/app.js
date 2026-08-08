@@ -30,7 +30,6 @@
         '<div class="cell"><a href="index.html" class="u-menu"><span class="en">Frontpage</span><span class="ja">卷首首页</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="gallery.html" class="u-menu"><span class="en">Gallery</span><span class="ja">影像画廊</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="projects.html" class="u-menu"><span class="en">Projects</span><span class="ja">专题项目</span><i class="u-target"></i></a></div>' +
-        '<div class="cell"><a href="motion.html" class="u-menu"><span class="en">Cinema</span><span class="ja">动态影像</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="creators.html" class="u-menu"><span class="en">Roster</span><span class="ja">创作者名册</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="reading.html" class="u-menu"><span class="en">Analytics</span><span class="ja">影像解析</span><i class="u-target"></i></a></div>' +
         '<div class="cell"><a href="submit.html" class="u-menu"><span class="en">Events</span><span class="ja">征稿活动</span><i class="u-target"></i></a></div>' +
@@ -98,11 +97,21 @@
   /* ---- 页脚菜单：当前页高亮 + 触摸设备 hover 回退（Them magazine 风格） ---- */
   var footerMenus = document.querySelectorAll('#f .u-menu');
   if (footerMenus.length) {
-    /* 当前页高亮：比对文件名（去掉 hash），匹配则黑块常驻 + 文字转白 */
+    /* 当前页高亮：比对文件名，匹配则黑块常驻 + 文字转白。
+       带 hash 的链接（如 index.html#magazine-archive）仅当当前页 hash 也匹配时高亮，
+       避免与同文件名的无 hash 链接（如 Frontpage）冲突。 */
     var curFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
     footerMenus.forEach(function (item) {
-      var href = (item.getAttribute('href') || '').split('#')[0].split('/').pop().toLowerCase();
-      if (href && href === curFile) item.classList.add('is-active');
+      var fullHref = item.getAttribute('href') || '';
+      var hashIdx = fullHref.indexOf('#');
+      var linkHash = hashIdx !== -1 ? fullHref.slice(hashIdx) : '';
+      var href = fullHref.split('#')[0].split('/').pop().toLowerCase();
+      if (!href || href !== curFile) return;
+      if (linkHash) {
+        if (location.hash === linkHash) item.classList.add('is-active');
+      } else if (!location.hash) {
+        item.classList.add('is-active');
+      }
     });
     /* 桌面非触摸：用 .is-hover 类补充 :hover，确保黑块滑入动画可靠触发 */
     if (window.matchMedia('(min-width: 768px)').matches && !('ontouchstart' in window)) {
@@ -112,6 +121,34 @@
       });
     }
   }
+
+  /* ---- 杂志专题锚点：首页内平滑滚动，跨页跳转后定位 ---- */
+  var MAG_HASH = '#magazine-archive';
+  function scrollToMagazine(){
+    var el = document.getElementById('magazine-archive');
+    if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  if (location.hash === MAG_HASH) {
+    setTimeout(scrollToMagazine, 150);
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    if ((a.getAttribute('href') || '').indexOf(MAG_HASH) === -1) return;
+    if (!document.getElementById('magazine-archive')) return;
+    e.preventDefault();
+    var inDrawer = document.documentElement.classList.contains('is-menu-open');
+    if (inDrawer) {
+      document.documentElement.classList.remove('is-menu-open');
+      document.body.classList.remove('is-hidden');
+      var drawer = document.getElementById('menu');
+      if (drawer) drawer.setAttribute('aria-hidden', 'true');
+    }
+    setTimeout(function(){
+      scrollToMagazine();
+      history.pushState(null, '', MAG_HASH);
+    }, inDrawer ? 350 : 0);
+  });
 
   /* ---- 滚动时缩小 header ---- */
   var SCROLL_THRESHOLD = 20;

@@ -152,8 +152,8 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 .preface p{font-family:var(--serif);font-size:clamp(1.55rem,1.85vw,1.8rem);line-height:1.85;color:var(--ink-soft);margin-bottom:22px}
 .preface .sign{font-family:var(--sans);font-size:1.05rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:18px}
 
-/* ---------- 四板块快捷入口 ---------- */
-.quick-4{display:grid;grid-template-columns:repeat(4,1fr);gap:56px;margin-top:28px}
+/* ---------- 三板块快捷入口 ---------- */
+.quick-4{display:grid;grid-template-columns:repeat(3,1fr);gap:56px;margin-top:28px}
 .quick-4 a{display:block;border-top:1px solid var(--ink);padding-top:28px;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-top-color .35s cubic-bezier(.2,.7,.2,1)}
 .quick-4 .n{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--muted);--base:var(--muted)}
 .quick-4 .t{font-family:var(--serif);font-weight:500;font-size:2rem;margin-top:8px;line-height:1.2;--base:var(--ink)}
@@ -254,23 +254,6 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 .submit-strip{background:var(--paper-2);text-align:center}
 .submit-strip h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,2.8vw,2.6rem);margin-bottom:14px}
 .submit-strip p{font-size:1.4rem;color:var(--ink-soft);margin-bottom:24px;max-width:50ch;margin-inline:auto;line-height:1.8}
-
-/* ---------- 动态影像馆 视频跨页 ---------- */
-.video-spread{display:grid;grid-template-columns:1.5fr 1fr;gap:72px;align-items:center;margin-bottom:80px}
-.video-spread.rev{grid-template-columns:1fr 1.5fr}
-.video-spread .vframe{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--paper-2);cursor:pointer}
-.video-spread .vframe img{transition:transform 1.8s cubic-bezier(.2,.7,.2,1)}
-.video-spread .vframe:hover img{transform:scale(1.02)}
-.video-spread .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.video-spread .play i{width:58px;height:58px;border-radius:50%;background:rgba(250,250,248,.85);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--ink);transition:transform .4s,background .4s;backdrop-filter:blur(4px)}
-.video-spread .vframe:hover .play i{transform:scale(1.06);background:rgba(250,250,248,.96)}
-.video-spread .play i::before{content:"▶";margin-left:4px}
-.video-spread .vmeta{font-size:.98rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-.video-spread h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.85rem,2.5vw,2.5rem);line-height:1.14;margin-bottom:16px}
-.video-spread h3 .en{display:block;font-style:italic;font-weight:400;font-size:1.3rem;color:var(--muted);margin-top:5px}
-.video-spread .interview{font-family:var(--serif);font-size:1.45rem;line-height:1.85;color:var(--ink-soft);border-left:1px solid var(--line-2);padding-left:24px}
-.video-spread .interview q{font-style:italic}
-.video-spread .interview cite{display:block;font-style:normal;font-family:var(--sans);font-size:1.02rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:14px}
 
 /* ---------- 创作者名册 ---------- */
 .creator-zone{margin-bottom:72px}
@@ -541,7 +524,7 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
   .cross .links{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:1024px){
-  .preface,.next-issue .inner,.deep-read,.video-spread,.video-spread.rev,.read-feature,.about-grid,.event-card{grid-template-columns:1fr;gap:40px}
+  .preface,.next-issue .inner,.deep-read,.read-feature,.about-grid,.event-card{grid-template-columns:1fr;gap:40px}
   .deep-read .side{position:static}
   .grid-edit .s6,.grid-edit .s7,.grid-edit .s8,.grid-edit .s5{grid-column:span 12}
   .grid-edit .s4,.grid-edit .s3{grid-column:span 6}
