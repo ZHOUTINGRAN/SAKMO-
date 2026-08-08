@@ -1042,6 +1042,16 @@ html.is-menu-open #menu .in{transform:translateX(0)}
   .page-projects .flex-e .cell:nth-child(4n+4) .img{height:23.8vw}
 }
 
+/* ===== ★ 引言（全宽编辑式 · 左标签 + 右正文，参考 .preface 布局） ===== */
+.reading-intro{display:grid;grid-template-columns:1fr 2.2fr;gap:48px;align-items:start;padding:0 4vw;margin:0 auto 64px;max-width:var(--max)}
+.reading-intro .label{font-family:var(--sans);font-size:1.05rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ink);padding-top:12px}
+.reading-intro .label em{font-style:italic;font-size:1rem;margin-left:6px;opacity:.8;text-transform:none;letter-spacing:0}
+.reading-intro p{font-family:var(--serif);font-size:clamp(1.5rem,1.8vw,1.7rem);line-height:1.85;color:var(--ink-soft);letter-spacing:.01em}
+@media(max-width:768px){
+  .reading-intro{grid-template-columns:1fr;gap:16px;padding:0 25px;margin-bottom:48px}
+  .reading-intro p{font-size:1.45rem}
+}
+
 /* ===== ★ 板块分隔线（头条解析 → 解析列表） ===== */
 /* 去掉 read-feature 原有 72px 底边距，由分隔线统一控制间距 */
 .reading-feature{margin-bottom:0}
