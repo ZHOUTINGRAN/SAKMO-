@@ -1,0 +1,9 @@
+{
+  "name": "sakmo-magazine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "樱茉序 Sakmo — 摄影杂志静态站点",
+  "scripts": {
+    "build": "echo \"Static site, no build required\""
+  }
+}
