@@ -1131,21 +1131,13 @@ html.is-menu-open #menu .bg{background-color:rgba(0,0,0,.3)}
 body.is-hidden{overflow:hidden}
 @media (max-width:767px){#menu .in{width:100vw}}
 
-/* ===== 全屏图片浏览模态框（Modal Gallery · LOOK INSIDE） ===== */
-/* 整体容器：fixed 全屏，白底，z-index:100，默认隐藏，150ms 淡入 */
-.modal-gallery{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#fff;z-index:100;display:none;opacity:0;transition:opacity .15s ease}
+/* ===== 全屏杂志跨页浏览模态框（Modal Gallery · LOOK INSIDE） ===== */
+/* 整体容器：fixed 全屏，纸张色底，z-index:100，默认隐藏，.25s 淡入 */
+.modal-gallery{position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--paper-2,#f4f1ea);z-index:100;display:none;opacity:0;transition:opacity .25s ease}
 .modal-gallery.is-open{display:block;opacity:1}
 
-/* 图片外框：绝对定位居中（top/right/bottom/left:0 + margin:auto），JS 动态设置 width/height */
-/* 留白约 140px 通过 JS 计算（窗口尺寸 - 280px），外框从 0 拉伸到目标尺寸（300ms 缓动） */
-.modal-gallery .mg-frame{position:absolute;top:0;right:0;bottom:0;left:0;margin:auto;background:rgba(0,0,0,.1);overflow:hidden;transition:width .3s cubic-bezier(.13,.61,.47,.99),height .3s cubic-bezier(.13,.61,.47,.99)}
-
-/* 图片：object-fit:cover 填充，150ms 淡入（延迟 200ms） */
-.modal-gallery .mg-frame img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .15s ease}
-.modal-gallery .mg-frame img.is-show{opacity:1}
-
 /* 关闭按钮（右上角 X 形）：50×14px，两条 2px 黑线旋转 ±15° */
-.modal-gallery .mg-close{position:absolute;top:36px;right:36px;width:50px;height:14px;background:transparent;border:0;padding:0;cursor:pointer;z-index:10}
+.modal-gallery .mg-close{position:absolute;top:36px;right:36px;width:50px;height:14px;background:transparent;border:0;padding:0;cursor:pointer;z-index:20}
 .modal-gallery .mg-close span{display:block;width:100%;height:2px;background:var(--ink);position:absolute;left:0}
 .modal-gallery .mg-close span:first-child{top:0;transform:rotate(15deg)}
 .modal-gallery .mg-close span:last-child{bottom:0;transform:rotate(-15deg)}
@@ -1155,8 +1147,56 @@ body.is-hidden{overflow:hidden}
 .modal-gallery .mg-prev{left:0}
 .modal-gallery .mg-next{right:0}
 
-/* 页码计数器（右下角）："1 of 15" 格式 */
-.modal-gallery .mg-count{position:absolute;bottom:40px;right:40px;font-family:var(--sans);font-size:1.2rem;color:#999;z-index:10}
+/* 页码计数器（右下角）："1 / 4" 跨页格式 */
+.modal-gallery .mg-count{position:absolute;bottom:40px;right:40px;font-family:var(--sans);font-size:1.2rem;color:var(--muted);z-index:20;letter-spacing:.1em}
+
+/* ---------- 默认（移动端 < 768px）：单页模式 ---------- */
+.modal-gallery .banner{display:none}
+.modal-gallery .mg-frame{position:absolute;top:0;right:0;bottom:0;left:0;margin:auto;background:var(--paper);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.12);transition:width .3s cubic-bezier(.13,.61,.47,.99),height .3s cubic-bezier(.13,.61,.47,.99)}
+.modal-gallery .mg-frame img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .2s ease}
+.modal-gallery .mg-frame img.is-show{opacity:1}
+
+/* ---------- 桌面端（≥ 768px）：合成横幅（3360×2152，1.56:1）+ 3D 翻页 ---------- */
+@media(min-width:768px){
+  .modal-gallery .mg-frame{display:none}
+
+  /* 横幅容器：绝对定位居中，perspective 提供 3D 视角，入场淡入+轻缩放；JS 设置 width/height */
+  .modal-gallery .banner{
+    display:block;position:absolute;top:0;right:0;bottom:0;left:0;margin:auto;
+    perspective:2200px;
+    opacity:0;transform:scale(.97);
+    transition:opacity .35s ease,transform .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .modal-gallery.is-open .banner{opacity:1;transform:scale(1)}
+
+  /* 合成单图：3360×2152 数据 URL，object-fit:cover 填充横幅，柔阴影 */
+  .modal-gallery .banner-img{
+    width:100%;height:100%;object-fit:cover;display:block;background:var(--paper);
+    box-shadow:0 10px 40px rgba(0,0,0,.14);
+    opacity:0;transition:opacity .3s ease;
+  }
+  .modal-gallery .banner-img.is-show{opacity:1}
+
+  /* 翻页层：覆盖整张横幅，绕垂直中轴翻转（卡片式翻页） */
+  .modal-gallery .banner-flip{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    transform-style:preserve-3d;transform-origin:center center;
+    transition:transform .7s cubic-bezier(.2,.7,.2,1);
+    z-index:6;visibility:hidden;pointer-events:none;
+    transform:rotateY(0deg);
+  }
+  .modal-gallery .banner-flip.is-flip-next{visibility:visible;transform:rotateY(-180deg)}
+  .modal-gallery .banner-flip.is-flip-prev{visibility:visible;transform:rotateY(180deg)}
+
+  /* 翻页正反两面：backface 隐藏背面，反面预旋转 180° */
+  .modal-gallery .banner-flip .flip-face{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    overflow:hidden;background:var(--paper);box-shadow:0 10px 40px rgba(0,0,0,.14);
+  }
+  .modal-gallery .banner-flip .flip-face img{width:100%;height:100%;object-fit:cover;display:block}
+  .modal-gallery .banner-flip .flip-back{transform:rotateY(180deg)}
+}
 
 /* 移动端响应式 */
 @media(max-width:768px){
