@@ -139,24 +139,50 @@
      用法：容器 .filterable，子项带 data-cat="landscape"；.filters .chip 带 data-filter。
      支持 data-cat 多值以空格分隔。 */
   var filterables = document.querySelectorAll('.filterable');
+  var filterTimer = null;
   function applyFilter(f){
     document.querySelectorAll('.filters').forEach(function (fbar) {
       fbar.querySelectorAll('.chip').forEach(function (c) {
         c.classList.toggle('active', c.dataset.filter === f);
       });
     });
+    /* Phase 1：所有可见项一起淡出（网格布局不变，避免重排跳变） */
     filterables.forEach(function (group) {
       group.querySelectorAll('[data-cat]').forEach(function (item) {
-        var cats = (item.dataset.cat || '').split(/\s+/);
-        var show = (f === 'all' || cats.indexOf(f) > -1);
-        item.style.display = show ? '' : 'none';
+        if (item.style.display !== 'none') { item.classList.add('is-hide'); }
       });
     });
+    /* 清除上一次未完成的定时器，防止快速切换冲突 */
+    if (filterTimer) { clearTimeout(filterTimer); filterTimer = null; }
+    /* Phase 2：淡出完成后更新 display，再下帧移除 is-hide 触发淡入 */
+    filterTimer = setTimeout(function(){
+      filterables.forEach(function (group) {
+        group.querySelectorAll('[data-cat]').forEach(function (item) {
+          var cats = (item.dataset.cat || '').split(/\s+/);
+          var show = (f === 'all' || cats.indexOf(f) > -1);
+          if (show) {
+            item.style.display = '';
+            item.classList.add('is-hide');
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+      /* 下帧统一移除 is-hide，触发淡入 */
+      requestAnimationFrame(function(){
+        filterables.forEach(function (group) {
+          group.querySelectorAll('[data-cat]').forEach(function (item) {
+            item.classList.remove('is-hide');
+          });
+        });
+      });
+      filterTimer = null;
+    }, 250);
   }
   document.querySelectorAll('.filters').forEach(function (fbar) {
     var chips = fbar.querySelectorAll('.chip');
     chips.forEach(function (chip) {
-      chip.addEventListener('click', function () { applyFilter(chip.dataset.filter); });
+      chip.addEventListener('click', function () { if (!chip.classList.contains('active')) applyFilter(chip.dataset.filter); });
     });
   });
   // 通过 URL hash 激活筛选（如抽屉标签 gallery.html#documentary）
@@ -164,6 +190,106 @@
     var hash = location.hash.slice(1);
     var hasChip = document.querySelector('.chip[data-filter="' + hash + '"]');
     if (hasChip) applyFilter(hash);
+  }
+
+  /* ---- 影像解析头条轮播 ----
+     .read-feature 区域自动轮播，展示头条 + 列表中的全部文章。
+     淡出 → 更新内容 → 淡入，悬停暂停，点击指示器跳转。 */
+  var readFeature = document.querySelector('.read-feature');
+  if (readFeature && !readFeature.classList.contains('rf-init')) {
+    readFeature.classList.add('rf-init');
+    var rfImgEl = readFeature.querySelector('.img img');
+    var rfImgWrap = readFeature.querySelector('.img');
+    var rfTextCol = rfImgWrap ? rfImgWrap.nextElementSibling : null;
+    if (rfImgEl && rfTextCol) {
+      /* 收集轮播数据 */
+      var rfSlides = [];
+      var rfFirstGo = rfTextCol.querySelector('.go');
+      rfSlides.push({ img: rfImgEl.src, imgAlt: rfImgEl.alt, href: rfFirstGo ? rfFirstGo.getAttribute('href') : 'reading-detail.html?id=001', html: rfTextCol.innerHTML });
+      document.querySelectorAll('.flex-e .cell').forEach(function(item){
+        var img = item.querySelector('.img img');
+        var inSpan = item.querySelector('.in span');
+        var title = item.querySelector('strong');
+        var credit = item.querySelector('.credit');
+        var itemHref = item.getAttribute('href') || '#';
+        var catHtml = inSpan ? inSpan.innerHTML : '';
+        rfSlides.push({
+          img: img ? img.src : '',
+          imgAlt: img ? img.alt : '',
+          href: itemHref,
+          html: '<div class="cat">' + catHtml + '</div>' +
+                (title ? '<h3>' + title.innerHTML + '</h3>' : '') +
+                (credit ? '<p>' + credit.innerHTML + '</p>' : '') +
+                '<a href="' + itemHref + '" class="go">阅读全文</a>'
+        });
+      });
+      /* 预加载所有图片，避免切换时空白 */
+      rfSlides.forEach(function(s){ if(s.img){ var pre = new Image(); pre.src = s.img; } });
+      /* 仅多张时启动轮播 */
+      if (rfSlides.length > 1) {
+        var rfIdx = 0, rfTimer = null, rfFadeTimer = null, RF_INTERVAL = 5000;
+        /* 指示器 */
+        var dotsBox = document.createElement('div');
+        dotsBox.className = 'rf-dots';
+        rfSlides.forEach(function(_, i){
+          var dot = document.createElement('button');
+          dot.className = 'rf-dot' + (i === 0 ? ' is-active' : '');
+          dot.setAttribute('aria-label', '第 ' + (i+1) + ' 张');
+          dot.addEventListener('click', function(){ rfIdx = i; rfShow(i); rfRestart(); });
+          dotsBox.appendChild(dot);
+        });
+        readFeature.appendChild(dotsBox);
+        /* 计数器 */
+        var counter = document.createElement('div');
+        counter.className = 'rf-counter';
+        readFeature.appendChild(counter);
+        function rfUpdateCounter(){
+          counter.innerHTML = '<b>' + String(rfIdx+1).padStart(2,'0') + '</b> / ' + String(rfSlides.length).padStart(2,'0');
+        }
+        rfUpdateCounter();
+        function rfShow(idx){
+          var s = rfSlides[idx];
+          if (rfFadeTimer) { clearTimeout(rfFadeTimer); rfFadeTimer = null; }
+          readFeature.classList.add('is-fading');
+          rfFadeTimer = setTimeout(function(){
+            rfImgEl.src = s.img;
+            rfImgEl.alt = s.imgAlt;
+            rfTextCol.innerHTML = s.html;
+            /* 更新 data-id 以便点击图片跳转到正确文章 */
+            if (s.href) {
+              var match = s.href.match(/[?&]id=([^&]+)/);
+              if (match) readFeature.setAttribute('data-id', match[1]);
+            }
+            readFeature.classList.remove('is-fading');
+            dotsBox.querySelectorAll('.rf-dot').forEach(function(d, i){ d.classList.toggle('is-active', i === idx); });
+            rfUpdateCounter();
+            rfFadeTimer = null;
+          }, 400);
+        }
+        function rfNext(){ rfIdx = (rfIdx + 1) % rfSlides.length; rfShow(rfIdx); }
+        function rfStart(){ rfTimer = setInterval(rfNext, RF_INTERVAL); }
+        function rfStop(){ if(rfTimer){ clearInterval(rfTimer); rfTimer = null; } }
+        function rfRestart(){ rfStop(); rfStart(); }
+        readFeature.addEventListener('mouseenter', rfStop);
+        readFeature.addEventListener('mouseleave', rfStart);
+        rfStart();
+      }
+      /* 点击头条图片跳转到详情页（不放大） */
+      rfImgWrap.style.cursor = 'pointer';
+      rfImgWrap.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var id = readFeature.getAttribute('data-id') || '001';
+        var href = 'reading-detail.html?id=' + id;
+        if (typeof pageTrans !== 'undefined' && pageTrans) {
+          sessionStorage.setItem('page-transition', '1');
+          pageTrans.classList.add('is-active');
+          setTimeout(function(){ location.href = href; }, 350);
+        } else {
+          location.href = href;
+        }
+      });
+    }
   }
 
   /* ---- 灯箱放大 ----
@@ -189,8 +315,10 @@
     lbImg.src = '';
   }
   document.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-zoom], .img[data-zoom], .item .img, .ab .cell .img, .read-feature .img, .archive-grid .issue .img, .creator-card .portrait');
+    var t = e.target.closest('[data-zoom], .img[data-zoom], .item .img, .ab .cell .img, .archive-grid .issue .img, .creator-card .portrait');
     if (t) {
+      /* 阅读页列表项是链接，点击应跳转而非放大 */
+      if (t.closest('.flex-e a[href]')) return;
       var img = t.querySelector('img') || t;
       if (img && img.src) {
         e.preventDefault();
@@ -225,7 +353,7 @@
 
   document.addEventListener('click', function (e) {
     /* 统一处理导航链接：footer logo + 抽屉/底部菜单项 + .go 按钮 + .flex-e 卡片 + OTHERS 链接 */
-    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a');
+    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a, .pd-logo a');
     if (!link) return;
     var href = link.getAttribute('href');
     if (!href || href.charAt(0) === '#') return; /* 跳过纯锚点(#instagram 等) */
@@ -251,4 +379,192 @@
     pageTrans.classList.add('is-active');
     setTimeout(function () { window.location.href = href; }, 350);
   });
+})();
+
+/* ===== 图片详情面板（阅读解析 · 点击 .to-read 放大图片 + 介绍） ===== */
+(function(){
+  /* 动态创建面板 DOM（无需在各页面手动添加 HTML） */
+  var panel = document.createElement('div');
+  panel.className = 'photo-detail';
+  panel.setAttribute('aria-hidden', 'true');
+  panel.innerHTML =
+    '<div class="pd-logo"><a href="index.html"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a></div>' +
+    '<button class="pd-close" aria-label="关闭"><span></span><span></span></button>' +
+    '<div class="pd-inner">' +
+      '<div class="pd-img"><img src="" alt=""></div>' +
+      '<div class="pd-info">' +
+        '<div class="index"></div>' +
+        '<div class="lbl"></div>' +
+        '<h3></h3>' +
+        '<div class="credit"></div>' +
+        '<div class="params"></div>' +
+        '<div class="pd-note">PHOTO NOTE / 摄影手记</div>' +
+        '<div class="desc"></div>' +
+      '</div>' +
+    '</div>' +
+    /* 分页导航固定在页面底部：PREV/NEXT 下划线滑入 + ALL 图标旋转 */
+    '<div class="pd-pagenation">' +
+      '<a href="javascript:void(0)" class="prev u" aria-label="上一张"><i class="u-target1"></i><i class="u-target2"></i><span>PREV</span></a>' +
+      '<button class="all" aria-label="返回画廊"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></button>' +
+      '<a href="javascript:void(0)" class="next u" aria-label="下一张"><i class="u-target1"></i><i class="u-target2"></i><span>NEXT</span></a>' +
+    '</div>';
+  document.body.appendChild(panel);
+
+  var closeBtn = panel.querySelector('.pd-close');
+  var imgEl    = panel.querySelector('.pd-img img');
+  var indexEl  = panel.querySelector('.pd-info .index');
+  var lblEl    = panel.querySelector('.pd-info .lbl');
+  var titleEl  = panel.querySelector('.pd-info h3');
+  var creditEl = panel.querySelector('.pd-info .credit');
+  var paramsEl = panel.querySelector('.pd-info .params');
+  var descEl   = panel.querySelector('.pd-info .desc');
+  var prevBtn  = panel.querySelector('.pd-pagenation .prev');
+  var nextBtn  = panel.querySelector('.pd-pagenation .next');
+  var allBtn   = panel.querySelector('.pd-pagenation .all');
+
+  /* 基于标题生成照片介绍文字 */
+  function generateDesc(title, category, credit){
+    /* 按标题匹配专属描述 */
+    var descs = {
+      '山色空蒙':'清晨五点，山雾尚未散去。三层山脊在雾气中自然分层，35mm 镜头在山腰等待了四十分钟才等到这一刻。后期仅做灰阶微调，保留胶片特有的颗粒质感。',
+      '雾松晨雪':'零下十二度的清晨，松枝上结满雾凇。85mm 中焦段压缩空间，f/4 光圈让背景微微虚化，突出前景松针的冰晶纹理。曝光补偿 +1/3 档以防雪面发灰。',
+      '暮色集市':'黄昏的集市正在收摊，晾晒的衣物在电线上方随风摆动。35mm 广角收纳了整条街巷的烟火气，f/2.8 的浅景深让前景人物若隐若现。',
+      '渡口归人':'最后一班渡船靠岸，归人匆匆登船。50mm 标准焦段接近人眼视角，f/2 光圈在低光环境下仍保持足够进光量，ISO 800 是画质与快门的妥协。',
+      '边缘之郊':'城市扩张的临界地带，空旷的道路与电杆在阴天下显得克制而冷静。24mm 超广角拉伸了空间纵深感，f/11 小光圈确保全景清晰。',
+      '仓体几何':'工业仓库的立面在灰天下呈现纯粹的几何切割。28mm 广角强化了建筑的线条感，低饱和色彩让画面接近黑白，却保留了一丝温度。',
+      '枯花与亚麻':'枯萎的花枝插在陶罐里，搁在亚麻布上。90mm 微距镜头将景深压到极浅，窗光的漫射让画面蒙上一层禅意。这是对"消逝"的一次静物书写。',
+      '窗光':'老木窗的格栅在白墙上投下斜影，光与影构成了一幅无需修饰的极简画面。自然光下的 1/60 秒，手持拍摄的临界点。',
+      '檐下滴水':'雨后的老屋檐还在滴水，每一滴都在青石上砸出微小的涟漪。高速快门 1/1000s 凝固了水滴的瞬间，f/5.6 确保前景足够清晰。',
+      '田间小路':'稻田之间的窄路，两侧是金黄的稻穗。35mm 镜头平视拍摄，f/8 光圈让远景近景同样清晰，午后侧光为画面增添了层次。',
+      '旧站台':'无人等候的旧站台，铁轨延伸向远方。50mm 镜头压缩了铁轨的透视，低角度拍摄让站台显得更加孤寂。',
+      '阳台猫':'午后阳台上打盹的猫，阳光在它身上画出温暖的光斑。85mm 中焦在不打扰的前提下靠近，f/2.8 的浅景深让背景柔化。'
+    };
+    if(descs[title]) return descs[title];
+    /* 通用描述（未匹配到专属描述时） */
+    var catMap = {landscape:'风光',documentary:'纪实',newtopographic:'新地形',stilllife:'静物',creative:'创意'};
+    var catName = catMap[category] || '摄影';
+    return title + '——一幅在沉默中等待被发现的' + catName + '作品。摄影师以克制的构图和精确的曝光，记录下光线在某个瞬间停留的方式。' + (credit ? credit + '的镜头下，日常被还原为一种近乎仪式的观看。' : '这是一张需要安静观看的照片。');
+  }
+
+  /* 记录当前打开的卡片（用于 PREV/NEXT 切换） */
+  var currentItem = null;
+
+  /* 设置面板内容（图片、标签、标题、署名、参数、编号、描述、竖图标记） */
+  function setPanelContent(item){
+    var itemImg    = item.querySelector('.img img');
+    var itemLbl    = item.querySelector('.lbl');
+    var itemTitle  = item.querySelector('h3');
+    var itemCredit = item.querySelector('.credit');
+    var itemParams = item.querySelector('.params');
+
+    if(itemImg){ imgEl.src = itemImg.src; imgEl.alt = itemImg.alt; }
+    /* 竖图标记：根据原始卡片图片容器的比例 class（ar-34/ar-23）判断，限制面板中竖图尺寸 */
+    var itemImgWrap = item.querySelector('.img');
+    var pdImgWrap   = panel.querySelector('.pd-img');
+    if(itemImgWrap && (itemImgWrap.classList.contains('ar-34') || itemImgWrap.classList.contains('ar-23'))){
+      pdImgWrap.classList.add('is-portrait');
+    } else {
+      pdImgWrap.classList.remove('is-portrait');
+    }
+    if(itemLbl){ lblEl.innerHTML = itemLbl.innerHTML; }
+    if(itemTitle){ titleEl.innerHTML = itemTitle.innerHTML; }
+    if(itemCredit){ creditEl.innerHTML = itemCredit.innerHTML; }
+    if(itemParams){ paramsEl.textContent = itemParams.textContent; }
+
+    /* 编号：基于卡片在同级 .item 中的位置（杂志序号感） */
+    var items = Array.prototype.slice.call(item.parentElement.querySelectorAll('.item'));
+    var idx = items.indexOf(item) + 1;
+    indexEl.innerHTML = '<b>N° ' + String(idx).padStart(2,'0') + '</b> / 影像解析';
+
+    /* 提取标题纯文本（用于匹配描述） */
+    var titleText = '';
+    if(itemTitle && itemTitle.firstChild){
+      titleText = itemTitle.firstChild.textContent.trim();
+    }
+    var cat = item.dataset.cat || '';
+    var creditText = itemCredit ? itemCredit.textContent.trim() : '';
+    descEl.textContent = generateDesc(titleText, cat, creditText);
+  }
+
+  /* 打开详情面板（首次打开：记录卡片 + 设置内容 + 显示 + 入场动画） */
+  function openPanel(item){
+    currentItem = item;
+    setPanelContent(item);
+    panel.classList.remove('is-in');
+    panel.scrollTop = 0;
+    panel.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-hidden');
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ panel.classList.add('is-in'); });
+    });
+  }
+
+  /* 切换图片（PREV/NEXT）：柔和淡出 → 更新 → 淡入新内容，循环切换 */
+  function switchPanel(direction){
+    if(!currentItem) return;
+    var items = Array.prototype.slice.call(currentItem.parentElement.querySelectorAll('.item'));
+    var idx = items.indexOf(currentItem);
+    if(idx === -1) return;
+    var newIdx = direction === 'next' ? (idx + 1) % items.length : (idx - 1 + items.length) % items.length;
+    var newItem = items[newIdx];
+    if(!newItem || newItem === currentItem) return;
+    currentItem = newItem;
+    /* 切换中：触发更快的柔和淡出（下沉+微缩放），避免生硬跳变 */
+    panel.classList.remove('is-in');
+    panel.classList.add('is-switching');
+    panel.scrollTop = 0;
+    /* 等淡出完成后再更新内容并触发淡入 */
+    setTimeout(function(){
+      setPanelContent(newItem);
+      panel.classList.remove('is-switching');
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ panel.classList.add('is-in'); });
+      });
+    }, 340);
+  }
+
+  /* 关闭详情面板：先淡出再隐藏 */
+  function closePanel(){
+    panel.classList.remove('is-in');
+    panel.classList.remove('is-switching');
+    setTimeout(function(){
+      panel.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('is-hidden');
+    }, 360);
+  }
+
+  closeBtn.addEventListener('click', closePanel);
+
+  /* PREV / NEXT / ALL 事件绑定 */
+  prevBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); switchPanel('prev'); });
+  nextBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); switchPanel('next'); });
+  allBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); closePanel(); });
+
+  /* 点击背景空白处关闭（topbar 设了 pointer-events:none，点击会穿透到面板背景） */
+  panel.addEventListener('click', function(e){
+    if(e.target === panel) closePanel();
+  });
+
+  /* ESC 关闭；←/→ 切换图片 */
+  document.addEventListener('keydown', function(e){
+    if(!panel.classList.contains('is-open')) return;
+    if(e.key === 'Escape') closePanel();
+    else if(e.key === 'ArrowLeft') switchPanel('prev');
+    else if(e.key === 'ArrowRight') switchPanel('next');
+  });
+
+  /* 拦截 .item 卡片点击 → 打开详情面板（而非跳转 reading.html） */
+  /* 点击卡片任意区域（图片、标题、参数等）均触发；捕获阶段优先于灯箱（冒泡阶段） */
+  /* 仅拦截 href 指向 reading.html 的卡片，不影响 index.html 等页面的卡片跳转 */
+  document.addEventListener('click', function(e){
+    var item = e.target.closest('.grid-edit .item');
+    if(!item) return;
+    var href = item.getAttribute('href') || '';
+    if(href.indexOf('reading.html') === -1) return;
+    e.preventDefault();
+    e.stopPropagation();
+    openPanel(item);
+  }, true);  /* 捕获阶段优先执行，防止灯箱/页面过渡拦截 */
 })();

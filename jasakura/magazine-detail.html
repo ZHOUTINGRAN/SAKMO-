@@ -142,6 +142,15 @@
   </div>
 </footer>
 
+<!-- ============ 全屏图片浏览模态框（LOOK INSIDE 触发） ============ -->
+<div class="modal-gallery" id="modalGallery" aria-hidden="true">
+  <button class="mg-close" aria-label="关闭"><span></span><span></span></button>
+  <div class="mg-prev" aria-label="上一张"></div>
+  <div class="mg-next" aria-label="下一张"></div>
+  <div class="mg-frame"><img src="" alt=""></div>
+  <div class="mg-count">1 of 8</div>
+</div>
+
 <script src="js/magazine-data.js"></script>
 <script src="js/app.js"></script>
 <script>
@@ -312,6 +321,169 @@
     container.addEventListener('touchmove', onMove, {passive: true});
     container.addEventListener('touchend', onUp);
   });
+
+  /* ===== 全屏图片浏览模态框（LOOK INSIDE 触发） ===== */
+  (function(){
+    const modal = document.getElementById('modalGallery');
+    if(!modal) return;
+
+    const frame = modal.querySelector('.mg-frame');
+    const img = frame.querySelector('img');
+    const closeBtn = modal.querySelector('.mg-close');
+    const prevZone = modal.querySelector('.mg-prev');
+    const nextZone = modal.querySelector('.mg-next');
+    const count = modal.querySelector('.mg-count');
+
+    /* 杂志内页图片主题（基于 id 映射） */
+    const galleryThemes = {
+      '001':'misty rural town at dawn lone figure with umbrella monochrome 35mm film editorial moody',
+      '002':'bamboo forest in morning mist serene monochrome 35mm film editorial',
+      '003':'old chinese town narrow alley stone houses quiet afternoon muted film editorial',
+      '004':'new rural village concrete houses and rice fields soft sky muted editorial',
+      '005':'construction cranes at city edge dusk muted low saturation editorial',
+      '006':'view from train window passing rural landscape motion blur muted editorial',
+      '007':'old tree shadow on white wall afternoon light seasonal muted minimal editorial',
+      '008':'small cat in quiet alley warm muted natural light editorial'
+    };
+
+    /* 8 种视角变体，组合主题生成内页图片 */
+    const variants = ['wide shot','close up','detail view','panoramic view','vertical composition','horizontal composition','low angle','high angle'];
+    let gallery = [];
+    let currentIdx = 0;
+    let isAnimating = false;
+
+    /* 生成内页图片 URL 数组 */
+    function generateGallery(theme){
+      return variants.map(v => `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(v+' '+theme)}&image_size=portrait_4_3`);
+    }
+
+    /* 动态计算图片外框尺寸（留白约 140px，移动端 40px） */
+    function calcSize(){
+      const padding = window.innerWidth <= 768 ? 40 : 140;
+      const maxW = window.innerWidth - padding * 2;
+      const maxH = window.innerHeight - padding * 2;
+      const ratio = 4 / 3;  /* portrait_4_3 比例 */
+      let w, h;
+      if(maxW / maxH > ratio){
+        /* 窗口更宽（横屏）→ 以高度为基准 */
+        h = maxH; w = h * ratio;
+      } else {
+        /* 窗口更高（竖屏）→ 以宽度为基准 */
+        w = maxW; h = w / ratio;
+      }
+      return { w: Math.round(w), h: Math.round(h) };
+    }
+
+    /* 更新外框尺寸 */
+    function updateFrame(){
+      const { w, h } = calcSize();
+      frame.style.width = w + 'px';
+      frame.style.height = h + 'px';
+    }
+
+    /* 加载并显示指定索引的图片 */
+    function showImage(idx, isFirst){
+      if(isAnimating) return;
+      isAnimating = true;
+      currentIdx = idx;
+      count.textContent = `${idx + 1} of ${gallery.length}`;
+
+      /* 淡出当前图片（150ms） */
+      img.classList.remove('is-show');
+
+      setTimeout(() => {
+        /* 更新外框尺寸（300ms 拉伸动画） */
+        updateFrame();
+        /* 加载新图片 */
+        img.src = gallery[idx];
+        img.onload = () => {
+          /* 图片淡入（150ms），首次打开延迟 200ms */
+          setTimeout(() => {
+            img.classList.add('is-show');
+            setTimeout(() => { isAnimating = false; }, 150);
+          }, isFirst ? 200 : 0);
+        };
+        /* 加载失败也要解锁 */
+        img.onerror = () => { isAnimating = false; };
+      }, 150);
+    }
+
+    /* 打开模态框 */
+    function openModal(theme){
+      gallery = generateGallery(theme);
+      currentIdx = 0;
+      /* 外框从 0 拉伸 */
+      frame.style.width = '0px';
+      frame.style.height = '0px';
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('is-hidden');
+      /* 延迟 150ms（等模态框淡入）后显示第一张 */
+      setTimeout(() => { showImage(0, true); }, 150);
+    }
+
+    /* 关闭模态框 */
+    function closeModal(){
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('is-hidden');
+      img.classList.remove('is-show');
+    }
+
+    /* 下一张（循环） */
+    function next(){
+      if(isAnimating) return;
+      showImage((currentIdx + 1) % gallery.length);
+    }
+
+    /* 上一张（循环） */
+    function prev(){
+      if(isAnimating) return;
+      showImage((currentIdx - 1 + gallery.length) % gallery.length);
+    }
+
+    /* 事件绑定 */
+    closeBtn.addEventListener('click', closeModal);
+    nextZone.addEventListener('click', next);
+    prevZone.addEventListener('click', prev);
+
+    /* 键盘控制：← → 切换，ESC 关闭 */
+    document.addEventListener('keydown', e => {
+      if(!modal.classList.contains('is-open')) return;
+      if(e.key === 'Escape') closeModal();
+      if(e.key === 'ArrowLeft') prev();
+      if(e.key === 'ArrowRight') next();
+    });
+
+    /* 窗口调整时重新计算尺寸 */
+    window.addEventListener('resize', () => {
+      if(modal.classList.contains('is-open')) updateFrame();
+    });
+
+    /* 移动端滑动手势（阈值 50px） */
+    let touchStartX = 0;
+    modal.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    modal.addEventListener('touchend', e => {
+      const delta = e.changedTouches[0].clientX - touchStartX;
+      if(Math.abs(delta) > 50){
+        if(delta > 0) prev(); else next();
+      }
+    }, { passive: true });
+
+    /* 拦截 LOOK INSIDE 按钮点击 → 打开模态框 */
+    const lookInsideBtn = document.querySelector('[data-field="lookInside"]');
+    if(lookInsideBtn){
+      lookInsideBtn.addEventListener('click', e => {
+        e.preventDefault();
+        const params = new URLSearchParams(location.search);
+        const id = params.get('id') || '001';
+        const theme = galleryThemes[id] || galleryThemes['001'];
+        openModal(theme);
+      });
+    }
+  })();
 </script>
 </body>
 </html>

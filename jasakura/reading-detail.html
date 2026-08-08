@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>影像解析 · 详情 — 樱茉序 Sakmo</title>
+<meta name="description" content="樱茉序 · 影像解析详情：单作拆解、多人访谈、技术干货——把照片读厚。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ SVG sprite（详情页图标） ============ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="all" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h4v4H4V4m6 0h4v4h-4V4m6 0h4v4h-4V4M4 10h4v4H4v-4m6 0h4v4h-4v-4m6 0h4v4h-4v-4M4 16h4v4H4v-4m6 0h4v4h-4v-4m6 0h4v4h-4v-4z"/></symbol>
+</svg>
+
+<header id="h">
+  <h1 class="logo"><a href="index.html"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a></h1>
+  <button id="menu-btn" aria-label="菜单"></button>
+</header>
+
+<!-- 影像解析详情页 -->
+<section class="reading-detail s1">
+  <div class="rd-hero">
+    <img src="" alt="" id="rd-img">
+  </div>
+  <div class="rd-content">
+    <div class="rd-meta">
+      <span class="rd-cat" id="rd-cat"></span>
+      <span class="rd-date" id="rd-date"></span>
+    </div>
+    <h1 class="rd-title" id="rd-title"></h1>
+    <p class="rd-title-en" id="rd-title-en"></p>
+    <div class="rd-author" id="rd-author"></div>
+    <div class="rd-params" id="rd-params"></div>
+    <div class="rd-body" id="rd-body"></div>
+  </div>
+  <div class="pagenation">
+    <a href="javascript:void(0)" class="prev u" id="rd-prev">
+      <i class="u-target1"></i>
+      <i class="u-target2"></i>
+      <span>PREV</span>
+    </a>
+    <a href="reading.html" class="all" aria-label="返回影像解析">
+      <svg><use xlink:href="#all"></use></svg>
+    </a>
+    <a href="javascript:void(0)" class="next u" id="rd-next">
+      <i class="u-target1"></i>
+      <i class="u-target2"></i>
+      <span>NEXT</span>
+    </a>
+  </div>
+</section>
+
+<footer id="f">
+  <div class="in">
+    <div class="l">
+      <a href="index.html" class="flogo" aria-label="樱茉序 Sakmo 首页"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a>
+      <div class="sns">
+        <a href="#instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.3 2.2.5.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1 .5 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.8-.5 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1 .4-2.2.5-1.3.1-1.7.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.3-2.2-.5-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1-.5-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.3-1.8.5-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1-.4 2.2-.5C8.4 2.2 8.8 2.2 12 2.2zm0 3.3c-1.8 0-2 0-2.7.1-.7 0-1 .2-1.2.3-.3.1-.5.3-.7.5-.2.2-.4.4-.5.7-.1.3-.2.6-.3 1.2C6.5 7.9 6.5 8.2 6.5 10s0 2.1.1 2.8c0 .7.2 1 .3 1.2.1.3.3.5.5.7.2.2.4.4.7.5.3.1.6.2 1.2.3.7.1.9.1 2.8.1s2.1 0 2.8-.1c.7 0 1-.2 1.2-.3.3-.1.5-.3.7-.5.2-.2.4-.4.5-.7.1-.3.2-.6.3-1.2.1-.7.1-.9.1-2.8s0-2.1-.1-2.8c0-.7-.2-1-.3-1.2-.1-.3-.3-.5-.5-.7-.2-.2-.4-.4-.7-.5-.3-.1-.6-.2-1.2-.3C14.1 5.5 13.8 5.5 12 5.5zm0 2.3a3.2 3.2 0 110 6.4 3.2 3.2 0 010-6.4zm0 5.3a2.1 2.1 0 100-4.2 2.1 2.1 0 000 4.2zm3.4-5.6a.8.8 0 110 1.6.8.8 0 010-1.6z"/></svg></a>
+        <a href="https://www.xiaohongshu.com/user/profile/6631e9be00000000030320e9" class="rb" aria-label="小红书" target="_blank" rel="noopener noreferrer">小红书</a>
+        <a href="#website" aria-label="官方网站" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 014.33-3.56A15.65 15.65 0 008.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></a>
+      </div>
+    </div>
+    <div class="r">
+      <div class="flex">
+        <div class="cell">
+          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span><i class="u-target"></i></a>
+          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span><i class="u-target"></i></a>
+          <a href="motion.html" class="u-menu"><span class="en">CINEMA</span><span class="ja">动态影像</span><i class="u-target"></i></a>
+          <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span><i class="u-target"></i></a>
+        </div>
+        <div class="cell">
+          <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span><i class="u-target"></i></a>
+          <a href="creators.html" class="u-menu"><span class="en">ROSTER</span><span class="ja">创作者名册</span><i class="u-target"></i></a>
+          <a href="about.html" class="u-menu"><span class="en">ABOUT</span><span class="ja">关于联络</span><i class="u-target"></i></a>
+          <a href="about.html#archive" class="u-menu"><span class="en">ARCHIVE</span><span class="ja">往期归档</span><i class="u-target"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="in">
+    <div class="links"><a href="about.html#copyright">版权声明</a><a href="about.html#privacy">隐私政策</a><a href="about.html#archive">往期归档</a></div>
+    <small>© 2026 樱茉序 Sakmo · 多人共创</small>
+  </div>
+</footer>
+
+<script>
+/* 影像解析文章数据 */
+var RD_ARTICLES = [
+  {
+    id:'001', cat:'单作拆解 / Single Work', date:'2026.08',
+    title:'暮色集市：天光收走前最后三档', titleEn:'Market at Dusk: The Last Three Stops',
+    author:'林叙', authorRole:'常驻摄影师',
+    img:'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20documentary%20photograph%20rural%20market%20street%20at%20dusk%20hanging%20laundry%20overhead%20wires%20calm%20film%20grain%20japanese%20photography%20style&image_size=landscape_4_3',
+    imgAlt:'暮色集市头条解析', params:'35mm · f/2.8 · 1/125s · ISO 1600',
+    body:[
+      '林叙 拍摄。我们用六组局部放大，拆开这张照片里被低估的判断：晾衣绳如何切分画面的上下两段、电线杆在右 third 上的"错误"位置、以及为什么 f/8 在这里不是保守而是必须。',
+      '解析附完整的曝光参数、扫描曲线与拍摄时间轴，并对照一张同时段未选用的废片——告诉你为什么是这一张，而不是另一张。',
+      '集市在下午四点半开始散场。林叙没有选择正面拍摄摊贩，而是退到街尾，用晾衣绳作为天然的中景分割线——上方是被电线切割的灰白天空，下方是收摊后人影渐疏的街面。这个选择让画面从"记录集市"变成了"记录集市的散去"，情绪完全不同。',
+      'f/8 不是保守，是必须。画面里从近处的竹竿到远处的屋脊，跨度超过十米。如果开到 f/2.8，前景的竹竿会糊，而竹竿是整张照片的视觉锚点——它支撑着上下两段画面的重量。'
+    ]
+  },
+  {
+    id:'002', cat:'静物 / Still Life', date:'2026.08',
+    title:'枯花与亚麻：窗光的方向', titleEn:'Dried Flowers: Direction of Window Light',
+    author:'苏砚', authorRole:'常驻摄影师',
+    img:'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=photograph%20dried%20flowers%20in%20clay%20vase%20on%20linen%20soft%20window%20light%20wabi-sabi%20neutral%20tones%20film%20grain&image_size=landscape_4_3',
+    imgAlt:'枯花与亚麻解析', params:'90mm · f/4 · 1/30s · ISO 400',
+    body:[
+      '苏砚 拍摄。静物摄影最难的不是摆道具，而是读懂光的方向。这张照片里，窗光从左侧 45 度斜入，亚麻布上的褶皱成了光的"测光表"——亮面与暗面的过渡宽度，就是光源的软硬程度。',
+      '枯花不是"凋零"的象征，而是"完成"的状态。苏砚选了一束已经完全脱水的绣球花，花瓣的纸质感与陶罐的粗砺表面形成质感对话。如果用鲜花，水润的花瓣会反光，破坏整体的哑光基调。',
+      '90mm 微距镜头在 f/4 下，景深恰好覆盖花头到罐口。再大半档，罐口的粗陶质感就会丢失；再小半档，背景的亚麻褶皱会变得过于清晰，抢走主体。'
+    ]
+  },
+  {
+    id:'003', cat:'风光 / Landscape', date:'2026.08',
+    title:'雾松晨雪：高调里的暗部留白', titleEn:'Frost Pines: Shadow in a High-key Frame',
+    author:'陆深', authorRole:'客座摄影师',
+    img:'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20photograph%20frost%20covered%20pine%20trees%20at%20dawn%20snow%20mist%20vertical%20film%20grain%20japanese%20photography%20style&image_size=landscape_4_3',
+    imgAlt:'雾松晨雪解析', params:'85mm · f/4 · 1/250s · ISO 100',
+    body:[
+      '陆深 拍摄。高调照片最容易犯的错是"全亮"——整张画面没有暗部，看起来像一张过曝的废片。这张照片的聪明之处在于：雾是亮的，雪是亮的，但树干的阴影部分压住了整个画面的重量。',
+      '凌晨六点二十分，雾还没散，霜挂最厚。陆深用了 85mm 而非广角——长焦压缩了树与树之间的间距，让雾松的层次叠加在一起，形成一种"墙"的质感。广角会把树拍散，失去密度。',
+      '暗部留白不是"不拍暗部"，而是"让暗部少而精"。画面里只有树干底部的几道深色，但它们是整张高调照片的锚。没有这几道深色，雪和雾就会"浮"起来，失去重量感。'
+    ]
+  },
+  {
+    id:'004', cat:'访谈 / Interview', date:'2026.07',
+    title:'晨雾小站：一次没拍到的车', titleEn:'Station in Mist: The Train That Didn\'t Show',
+    author:'周野', authorRole:'客座摄影师',
+    img:'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=black%20and%20white%20film%20old%20train%20passing%20through%20rural%20station%20morning%20mist%20documentary%20japanese%20style&image_size=landscape_4_3',
+    imgAlt:'晨雾小站解析', params:'50mm · f/2.8 · 1/500s · ISO 800',
+    body:[
+      '周野 拍摄。这张照片原本要拍的是一列穿过晨雾的火车。周野在站台等了四十分钟，车没来。他放下相机准备走的时候，看到了空站台本身——铁轨在雾里消失，站牌上的字被水汽模糊，一个工作人员的背影走向尽头。',
+      '"没拍到的车"反而成了这张照片的灵魂。空站台比有车的站台更有叙事张力——观众会自己脑补那列没来的车，而脑补的画面永远比实拍更好。',
+      '50mm 是"人眼"焦段，它拍出来的透视关系和站立在站台上的人眼一致。这种"所见即所拍"的焦段，在纪实摄影里最有说服力——观众会觉得自己就站在那里。'
+    ]
+  },
+  {
+    id:'005', cat:'构图 / Composition', date:'2026.07',
+    title:'俯瞰老镇：六分法之外的秩序', titleEn:'Old Town Above: Order Beyond Thirds',
+    author:'林叙', authorRole:'常驻摄影师',
+    img:'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=old%20chinese%20town%20rooftops%20from%20above%20at%20dusk%20muted%20film%20editorial%20japanese%20photography%20style&image_size=landscape_4_3',
+    imgAlt:'老乡镇屋顶解析', params:'35mm · f/11 · 1/100s · ISO 200',
+    body:[
+      '林叙 拍摄。俯瞰构图最容易掉进"三分法"的陷阱——把主体放在交叉点上，剩下的交给留白。但这张照片的秩序不在三分法里，而在屋顶的走向与巷道的夹角里。',
+      '老镇的屋顶不是方格网，而是顺着地势生长的有机体。林叙在黄昏时分的制高点，等到天光把屋顶的瓦面与巷道的阴影拉开两档曝光——瓦面是中灰偏亮，巷道是深灰偏暗。这两档差异构成了画面的"骨架"。',
+      'f/11 是为了全画面清晰。俯瞰构图里没有"虚化"的余地——从画面中心到四角，每一寸瓦面都应该有质感。如果用大光圈虚化边缘，老镇的"密度"就没了。'
+    ]
+  },
+  {
+    id:'006', cat:'访谈 / Interview', date:'2026.06',
+    title:'街猫打盹：等待也是一种构图', titleEn:'A Cat Naps: Waiting as Composition',
+    author:'程川', authorRole:'客座摄影师',
+    img:'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=small%20cat%20in%20quiet%20alley%20warm%20muted%20natural%20light%20editorial%20japanese%20photography%20style%20film%20grain&image_size=landscape_4_3',
+    imgAlt:'生灵日记解析', params:'50mm · f/2 · 1/125s · ISO 400',
+    body:[
+      '程川 拍摄。这只猫在巷子里打盹了二十分钟，程川也蹲了二十分钟。不是在等猫摆出更好的姿势——打盹的猫就是最好的姿势。等的是光。',
+      '巷子朝西，下午四点之后阳光会从巷口斜射进来，在地上拉出一条窄窄的光带。程川等的就是这条光带移到猫身上的那一刻。猫的脊背是亮的，腹部和地面是暗的，一明一暗就把猫从巷子里"提"了出来。',
+      'f/2 不是为了虚化背景——巷子本来就暗，虚化会让背景变成一团黑。f/2 是为了在 ISO 400 下拿到 1/125s 的快门。猫虽然在打盹，但耳朵偶尔会动，1/125s 足以冻住那个瞬间。'
+    ]
+  },
+  {
+    id:'007', cat:'新地形 / New Topo', date:'2026.06',
+    title:'围挡与野草：临界线的几何', titleEn:'Hoarding & Weeds: Geometry of the Edge',
+    author:'沈墨', authorRole:'常驻摄影师',
+    img:'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=construction%20site%20cranes%20at%20edge%20of%20city%20dusk%20muted%20low%20saturation%20documentary%20photograph%20japanese%20style&image_size=landscape_4_3',
+    imgAlt:'城市边缘解析', params:'28mm · f/8 · 1/160s · ISO 200',
+    body:[
+      '沈墨 拍摄。新地形摄影的核心不是"拍工地"，而是拍人与地的关系——围挡是人画的线，野草是地越过的线。这张照片的几何感来自这两条线的交叉。',
+      '围挡的铁皮是直的、硬的、人造的；野草是弯的、软的、自生的。沈墨用 28mm 广角贴近围挡拍摄，让铁皮的纵深感被拉伸，而野草从围挡底部溢出，形成一种"入侵"的视觉。',
+      '低饱和不是后期降的，是黄昏天光本身的颜色。工地在城郊，没有霓虹灯的干扰，天光在这个时段会自然呈现一种灰蓝调。沈墨只是忠实地记录了这个色温——大约 6500K，比标准日光偏冷。'
+    ]
+  }
+];
+
+/* 根据 URL 参数加载文章 */
+(function(){
+  var params = new URLSearchParams(location.search);
+  var id = params.get('id') || '001';
+  var article = RD_ARTICLES.find(function(a){ return a.id === id; }) || RD_ARTICLES[0];
+  var idx = RD_ARTICLES.indexOf(article);
+
+  /* 填充内容 */
+  document.title = article.title + ' — 樱茉序 Sakmo';
+  var img = document.getElementById('rd-img');
+  img.src = article.img; img.alt = article.imgAlt;
+  document.getElementById('rd-cat').textContent = article.cat;
+  document.getElementById('rd-date').textContent = article.date;
+  document.getElementById('rd-title').textContent = article.title;
+  document.getElementById('rd-title-en').textContent = article.titleEn;
+  document.getElementById('rd-author').innerHTML = '<b>' + article.author + '</b> · ' + article.authorRole;
+  document.getElementById('rd-params').textContent = article.params;
+
+  /* 文章正文（首字下沉） */
+  var body = document.getElementById('rd-body');
+  body.innerHTML = article.body.map(function(p, i){
+    if(i === 0){
+      return '<p class="rd-dropcap">' + p + '</p>';
+    }
+    return '<p>' + p + '</p>';
+  }).join('');
+
+  /* 循环导航 */
+  var prevIdx = (idx - 1 + RD_ARTICLES.length) % RD_ARTICLES.length;
+  var nextIdx = (idx + 1) % RD_ARTICLES.length;
+  document.getElementById('rd-prev').href = 'reading-detail.html?id=' + RD_ARTICLES[prevIdx].id;
+  document.getElementById('rd-next').href = 'reading-detail.html?id=' + RD_ARTICLES[nextIdx].id;
+})();
+</script>
+
+<script src="js/app.js"></script>
+</body>
+</html>
