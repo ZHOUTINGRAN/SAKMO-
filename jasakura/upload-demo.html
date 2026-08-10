@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图片上传演示 Demo — 樱茉序 Sakmo</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .demo-section {
+    padding: 80px 25px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .demo-section h2 {
+    font-family: var(--serif);
+    font-size: 2.6rem;
+    margin-bottom: 8px;
+  }
+  .demo-section .subtitle {
+    font-size: 1.3rem;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+  .demo-step {
+    margin-bottom: 56px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--muted);
+  }
+  .demo-step:last-child {
+    border-bottom: none;
+  }
+  .demo-step h3 {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .demo-step .step-num {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    background: var(--ink);
+    color: white;
+    font-size: 1.4rem;
+    font-family: var(--serif);
+  }
+  .demo-step p {
+    line-height: 1.8;
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+  }
+  .demo-step code {
+    background: var(--paper-2);
+    padding: 4px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.3rem;
+    border-radius: 2px;
+  }
+  .demo-step pre {
+    background: var(--paper-2);
+    padding: 16px 20px;
+    overflow-x: auto;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    border-left: 3px solid var(--ink);
+    margin: 12px 0;
+  }
+  .demo-step pre code {
+    background: none;
+    padding: 0;
+  }
+  .preview-box {
+    margin-top: 24px;
+    padding: 20px;
+    background: var(--paper-2);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .preview-box .label {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .preview-box img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  .folder-tree {
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    background: var(--paper-2);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+    white-space: pre;
+  }
+  .folder-tree .folder { color: var(--ink); font-weight: 600; }
+  .folder-tree .file { color: #888; }
+  .folder-tree .root { color: var(--ink); font-weight: 700; }
+  .tip {
+    background: var(--paper-2);
+    border-left: 4px solid var(--ink);
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .tip strong {
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .tip p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<header id="h">
+  <h1 class="logo"><a href="index.html"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a></h1>
+  <button id="menu-btn" aria-label="菜单"></button>
+</header>
+
+<!-- ============ 演示页面内容 ============ -->
+<section class="demo-section" style="padding-top:120px">
+  <h2>图片上传演示</h2>
+  <p class="subtitle">Image Upload Demo — 三步完成图片上传与引用</p>
+
+  <!-- Step 1 -->
+  <div class="demo-step">
+    <h3><span class="step-num">1</span> 将图片放到指定文件夹</h3>
+    <p>项目已按内容分类创建好文件夹。将你的图片文件（.jpg / .png / .webp 等）直接放入对应文件夹即可。</p>
+
+    <p><strong>当前图片文件夹结构：</strong></p>
+    <div class="folder-tree">
+<span class="root">images/</span>
+├── <span class="folder">magazine/</span>        ← 杂志封面
+│   ├── 001.jpg / 002.jpg / ...
+│   └── <span class="folder">001/pages/</span>   ← 杂志内页
+├── <span class="folder">gallery/</span>          ← 影像画廊
+│   ├── <span class="folder">documentary/</span> ← 纪实摄影
+│   ├── <span class="folder">landscape/</span>  ← 新地形摄影
+│   ├── <span class="folder">creative/</span>   ← 创意摄影
+│   └── <span class="folder">stilllife/</span>   ← 静物摄影
+├── <span class="folder">projects/</span>         ← 专题项目
+│   ├── <span class="folder">cityedge/</span>
+│   ├── <span class="folder">oldtown/</span>
+│   ├── <span class="folder">newcountry/</span>
+│   └── ...
+├── <span class="folder">homepage/</span>         ← 首页图片
+├── <span class="folder">creators/</span>         ← 创作者头像
+├── <span class="folder">reading/</span>          ← 影像解析配图
+└── <span class="folder">misc/</span>             ← 其他杂项
+    </div>
+
+    <div class="tip">
+      <strong>📁 演示示例</strong>
+      <p>我已生成一张演示图片 <code>demo-image.jpg</code>，放入了 <code>images/gallery/documentary/</code> 文件夹。</p>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="demo-step">
+    <h3><span class="step-num">2</span> 在 HTML 中引用图片</h3>
+    <p>使用相对路径 <code>images/文件夹名/文件名.jpg</code> 引用图片。路径以 <code>index.html</code> 所在目录为基准。</p>
+
+    <p><strong>引用代码示例：</strong></p>
+    <pre><code><!-- 单张图片 -->
+<img src="images/gallery/documentary/demo-image.jpg"
+     alt="旧巷晨光"
+     loading="lazy">
+
+<!-- 画廊网格中的图片 -->
+<div class="filterable">
+  <div class="cell" data-cat="documentary">
+    <img src="images/gallery/documentary/demo-image.jpg">
+  </div>
+</div></code></pre>
+
+    <p><strong>杂志封面引用：</strong></p>
+    <pre><code><!-- 杂志 No.001 封面 -->
+<img src="images/magazine/001.jpg" alt="No.001 封面">
+
+<!-- 杂志内页（第3页） -->
+<img src="images/magazine/001/pages/03.jpg"></code></pre>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="demo-step">
+    <h3><span class="step-num">3</span> 预览效果</h3>
+    <p>以下是刚才上传的演示图片，已通过正确路径引用并显示：</p>
+
+    <div class="preview-box">
+      <div class="label">📷 纪实摄影 · 旧巷晨光</div>
+      <img src="images/gallery/documentary/demo-image.jpg" alt="演示图片" loading="lazy">
+    </div>
+
+    <p style="margin-top:24px;font-size:1.3rem;color:var(--muted)">
+      ✅ 图片路径：<code>images/gallery/documentary/demo-image.jpg</code><br>
+      ✅ 服务器已正确返回，图片正常显示
+    </p>
+  </div>
+
+  <!-- 额外说明 -->
+  <div class="demo-step">
+    <h3 style="border-bottom:2px solid var(--ink);padding-bottom:8px">📝 图片命名规范</h3>
+    <p>为方便管理，建议遵循以下命名约定：</p>
+    <pre><code><!-- 画廊图片：作者-序号 -->
+lin-xu-01.jpg        ← 林叙的第1张
+shen-mo-03.jpg       ← 沈墨的第3张
+
+<!-- 杂志内页：期数-页码 -->
+001-01.jpg  001-02.jpg  ...  001-08.jpg
+
+<!-- 专题图片：专题名-序号 -->
+oldtown-01.jpg
+cityedge-05.jpg</code></pre>
+
+    <div class="tip">
+      <strong>💡 快速操作</strong>
+      <p>
+        1. <strong>Windows</strong>：直接在资源管理器中复制粘贴图片到对应文件夹<br>
+        2. <strong>批量替换</strong>：上传后用搜索替换功能批量更新 HTML 中的路径<br>
+        3. <strong>压缩建议</strong>：单张图片 ≤ 500KB，支持 JPG / WebP 格式<br>
+        4. <strong>Git 提交</strong>：图片文件会自动被 Git 跟踪，提交即可同步到 GitHub
+      </p>
+    </div>
+  </div>
+
+  <!-- 返回首页 -->
+  <div style="text-align:center;margin-top:48px">
+    <a href="index.html" style="font-family:var(--serif);font-size:1.6rem;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:4px">← 返回首页</a>
+  </div>
+</section>
+
+<script src="js/app.js"></script>
+</body>
+</html>

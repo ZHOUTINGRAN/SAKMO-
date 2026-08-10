@@ -36,106 +36,9 @@
       </div>
     </div>
 
-    <!-- ★ 错落式网格容器（projects 专属） -->
-    <div class="flex-e">
-
-      <!-- 单个文章卡片（带 .u 双层下划线动画） -->
-      <a href="project-oldtown.html" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="老乡镇" src="images/projects/oldtown/cover.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>PROJECT 01 | 进行中</span>
-          </div>
-          <strong>老乡镇 Old Towns</strong>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="project-newcountry.html" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="新农村" src="images/projects/newcountry/cover.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>PROJECT 02 | 进行中</span>
-          </div>
-          <strong>新农村 New Countryside</strong>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="project-cityedge.html" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="城市边缘发展" src="images/projects/cityedge/cover.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>PROJECT 03 | 进行中</span>
-          </div>
-          <strong>城市边缘发展 City's Edge</strong>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="project-roadside.html" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="路途上的景观" src="images/projects/roadside/cover.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>PROJECT 04 | 进行中</span>
-          </div>
-          <strong>路途上的景观 Roadside Views</strong>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="project-seasonlight.html" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="岁与光影" src="images/projects/seasonlight/cover.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>PROJECT 05 | 进行中</span>
-          </div>
-          <strong>岁与光影 Seasons &amp; Light</strong>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="project-creatures.html" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="生灵日记" src="images/projects/creatures/cover.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>PROJECT 06 | 进行中</span>
-          </div>
-          <strong>生灵日记 Creature Diary</strong>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
+    <!-- ★ 错落式网格容器（projects 专属 · 数据驱动） -->
+    <div class="flex-e" id="projects-grid">
+      <!-- JS 从 projects-data.js 动态渲染 -->
     </div>
 
     <!-- ★ 分页 -->
@@ -181,5 +84,36 @@
 </footer>
 
 <script src="js/app.js"></script>
+<script src="js/projects-data.js"></script>
+<script>
+/* ============================================================
+   专题项目列表 — 从 projects-data.js 数据动态渲染
+   修改卡片信息只需编辑 js/projects-data.js 即可
+   ============================================================ */
+(function(){
+  if (!window.projects || !projects.length) return;
+  var grid = document.getElementById('projects-grid');
+  if (!grid) return;
+
+  projects.forEach(function(p){
+    var a = document.createElement('a');
+    a.href = p.link;
+    a.className = 'cell u';
+    a.innerHTML =
+      '<figure class="img"><span class="scale">' +
+        '<img loading="lazy" alt="' + (p.imgAlt||'') + '" src="' + p.img + '">' +
+      '</span></figure>' +
+      '<div class="txts"><div class="in"><span>' + p.status + '</span></div>' +
+        '<strong>' + p.title + '</strong>' +
+        '<i class="u-target1"></i><i class="u-target2"></i>' +
+      '</div>';
+    grid.appendChild(a);
+  });
+
+  /* 更新头部计数 */
+  var lenI = document.querySelector('.head .len i');
+  if (lenI) lenI.textContent = projects.length;
+})();
+</script>
 </body>
 </html>

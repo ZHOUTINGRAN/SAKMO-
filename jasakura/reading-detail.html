@@ -89,127 +89,64 @@
 </footer>
 
 <script>
-/* 影像解析文章数据 */
-var RD_ARTICLES = [
-  {
-    id:'001', cat:'单作拆解 / Single Work', date:'2026.08',
-    title:'暮色集市：天光收走前最后三档', titleEn:'Market at Dusk: The Last Three Stops',
-    author:'林叙', authorRole:'常驻摄影师',
-    img:'images/reading/01.jpg',
-    imgAlt:'暮色集市头条解析', params:'35mm · f/2.8 · 1/125s · ISO 1600',
-    body:[
-      '林叙 拍摄。我们用六组局部放大，拆开这张照片里被低估的判断：晾衣绳如何切分画面的上下两段、电线杆在右 third 上的"错误"位置、以及为什么 f/8 在这里不是保守而是必须。',
-      '解析附完整的曝光参数、扫描曲线与拍摄时间轴，并对照一张同时段未选用的废片——告诉你为什么是这一张，而不是另一张。',
-      '集市在下午四点半开始散场。林叙没有选择正面拍摄摊贩，而是退到街尾，用晾衣绳作为天然的中景分割线——上方是被电线切割的灰白天空，下方是收摊后人影渐疏的街面。这个选择让画面从"记录集市"变成了"记录集市的散去"，情绪完全不同。',
-      'f/8 不是保守，是必须。画面里从近处的竹竿到远处的屋脊，跨度超过十米。如果开到 f/2.8，前景的竹竿会糊，而竹竿是整张照片的视觉锚点——它支撑着上下两段画面的重量。'
-    ]
-  },
-  {
-    id:'002', cat:'静物 / Still Life', date:'2026.08',
-    title:'枯花与亚麻：窗光的方向', titleEn:'Dried Flowers: Direction of Window Light',
-    author:'苏砚', authorRole:'常驻摄影师',
-    img:'images/reading/02.jpg',
-    imgAlt:'枯花与亚麻解析', params:'90mm · f/4 · 1/30s · ISO 400',
-    body:[
-      '苏砚 拍摄。静物摄影最难的不是摆道具，而是读懂光的方向。这张照片里，窗光从左侧 45 度斜入，亚麻布上的褶皱成了光的"测光表"——亮面与暗面的过渡宽度，就是光源的软硬程度。',
-      '枯花不是"凋零"的象征，而是"完成"的状态。苏砚选了一束已经完全脱水的绣球花，花瓣的纸质感与陶罐的粗砺表面形成质感对话。如果用鲜花，水润的花瓣会反光，破坏整体的哑光基调。',
-      '90mm 微距镜头在 f/4 下，景深恰好覆盖花头到罐口。再大半档，罐口的粗陶质感就会丢失；再小半档，背景的亚麻褶皱会变得过于清晰，抢走主体。'
-    ]
-  },
-  {
-    id:'003', cat:'风光 / Landscape', date:'2026.08',
-    title:'雾松晨雪：高调里的暗部留白', titleEn:'Frost Pines: Shadow in a High-key Frame',
-    author:'陆深', authorRole:'客座摄影师',
-    img:'images/reading/03.jpg',
-    imgAlt:'雾松晨雪解析', params:'85mm · f/4 · 1/250s · ISO 100',
-    body:[
-      '陆深 拍摄。高调照片最容易犯的错是"全亮"——整张画面没有暗部，看起来像一张过曝的废片。这张照片的聪明之处在于：雾是亮的，雪是亮的，但树干的阴影部分压住了整个画面的重量。',
-      '凌晨六点二十分，雾还没散，霜挂最厚。陆深用了 85mm 而非广角——长焦压缩了树与树之间的间距，让雾松的层次叠加在一起，形成一种"墙"的质感。广角会把树拍散，失去密度。',
-      '暗部留白不是"不拍暗部"，而是"让暗部少而精"。画面里只有树干底部的几道深色，但它们是整张高调照片的锚。没有这几道深色，雪和雾就会"浮"起来，失去重量感。'
-    ]
-  },
-  {
-    id:'004', cat:'访谈 / Interview', date:'2026.07',
-    title:'晨雾小站：一次没拍到的车', titleEn:'Station in Mist: The Train That Didn\'t Show',
-    author:'周野', authorRole:'客座摄影师',
-    img:'images/reading/04.jpg',
-    imgAlt:'晨雾小站解析', params:'50mm · f/2.8 · 1/500s · ISO 800',
-    body:[
-      '周野 拍摄。这张照片原本要拍的是一列穿过晨雾的火车。周野在站台等了四十分钟，车没来。他放下相机准备走的时候，看到了空站台本身——铁轨在雾里消失，站牌上的字被水汽模糊，一个工作人员的背影走向尽头。',
-      '"没拍到的车"反而成了这张照片的灵魂。空站台比有车的站台更有叙事张力——观众会自己脑补那列没来的车，而脑补的画面永远比实拍更好。',
-      '50mm 是"人眼"焦段，它拍出来的透视关系和站立在站台上的人眼一致。这种"所见即所拍"的焦段，在纪实摄影里最有说服力——观众会觉得自己就站在那里。'
-    ]
-  },
-  {
-    id:'005', cat:'构图 / Composition', date:'2026.07',
-    title:'俯瞰老镇：六分法之外的秩序', titleEn:'Old Town Above: Order Beyond Thirds',
-    author:'林叙', authorRole:'常驻摄影师',
-    img:'images/reading/05.jpg',
-    imgAlt:'老乡镇屋顶解析', params:'35mm · f/11 · 1/100s · ISO 200',
-    body:[
-      '林叙 拍摄。俯瞰构图最容易掉进"三分法"的陷阱——把主体放在交叉点上，剩下的交给留白。但这张照片的秩序不在三分法里，而在屋顶的走向与巷道的夹角里。',
-      '老镇的屋顶不是方格网，而是顺着地势生长的有机体。林叙在黄昏时分的制高点，等到天光把屋顶的瓦面与巷道的阴影拉开两档曝光——瓦面是中灰偏亮，巷道是深灰偏暗。这两档差异构成了画面的"骨架"。',
-      'f/11 是为了全画面清晰。俯瞰构图里没有"虚化"的余地——从画面中心到四角，每一寸瓦面都应该有质感。如果用大光圈虚化边缘，老镇的"密度"就没了。'
-    ]
-  },
-  {
-    id:'006', cat:'访谈 / Interview', date:'2026.06',
-    title:'街猫打盹：等待也是一种构图', titleEn:'A Cat Naps: Waiting as Composition',
-    author:'程川', authorRole:'客座摄影师',
-    img:'images/reading/06.jpg',
-    imgAlt:'生灵日记解析', params:'50mm · f/2 · 1/125s · ISO 400',
-    body:[
-      '程川 拍摄。这只猫在巷子里打盹了二十分钟，程川也蹲了二十分钟。不是在等猫摆出更好的姿势——打盹的猫就是最好的姿势。等的是光。',
-      '巷子朝西，下午四点之后阳光会从巷口斜射进来，在地上拉出一条窄窄的光带。程川等的就是这条光带移到猫身上的那一刻。猫的脊背是亮的，腹部和地面是暗的，一明一暗就把猫从巷子里"提"了出来。',
-      'f/2 不是为了虚化背景——巷子本来就暗，虚化会让背景变成一团黑。f/2 是为了在 ISO 400 下拿到 1/125s 的快门。猫虽然在打盹，但耳朵偶尔会动，1/125s 足以冻住那个瞬间。'
-    ]
-  },
-  {
-    id:'007', cat:'新地形 / New Topo', date:'2026.06',
-    title:'围挡与野草：临界线的几何', titleEn:'Hoarding & Weeds: Geometry of the Edge',
-    author:'沈墨', authorRole:'常驻摄影师',
-    img:'images/reading/07.jpg',
-    imgAlt:'城市边缘解析', params:'28mm · f/8 · 1/160s · ISO 200',
-    body:[
-      '沈墨 拍摄。新地形摄影的核心不是"拍工地"，而是拍人与地的关系——围挡是人画的线，野草是地越过的线。这张照片的几何感来自这两条线的交叉。',
-      '围挡的铁皮是直的、硬的、人造的；野草是弯的、软的、自生的。沈墨用 28mm 广角贴近围挡拍摄，让铁皮的纵深感被拉伸，而野草从围挡底部溢出，形成一种"入侵"的视觉。',
-      '低饱和不是后期降的，是黄昏天光本身的颜色。工地在城郊，没有霓虹灯的干扰，天光在这个时段会自然呈现一种灰蓝调。沈墨只是忠实地记录了这个色温——大约 6500K，比标准日光偏冷。'
-    ]
-  }
-];
+/* ============================================================
+   影像解析详情页 — 从 JSON 文件加载文章数据
+   每篇文章对应一个 JSON 文件：images/reading/{id}.json
+   修改文章内容只需编辑对应的 JSON 文件即可
+   ============================================================ */
+
+/* 文章 ID 列表（用于翻页导航；新增文章时在此追加 ID） */
+var RD_IDS = ['001','002','003','004','005','006','007'];
+
+/* JSON 文件路径 */
+function rdJsonPath(id){
+  return 'images/reading/' + id + '.json';
+}
 
 /* 根据 URL 参数加载文章 */
 (function(){
   var params = new URLSearchParams(location.search);
   var id = params.get('id') || '001';
-  var article = RD_ARTICLES.find(function(a){ return a.id === id; }) || RD_ARTICLES[0];
-  var idx = RD_ARTICLES.indexOf(article);
+  if(RD_IDS.indexOf(id) === -1) id = RD_IDS[0];
+  var idx = RD_IDS.indexOf(id);
 
-  /* 填充内容 */
-  document.title = article.title + ' — 樱茉序 Sakmo';
-  var img = document.getElementById('rd-img');
-  img.src = article.img; img.alt = article.imgAlt;
-  document.getElementById('rd-cat').textContent = article.cat;
-  document.getElementById('rd-date').textContent = article.date;
-  document.getElementById('rd-title').textContent = article.title;
-  document.getElementById('rd-title-en').textContent = article.titleEn;
-  document.getElementById('rd-author').innerHTML = '<b>' + article.author + '</b> · ' + article.authorRole;
-  document.getElementById('rd-params').textContent = article.params;
+  fetch(rdJsonPath(id))
+    .then(function(res){
+      if(!res.ok) throw new Error('文章数据加载失败');
+      return res.json();
+    })
+    .then(function(article){
+      /* 填充内容 */
+      document.title = article.title + ' — 樱茉序 Sakmo';
+      var img = document.getElementById('rd-img');
+      img.src = article.img; img.alt = article.imgAlt;
+      document.getElementById('rd-cat').textContent = article.cat;
+      document.getElementById('rd-date').textContent = article.date;
+      document.getElementById('rd-title').textContent = article.title;
+      document.getElementById('rd-title-en').textContent = article.titleEn;
+      document.getElementById('rd-author').innerHTML = '<b>' + article.author + '</b> · ' + article.authorRole;
+      document.getElementById('rd-params').textContent = article.params;
 
-  /* 文章正文（首字下沉） */
-  var body = document.getElementById('rd-body');
-  body.innerHTML = article.body.map(function(p, i){
-    if(i === 0){
-      return '<p class="rd-dropcap">' + p + '</p>';
-    }
-    return '<p>' + p + '</p>';
-  }).join('');
+      /* 文章正文（首字下沉） */
+      var body = document.getElementById('rd-body');
+      body.innerHTML = article.body.map(function(p, i){
+        if(i === 0){
+          return '<p class="rd-dropcap">' + p + '</p>';
+        }
+        return '<p>' + p + '</p>';
+      }).join('');
+    })
+    .catch(function(err){
+      document.getElementById('rd-title').textContent = '文章加载失败';
+      document.getElementById('rd-body').innerHTML = '<p>无法加载文章数据，请检查 JSON 文件是否存在：' + rdJsonPath(id) + '</p>';
+      console.error(err);
+    });
 
-  /* 循环导航 */
-  var prevIdx = (idx - 1 + RD_ARTICLES.length) % RD_ARTICLES.length;
-  var nextIdx = (idx + 1) % RD_ARTICLES.length;
-  document.getElementById('rd-prev').href = 'reading-detail.html?id=' + RD_ARTICLES[prevIdx].id;
-  document.getElementById('rd-next').href = 'reading-detail.html?id=' + RD_ARTICLES[nextIdx].id;
+  /* 循环导航（不依赖 JSON 加载完成） */
+  var prevIdx = (idx - 1 + RD_IDS.length) % RD_IDS.length;
+  var nextIdx = (idx + 1) % RD_IDS.length;
+  document.getElementById('rd-prev').href = 'reading-detail.html?id=' + RD_IDS[prevIdx];
+  document.getElementById('rd-next').href = 'reading-detail.html?id=' + RD_IDS[nextIdx];
 })();
 </script>
 

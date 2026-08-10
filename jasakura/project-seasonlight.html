@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-project="seasonlight">
 
 <header id="h">
   <h1 class="logo"><a href="index.html"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a></h1>
@@ -50,31 +50,31 @@
       <div class="r">多位摄影师 · 对照观看</div>
     </div>
     <div class="grid-edit">
-      <a href="gallery.html" class="item s6" data-cat="documentary">
+      <a href="javascript:void(0)" class="item s6" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="白墙树影午后" src="images/projects/seasonlight/02.jpg"></div>
         <div class="lbl"><span>林叙</span><span>2026.立春</span></div>
         <h3>墙上的影<span class="en">Wall Shadow</span></h3>
         <div class="credit"><b>林叙</b> · 常驻</div>
       </a>
-      <a href="gallery.html" class="item s3" data-cat="documentary">
+      <a href="javascript:void(0)" class="item s3" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="窗台光斑" src="images/projects/seasonlight/03.jpg"></div>
         <div class="lbl"><span>苏砚</span><span>2026.春分</span></div>
         <h3>窗台光斑<span class="en">Window Light</span></h3>
         <div class="credit"><b>苏砚</b> · 常驻</div>
       </a>
-      <a href="gallery.html" class="item s3" data-cat="documentary">
+      <a href="javascript:void(0)" class="item s3" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="屋檐投影" src="images/projects/seasonlight/04.jpg"></div>
         <div class="lbl"><span>林叙</span><span>2026.夏至</span></div>
         <h3>屋檐投影<span class="en">Eave Shadow</span></h3>
         <div class="credit"><b>林叙</b> · 常驻</div>
       </a>
-      <a href="gallery.html" class="item s4" data-cat="documentary">
+      <a href="javascript:void(0)" class="item s4" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="巷道光柱" src="images/projects/seasonlight/05.jpg"></div>
         <div class="lbl"><span>沈墨</span><span>2026.霜降</span></div>
         <h3>巷道光柱<span class="en">Alley Beam</span></h3>
         <div class="credit"><b>沈墨</b> · 客座</div>
       </a>
-      <a href="gallery.html" class="item s4" data-cat="documentary">
+      <a href="javascript:void(0)" class="item s4" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="冬至低光" src="images/projects/seasonlight/06.jpg"></div>
         <div class="lbl"><span>陈青</span><span>2026.冬至</span></div>
         <h3>冬至低光<span class="en">Winter Low</span></h3>
@@ -84,6 +84,19 @@
   </div>
 </section>
 
+<!-- ======== 专题翻页导航（循环切换 6 个长线企划） ======== -->
+<div class="project-pagenation">
+  <a href="project-roadside.html" class="prev u">
+    <span>PREV</span>
+  </a>
+  <a href="projects.html" class="all" aria-label="返回专题列表">
+    <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>
+  </a>
+  <a href="project-creatures.html" class="next u">
+    <span>NEXT</span>
+  </a>
+</div>
+
 <section class="submit-strip reveal" style="padding:72px 0">
   <div class="wrap">
     <h3>加入这个专题<span class="en">Join This Project</span></h3>
@@ -91,7 +104,6 @@
     <a href="submit.html" class="go">查看征稿</a>
   </div>
 </section>
-
 <!-- ============ 页脚（Them magazine 风格 · 全幅 · 左 logo+SNS / 右双列菜单 + 黑块 hover） ============ -->
 <footer id="f">
   <div class="in">
@@ -122,10 +134,10 @@
   </div>
   <div class="in">
     <div class="links"><a href="about.html#copyright">版权声明</a><a href="about.html#privacy">隐私政策</a><a href="about.html#archive">往期归档</a></div>
-    <small>© 2026 樱茉序 Sakmo · 多人共创</small>
   </div>
 </footer>
 
 <script src="js/app.js"></script>
+<script src="js/project-detail.js"></script>
 </body>
 </html>

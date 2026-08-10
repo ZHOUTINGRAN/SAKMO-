@@ -352,7 +352,7 @@
     lbImg.src = '';
   }
   document.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-zoom], .img[data-zoom], .item .img, .ab .cell .img, .archive-grid .issue .img, .creator-card .portrait');
+    var t = e.target.closest('[data-zoom], .img[data-zoom], .item .img, .ab .cell .img, .archive-grid .issue .img');
     if (t) {
       /* 阅读页列表项是链接，点击应跳转而非放大 */
       if (t.closest('.flex-e a[href]')) return;
@@ -437,6 +437,8 @@
         '<div class="params"></div>' +
         '<div class="pd-note">PHOTO NOTE / 摄影手记</div>' +
         '<div class="desc"></div>' +
+        '<div class="pd-story-note" style="display:none">拍摄故事 / STORY</div>' +
+        '<div class="pd-story" style="display:none"></div>' +
       '</div>' +
     '</div>' +
     /* 分页导航固定在页面底部：PREV/NEXT 下划线滑入 + ALL 图标旋转 */
@@ -455,9 +457,27 @@
   var creditEl = panel.querySelector('.pd-info .credit');
   var paramsEl = panel.querySelector('.pd-info .params');
   var descEl   = panel.querySelector('.pd-info .desc');
+  var storyNoteEl = panel.querySelector('.pd-story-note');
+  var storyEl  = panel.querySelector('.pd-story');
   var prevBtn  = panel.querySelector('.pd-pagenation .prev');
   var nextBtn  = panel.querySelector('.pd-pagenation .next');
   var allBtn   = panel.querySelector('.pd-pagenation .all');
+
+  /* ---- JSON 描述文件加载 ----
+     每张图片可对应一个同名的 .json 描述文件（如 01.jpg → 01.json）。
+     存在则用 JSON 中的 description/story 覆盖 generateDesc 的结果；不存在则回退。 */
+  var detailCache = {};
+  function imgToJsonPath(imgSrc){
+    var path = imgSrc.replace(/^https?:\/\/[^\/]+/, '').split('?')[0];
+    return path.replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '.json');
+  }
+  function loadDetail(jsonPath){
+    if(detailCache[jsonPath] !== undefined) return Promise.resolve(detailCache[jsonPath]);
+    return fetch(jsonPath)
+      .then(function(res){ return res.ok ? res.json() : null; })
+      .then(function(data){ detailCache[jsonPath] = data; return data; })
+      .catch(function(){ detailCache[jsonPath] = null; return null; });
+  }
 
   /* 基于标题生成照片介绍文字 */
   function generateDesc(title, category, credit){
@@ -521,6 +541,23 @@
     var cat = item.dataset.cat || '';
     var creditText = itemCredit ? itemCredit.textContent.trim() : '';
     descEl.textContent = generateDesc(titleText, cat, creditText);
+
+    /* 异步加载 JSON 描述文件（若存在则覆盖 generateDesc 的结果） */
+    storyNoteEl.style.display = 'none';
+    storyEl.style.display = 'none';
+    storyEl.textContent = '';
+    if(itemImg && itemImg.src){
+      var jsonPath = imgToJsonPath(itemImg.src);
+      loadDetail(jsonPath).then(function(data){
+        if(!data) return;
+        if(data.description) descEl.textContent = data.description;
+        if(data.story){
+          storyEl.textContent = data.story;
+          storyNoteEl.style.display = '';
+          storyEl.style.display = '';
+        }
+      });
+    }
   }
 
   /* 打开详情面板（首次打开：记录卡片 + 设置内容 + 显示 + 入场动画） */
@@ -558,6 +595,13 @@
       requestAnimationFrame(function(){
         requestAnimationFrame(function(){ panel.classList.add('is-in'); });
       });
+      /* 重新触发 header 淡入滑动动画 */
+      var header = document.getElementById('h');
+      if(header){
+        header.style.animation = 'none';
+        void header.offsetHeight;
+        header.style.animation = '';
+      }
     }, 340);
   }
 
@@ -604,4 +648,15 @@
     e.stopPropagation();
     openPanel(item);
   }, true);  /* 捕获阶段优先执行，防止灯箱/页面过渡拦截 */
+
+  /* ---- 项目专题翻页过渡动画 ----
+     点击 PREV/NEXT 时先淡出当前页面，再跳转；
+     新页面加载时自然淡入（CSS transition 驱动）。 */
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('.project-pagenation .prev, .project-pagenation .next');
+    if(!link) return;
+    e.preventDefault();
+    document.body.classList.add('is-fading');
+    setTimeout(function(){ window.location.href = link.href; }, 400);
+  });
 })();

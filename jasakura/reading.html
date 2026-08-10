@@ -32,16 +32,9 @@
       <p>一张照片不只是一个瞬间。这里是单作拆解、多人访谈与技术干货——把构图、光影、调色与按下快门前后所有的判断摊开，让观看也变成一种阅读。</p>
     </div>
 
-    <!-- ============ 头条解析（全宽） ============ -->
-    <div class="read-feature reading-feature" data-id="001">
-      <div class="img"><img loading="lazy" alt="暮色集市头条解析" src="images/reading/01.jpg"></div>
-      <div>
-        <div class="cat">单作拆解 / Single Work · 2026.08</div>
-        <h3>暮色集市：天光收走前最后三档<span class="en">Market at Dusk: The Last Three Stops</span></h3>
-        <p>林叙 拍摄。我们用六组局部放大，拆开这张照片里被低估的判断：晾衣绳如何切分画面的上下两段、电线杆在右 third 上的"错误"位置、以及为什么 f/8 在这里不是保守而是必须。</p>
-        <p>解析附完整的曝光参数、扫描曲线与拍摄时间轴，并对照一张同时段未选用的废片——告诉你为什么是这一张，而不是另一张。</p>
-        <a href="reading-detail.html?id=001" class="go">阅读全文</a>
-      </div>
+    <!-- ============ 头条解析（全宽 · JS 从 JSON 动态渲染） ============ -->
+    <div class="read-feature reading-feature" id="rd-feature" data-id="001">
+      <!-- JS 填充 -->
     </div>
 
     <!-- ============ 板块分隔 ============ -->
@@ -51,111 +44,9 @@
       <span class="line"></span>
     </div>
 
-    <!-- ============ 解析列表（全宽错落网格） ============ -->
-    <div class="flex-e reading-flex">
-
-      <a href="reading-detail.html?id=002" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="枯花与亚麻解析" src="images/reading/02.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>静物 / Still Life · 2026.08</span>
-          </div>
-          <strong>枯花与亚麻：窗光的方向<span class="en">Dried Flowers: Direction of Window Light</span></strong>
-          <em class="credit">苏砚 · 静物解析</em>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="reading-detail.html?id=003" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="雾松晨雪解析" src="images/reading/03.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>风光 / Landscape · 2026.08</span>
-          </div>
-          <strong>雾松晨雪：高调里的暗部留白<span class="en">Frost Pines: Shadow in a High-key Frame</span></strong>
-          <em class="credit">陆深 · 风光解析</em>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="reading-detail.html?id=004" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="晨雾小站解析" src="images/reading/04.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>访谈 / Interview · 2026.07</span>
-          </div>
-          <strong>晨雾小站：一次没拍到的车<span class="en">Station in Mist: The Train That Didn't Show</span></strong>
-          <em class="credit">周野 · 多人访谈</em>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="reading-detail.html?id=005" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="老乡镇屋顶解析" src="images/reading/05.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>构图 / Composition · 2026.07</span>
-          </div>
-          <strong>俯瞰老镇：六分法之外的秩序<span class="en">Old Town Above: Order Beyond Thirds</span></strong>
-          <em class="credit">林叙 · 构图解析</em>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="reading-detail.html?id=006" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="生灵日记解析" src="images/reading/06.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>访谈 / Interview · 2026.06</span>
-          </div>
-          <strong>街猫打盹：等待也是一种构图<span class="en">A Cat Naps: Waiting as Composition</span></strong>
-          <em class="credit">程川 · 多人访谈</em>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
-      <a href="reading-detail.html?id=007" class="cell u">
-        <figure class="img">
-          <span class="scale">
-            <img loading="lazy" alt="城市边缘解析" src="images/reading/07.jpg">
-          </span>
-        </figure>
-        <div class="txts">
-          <div class="in">
-            <span>新地形 / New Topo · 2026.06</span>
-          </div>
-          <strong>围挡与野草：临界线的几何<span class="en">Hoarding & Weeds: Geometry of the Edge</span></strong>
-          <em class="credit">沈墨 · 单作拆解</em>
-          <i class="u-target1"></i>
-          <i class="u-target2"></i>
-        </div>
-      </a>
-
+    <!-- ============ 解析列表（全宽错落网格 · JS 从 JSON 动态渲染） ============ -->
+    <div class="flex-e reading-flex" id="rd-grid">
+      <!-- JS 填充 -->
     </div>
 </section>
 
@@ -229,5 +120,67 @@
 </footer>
 
 <script src="js/app.js"></script>
+<script>
+/* ============================================================
+   影像解析列表页 — 从 JSON 文件动态渲染
+   每篇文章对应一个 JSON 文件：images/reading/{id}.json
+   修改文章内容只需编辑对应的 JSON 文件即可
+   ============================================================ */
+(function(){
+  var RD_IDS = ['001','002','003','004','005','006','007'];
+
+  /* 加载所有文章 JSON */
+  Promise.all(RD_IDS.map(function(id){
+    return fetch('images/reading/' + id + '.json')
+      .then(function(res){ return res.ok ? res.json() : null; })
+      .catch(function(){ return null; });
+  })).then(function(list){
+    var articles = list.filter(function(a){ return a !== null; });
+    if(!articles.length) return;
+
+    /* ---- 头条解析（第一篇） ---- */
+    var feature = articles[0];
+    var featureEl = document.getElementById('rd-feature');
+    if(featureEl){
+      featureEl.setAttribute('data-id', feature.id);
+      var previewP = '';
+      if(feature.body && feature.body.length){
+        previewP += '<p>' + feature.body[0] + '</p>';
+        if(feature.body.length > 1) previewP += '<p>' + feature.body[1] + '</p>';
+      }
+      featureEl.innerHTML =
+        '<div class="img"><img loading="lazy" alt="' + (feature.imgAlt||'') + '" src="' + feature.img + '"></div>' +
+        '<div>' +
+          '<div class="cat">' + feature.cat + ' · ' + feature.date + '</div>' +
+          '<h3>' + feature.title + '<span class="en">' + feature.titleEn + '</span></h3>' +
+          previewP +
+          '<a href="reading-detail.html?id=' + feature.id + '" class="go">阅读全文</a>' +
+        '</div>';
+    }
+
+    /* ---- 解析列表网格（其余篇） ---- */
+    var grid = document.getElementById('rd-grid');
+    if(grid){
+      articles.slice(1).forEach(function(a){
+        var cell = document.createElement('a');
+        cell.className = 'cell u';
+        cell.href = 'reading-detail.html?id=' + a.id;
+        cell.innerHTML =
+          '<figure class="img"><span class="scale">' +
+            '<img loading="lazy" alt="' + (a.imgAlt||'') + '" src="' + a.img + '">' +
+          '</span></figure>' +
+          '<div class="txts">' +
+            '<div class="in"><span>' + a.cat + ' · ' + a.date + '</span></div>' +
+            '<strong>' + a.title + '<span class="en">' + a.titleEn + '</span></strong>' +
+            '<em class="credit">' + (a.credit || (a.author + ' · ' + a.authorRole)) + '</em>' +
+            '<i class="u-target1"></i>' +
+            '<i class="u-target2"></i>' +
+          '</div>';
+        grid.appendChild(cell);
+      });
+    }
+  });
+})();
+</script>
 </body>
 </html>

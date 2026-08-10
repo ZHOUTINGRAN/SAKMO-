@@ -1,0 +1,78 @@
+﻿{
+    "lead":  "街猫、麻雀、窗台虫、流浪狗——城市生灵的日常日记。它们与人共处一城，却自成秩序。这个专题不追求\"萌\"，只记录那些不设防的瞬间：一只猫在午睡，一只鸟在啄食，一只虫在窗上停了三秒。两位摄影师，一拍猫、一拍鸟。",
+    "photographers":  "沈与归 · 周野",
+    "projectNum":  "06",
+    "heroImg":  "images/projects/creatures/01.jpg",
+    "photos":  [
+                   {
+                       "creditName":  "沈墨",
+                       "date":  "2026.04",
+                       "creditRole":  "常驻",
+                       "span":  "s6",
+                       "photographer":  "沈墨",
+                       "imgAlt":  "墙头午睡的猫",
+                       "img":  "images/projects/creatures/02.jpg",
+                       "titleEn":  "Wall Nap",
+                       "title":  "墙头午睡",
+                       "cat":  "documentary"
+                   },
+                   {
+                       "creditName":  "周野",
+                       "date":  "2026.04",
+                       "creditRole":  "客座",
+                       "span":  "s3",
+                       "photographer":  "周野",
+                       "imgAlt":  "窗台上的麻雀",
+                       "img":  "images/projects/creatures/03.jpg",
+                       "titleEn":  "Sparrow",
+                       "title":  "窗台麻雀",
+                       "cat":  "documentary"
+                   },
+                   {
+                       "creditName":  "周野",
+                       "date":  "2026.05",
+                       "creditRole":  "客座",
+                       "span":  "s3",
+                       "photographer":  "周野",
+                       "imgAlt":  "电线杆上的鸟群",
+                       "img":  "images/projects/creatures/04.jpg",
+                       "titleEn":  "Wire Meeting",
+                       "title":  "电线会议",
+                       "cat":  "documentary"
+                   },
+                   {
+                       "creditName":  "沈墨",
+                       "date":  "2026.05",
+                       "creditRole":  "常驻",
+                       "span":  "s4",
+                       "photographer":  "沈墨",
+                       "imgAlt":  "巷口猫影",
+                       "img":  "images/projects/creatures/05.jpg",
+                       "titleEn":  "Alley Cat",
+                       "title":  "巷口猫影",
+                       "cat":  "documentary"
+                   },
+                   {
+                       "creditName":  "陈青",
+                       "date":  "2026.06",
+                       "creditRole":  "客座",
+                       "span":  "s4",
+                       "photographer":  "陈青",
+                       "imgAlt":  "窗玻璃上的蜗牛",
+                       "img":  "images/projects/creatures/06.jpg",
+                       "titleEn":  "Window Snail",
+                       "title":  "窗上蜗牛",
+                       "cat":  "documentary"
+                   }
+               ],
+    "titleEn":  "Creature Diary",
+    "startDate":  "2026 春",
+    "status":  "进行中",
+    "deepRead":  [
+                     "城市生灵有自己的时间表。猫在午后的墙头睡觉，麻雀在清晨的电线杆上开会，流浪狗在凌晨三点的十字路口巡逻。它们不读日历，却比人更准时。这个专题不去打扰它们，只是蹲下来，等一个不设防的瞬间——它们没看镜头，也不打算看。",
+                     "我们刻意避开\"萌宠\"的视角。这里没有毛茸茸的特写，没有拟人化的台词，只有生灵作为生灵本身的样子：一只猫在阴影里眯眼，一只鸟叼着虫飞走，一只蜗牛在玻璃上留下一道湿痕。这些影像提醒我们，城市不只是人的城市。",
+                     "沈与归负责拍猫——巷口的、墙头的、车底的；周野负责拍鸟——窗台的、屋脊的、电线上集会的。两条线索在城市生灵的日常里交汇，构成一份不靠语言、只靠存在的日记。"
+                 ],
+    "title":  "生灵日记",
+    "heroImgAlt":  "巷口猫群"
+}

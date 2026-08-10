@@ -77,31 +77,8 @@
       <div class="r">3 Open Calls</div>
     </div>
 
-    <div class="event-card">
-      <div class="img" data-zoom><img loading="lazy" alt="窗主题征稿" src="images/misc/submit-01.jpg"></div>
-      <div>
-        <div class="when">客座投稿 · 白露 2026 · 截稿 09.20</div>
-        <h4>主题征稿「窗」<span class="en" style="display:block;font-style:italic;font-weight:400;font-size:1.2rem;color:var(--muted);margin-top:4px">Theme: Window</span></h4>
-        <p>窗是光与视线共同的入口。本期征集与"窗"有关的作品——晨光穿过木格、雨夜玻璃上的水痕、或者一扇永远关着的窗。入选作品将与常驻摄影师同台陈列于影像画廊，并附影像解析。</p>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="img" data-zoom><img loading="lazy" alt="岁与光影共创专栏" src="images/misc/submit-02.jpg"></div>
-      <div>
-        <div class="when">长线共创 · 持续招募 · 滚动截稿</div>
-        <h4>「岁与光影」共创专栏<span class="en" style="display:block;font-style:italic;font-weight:400;font-size:1.2rem;color:var(--muted);margin-top:4px">Seasons & Light · Co-creation</span></h4>
-        <p>以二十四节气为刻度的长线企划，持续接受客座补图。你可以只投一个节气的光，也可以一年跟拍二十四张。陈青主理，每期择优并入"岁与光影"项目页。</p>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="img" data-zoom><img loading="lazy" alt="线下外拍活动" src="images/misc/submit-03.jpg"></div>
-      <div>
-        <div class="when">线下外拍 · 秋分 2026 · 09.27</div>
-        <h4>秋分老镇外拍日<span class="en" style="display:block;font-style:italic;font-weight:400;font-size:1.2rem;color:var(--muted);margin-top:4px">Autumn Field Day</span></h4>
-        <p>编辑部组织的半日线下外拍，限 8 人。林叙带路，沿老乡镇走一条已踩过三次的线，终点是收摊前的集市。报名需附三张过往作品；活动免费，差旅与餐食自理。</p>
-      </div>
+    <div id="events-grid">
+      <!-- JS 从 events-data.js 动态渲染 -->
     </div>
 
   </div>
@@ -142,5 +119,36 @@
 </footer>
 
 <script src="js/app.js"></script>
+<script src="js/events-data.js"></script>
+<script>
+/* ============================================================
+   当期活动 — 从 events-data.js 数据动态渲染
+   修改活动信息只需编辑 js/events-data.js 即可
+   ============================================================ */
+(function(){
+  if (!window.events || !events.length) return;
+  var grid = document.getElementById('events-grid');
+  if (!grid) return;
+
+  events.forEach(function(e){
+    var card = document.createElement('div');
+    card.className = 'event-card';
+    card.innerHTML =
+      '<div class="img" data-zoom><img loading="lazy" alt="' + (e.imgAlt||'') + '" src="' + e.img + '"></div>' +
+      '<div>' +
+        '<div class="when">' + e.when + '</div>' +
+        '<h4>' + e.title + '<span class="en" style="display:block;font-style:italic;font-weight:400;font-size:1.2rem;color:var(--muted);margin-top:4px">' + e.titleEn + '</span></h4>' +
+        '<p>' + e.desc + '</p>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  /* 更新头部计数 */
+  var countEl = document.querySelector('.sec-head .r');
+  if (countEl && countEl.textContent.indexOf('Open Calls') !== -1){
+    countEl.textContent = events.length + ' Open Calls';
+  }
+})();
+</script>
 </body>
 </html>

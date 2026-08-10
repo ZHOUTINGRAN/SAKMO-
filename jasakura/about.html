@@ -74,27 +74,8 @@
       <div class="l"><h2>往期归档<span class="en">Archive</span></h2></div>
       <div class="r"><a href="index.html">返回当期 →</a></div>
     </div>
-    <div class="archive-grid">
-      <a href="index.html" class="issue">
-        <div class="img" data-zoom><img loading="lazy" alt="No.001 立春封面" src="images/misc/about-01.jpg"></div>
-        <div class="lbl"><span>Issue No.001</span><span>立春 2026</span></div>
-        <h3>在城乡之间，光落下的一页<span class="en">A Page Where Light Falls</span></h3>
-      </a>
-      <a href="index.html" class="issue">
-        <div class="img" data-zoom><img loading="lazy" alt="No.002 竹雾封面" src="images/misc/about-02.jpg"></div>
-        <div class="lbl"><span>Issue No.002</span><span>白露 2026</span></div>
-        <h3>竹雾<span class="en">Bamboo Mist</span></h3>
-      </a>
-      <a href="index.html" class="issue">
-        <div class="img" data-zoom><img loading="lazy" alt="No.003 霜降封面" src="images/misc/about-03.jpg"></div>
-        <div class="lbl"><span>Issue No.003</span><span>霜降 2026</span></div>
-        <h3>枝上霜<span class="en">Frost on Branches</span></h3>
-      </a>
-      <a href="index.html" class="issue">
-        <div class="img" data-zoom><img loading="lazy" alt="No.004 冬至封面" src="images/misc/about-04.jpg"></div>
-        <div class="lbl"><span>Issue No.004</span><span>冬至 2026</span></div>
-        <h3>雪与鸟居<span class="en">Snow & Torii</span></h3>
-      </a>
+    <div class="archive-grid" id="archive-grid">
+      <!-- JS 从 archive-data.js 动态渲染 -->
     </div>
   </div>
 </section>
@@ -216,5 +197,28 @@
 </footer>
 
 <script src="js/app.js"></script>
+<script src="js/archive-data.js"></script>
+<script>
+/* ============================================================
+   往期归档 — 从 archive-data.js 数据动态渲染
+   修改归档信息只需编辑 js/archive-data.js 即可
+   ============================================================ */
+(function(){
+  if (!window.archives || !archives.length) return;
+  var grid = document.getElementById('archive-grid');
+  if (!grid) return;
+
+  archives.forEach(function(a){
+    var item = document.createElement('a');
+    item.href = a.link || 'index.html';
+    item.className = 'issue';
+    item.innerHTML =
+      '<div class="img" data-zoom><img loading="lazy" alt="' + (a.imgAlt||'') + '" src="' + a.img + '"></div>' +
+      '<div class="lbl"><span>' + a.issue + '</span><span>' + a.date + '</span></div>' +
+      '<h3>' + a.title + '<span class="en">' + a.titleEn + '</span></h3>';
+    grid.appendChild(item);
+  });
+})();
+</script>
 </body>
 </html>

@@ -18,48 +18,13 @@
   <button id="menu-btn" aria-label="菜单"></button>
 </header>
 
-<!-- ============ 当期封面（全幅幻灯片） ============ -->
+<!-- ============ 当期封面（全幅幻灯片 · 数据驱动，见 js/cover-data.js） ============ -->
 <section class="cover">
-  <div class="frame">
-    <div class="slide is-active">
-      <img loading="lazy" alt="No.001 封面：清晨旧巷" src="images/magazine/001.jpg">
-    </div>
-    <div class="slide">
-      <img loading="lazy" alt="No.002 封面：竹雾" src="images/magazine/002.jpg">
-    </div>
-    <div class="slide">
-      <img loading="lazy" alt="No.003 封面：老乡镇" src="images/magazine/003.jpg">
-    </div>
-    <div class="slide">
-      <img loading="lazy" alt="No.004 封面：新农村" src="images/magazine/004.jpg">
-    </div>
-  </div>
+  <div class="frame"><!-- JS 填充 .slide --></div>
   <div class="overlay">
     <div class="wrap">
-      <div class="cover-titles">
-        <div class="slide-text is-active">
-          <p class="issue">Issue No.001 · 立秋 2026 · Prelude 序</p>
-          <h1>在城乡之间，光落下的一页<span class="en">A Page Where Light Falls</span></h1>
-        </div>
-        <div class="slide-text">
-          <p class="issue">Issue No.002 · 白露 2026 · Bamboo Mist</p>
-          <h1>竹雾深处，呼吸可闻<span class="en">Bamboo Whisper</span></h1>
-        </div>
-        <div class="slide-text">
-          <p class="issue">Issue No.003 · 长线企划 · Old Towns</p>
-          <h1>老乡镇的最后一道光<span class="en">The Last Light of Old Towns</span></h1>
-        </div>
-        <div class="slide-text">
-          <p class="issue">Issue No.004 · 长线企划 · New Countryside</p>
-          <h1>新农村，旧时光<span class="en">New Country, Old Time</span></h1>
-        </div>
-      </div>
-      <div class="cover-annots">
-        <p class="annot is-active">封面 · 清晨旧巷<br>摄影 / 林叙</p>
-        <p class="annot">封面 · 竹林晨雾<br>摄影 / 苏砚</p>
-        <p class="annot">封面 · 老镇小巷<br>摄影 / 周野</p>
-        <p class="annot">封面 · 田间午后<br>摄影 / 林叙</p>
-      </div>
+      <div class="cover-titles"><!-- JS 填充 .slide-text --></div>
+      <div class="cover-annots"><!-- JS 填充 .annot --></div>
     </div>
   </div>
 </section>
@@ -87,104 +52,8 @@
       <div class="current">Page: <i>1</i>/1</div>
     </div>
   </div>
-  <div class="flex-4">
-
-    <a href="magazine-detail.html?id=001" class="cell">
-      <figure class="img">
-        <span class="scale">
-          <img loading="lazy" alt="No.001 Prelude 序" src="images/magazine/001.jpg">
-        </span>
-      </figure>
-      <div class="txts">
-        <span>立秋 2026 No.001</span>
-        <strong>PRELUDE 序</strong>
-      </div>
-    </a>
-
-    <a href="magazine-detail.html?id=002" class="cell">
-      <figure class="img">
-        <span class="scale">
-          <img loading="lazy" alt="No.002 Bamboo Mist 竹雾" src="images/magazine/002.jpg">
-        </span>
-      </figure>
-      <div class="txts">
-        <span>白露 2026 No.002</span>
-        <strong>BAMBOO MIST 竹雾</strong>
-      </div>
-    </a>
-
-    <a href="magazine-detail.html?id=003" class="cell">
-      <figure class="img">
-        <span class="scale">
-          <img loading="lazy" alt="No.003 Old Towns 老乡镇" src="images/magazine/003.jpg">
-        </span>
-      </figure>
-      <div class="txts">
-        <span>长线企划 No.003</span>
-        <strong>OLD TOWNS 老乡镇</strong>
-      </div>
-    </a>
-
-    <a href="magazine-detail.html?id=004" class="cell">
-      <figure class="img">
-        <span class="scale">
-          <img loading="lazy" alt="No.004 New Countryside 新农村" src="images/magazine/004.jpg">
-        </span>
-      </figure>
-      <div class="txts">
-        <span>长线企划 No.004</span>
-        <strong>NEW COUNTRYSIDE 新农村</strong>
-      </div>
-    </a>
-
-    <a href="magazine-detail.html?id=005" class="cell">
-      <figure class="img">
-        <span class="scale">
-          <img loading="lazy" alt="No.005 City's Edge 城市边缘" src="images/magazine/005.jpg">
-        </span>
-      </figure>
-      <div class="txts">
-        <span>长线企划 No.005</span>
-        <strong>CITY'S EDGE 城市边缘</strong>
-      </div>
-    </a>
-
-    <a href="magazine-detail.html?id=006" class="cell">
-      <figure class="img">
-        <span class="scale">
-          <img loading="lazy" alt="No.006 Roadside Views 路途景观" src="images/magazine/006.jpg">
-        </span>
-      </figure>
-      <div class="txts">
-        <span>长线企划 No.006</span>
-        <strong>ROADSIDE VIEWS 路途景观</strong>
-      </div>
-    </a>
-
-    <a href="magazine-detail.html?id=007" class="cell">
-      <figure class="img">
-        <span class="scale">
-          <img loading="lazy" alt="No.007 Seasons & Light 岁与光影" src="images/magazine/007.jpg">
-        </span>
-      </figure>
-      <div class="txts">
-        <span>长线企划 No.007</span>
-        <strong>SEASONS &amp; LIGHT 岁与光影</strong>
-      </div>
-    </a>
-
-    <a href="magazine-detail.html?id=008" class="cell">
-      <figure class="img">
-        <span class="scale">
-          <img loading="lazy" alt="No.008 Creature Diary 生灵日记" src="images/magazine/008.jpg">
-        </span>
-      </figure>
-      <div class="txts">
-        <span>长线企划 No.008</span>
-        <strong>CREATURE DIARY 生灵日记</strong>
-      </div>
-    </a>
-
+  <div class="flex-4" id="magazine-grid">
+    <!-- JS 从 magazine-data.js 动态渲染 8 本杂志卡片 -->
   </div>
 </section>
 
@@ -225,25 +94,8 @@
       <div class="l"><h2>Editor's Pick<span class="ja">本期精选</span></h2></div>
       <div class="r"><a href="gallery.html">进入画廊 →</a></div>
     </div>
-    <div class="grid-edit filterable">
-      <a href="gallery.html" class="item s6" data-cat="documentary">
-        <div class="img" data-zoom><img loading="lazy" alt="暮色集市" src="images/homepage/pick-01.jpg"></div>
-        <div class="lbl"><span>纪实</span><span>2026.08</span></div>
-        <h3>暮色集市<span class="en">Market at Dusk</span></h3>
-        <div class="credit"><b>林叙</b> · 常驻</div>
-      </a>
-      <a href="gallery.html" class="item s3" data-cat="stilllife">
-        <div class="img" data-zoom><img loading="lazy" alt="枯花与亚麻" src="images/homepage/pick-02.jpg"></div>
-        <div class="lbl"><span>静物</span><span>2026.08</span></div>
-        <h3>枯花与亚麻<span class="en">Dried Flowers on Linen</span></h3>
-        <div class="credit"><b>苏砚</b> · 常驻</div>
-      </a>
-      <a href="gallery.html" class="item s3" data-cat="documentary">
-        <div class="img" data-zoom><img loading="lazy" alt="晨雾小站" src="images/homepage/pick-03.jpg"></div>
-        <div class="lbl"><span>纪实</span><span>2026.07</span></div>
-        <h3>晨雾小站<span class="en">Station in Mist</span></h3>
-        <div class="credit"><b>周野</b> · 客座</div>
-      </a>
+    <div class="grid-edit filterable" id="pick-grid">
+      <!-- JS 从 pick-data.js 动态渲染 -->
     </div>
   </div>
 </section>
@@ -299,13 +151,40 @@
 </footer>
 
 <script src="js/app.js"></script>
+<script src="js/cover-data.js"></script>
+<script src="js/pick-data.js"></script>
+<script src="js/magazine-data.js"></script>
 <script>
-/* 封面幻灯片自动播放（慢速 6s 切换，淡入淡出 1.4s） */
+/* 封面幻灯片：从 cover-data.js 数据动态渲染 + 自动播放（6s 切换，淡入淡出 1.4s） */
 (function(){
-  var slides = document.querySelectorAll('.cover .frame .slide');
-  var titles = document.querySelectorAll('.cover .cover-titles .slide-text');
-  var annots = document.querySelectorAll('.cover .cover-annots .annot');
-  if(slides.length < 2) return;
+  if (!window.COVER_SLIDES || !COVER_SLIDES.length) return;
+  var frame = document.querySelector('.cover .frame');
+  var titlesBox = document.querySelector('.cover .cover-titles');
+  var annotsBox = document.querySelector('.cover .cover-annots');
+  if (!frame || !titlesBox || !annotsBox) return;
+
+  /* 从数据生成 HTML */
+  COVER_SLIDES.forEach(function(s, i){
+    var active = i === 0 ? ' is-active' : '';
+    /* 图片层 */
+    frame.insertAdjacentHTML('beforeend',
+      '<div class="slide' + active + '"><img loading="lazy" alt="' + (s.imgAlt||'') + '" src="' + s.img + '"></div>');
+    /* 标题层 */
+    titlesBox.insertAdjacentHTML('beforeend',
+      '<div class="slide-text' + active + '">' +
+        '<p class="issue">' + s.issue + '</p>' +
+        '<h1>' + s.title + '<span class="en">' + s.titleEn + '</span></h1>' +
+      '</div>');
+    /* 描述层 */
+    annotsBox.insertAdjacentHTML('beforeend',
+      '<p class="annot' + active + '">' + s.annot + '</p>');
+  });
+
+  /* 自动播放（慢速 6s 切换） */
+  var slides = frame.querySelectorAll('.slide');
+  var titles = titlesBox.querySelectorAll('.slide-text');
+  var annots = annotsBox.querySelectorAll('.annot');
+  if (slides.length < 2) return;
   var i = 0;
   setInterval(function(){
     slides[i].classList.remove('is-active');
@@ -316,6 +195,90 @@
     titles[i].classList.add('is-active');
     annots[i].classList.add('is-active');
   }, 6000);
+})();
+</script>
+<script>
+/* 杂志陈列卡片：从 magazine-data.js 数据动态渲染 */
+(function(){
+  if (!window.magazines || !magazines.length) return;
+  var grid = document.getElementById('magazine-grid');
+  if (!grid) return;
+
+  magazines.forEach(function(m){
+    var cell = document.createElement('a');
+    cell.className = 'cell';
+    cell.href = 'magazine-detail.html?id=' + m.id;
+    cell.innerHTML =
+      '<figure class="img"><span class="scale">' +
+        '<img loading="lazy" alt="No.' + m.id + ' ' + m.title + '" src="' + m.cover + '">' +
+      '</span></figure>' +
+      '<div class="txts">' +
+        '<span>' + m.issue + '</span>' +
+        '<strong>' + m.title + '</strong>' +
+      '</div>';
+    grid.appendChild(cell);
+  });
+
+  /* 更新头部计数 */
+  var lenEl = document.querySelector('.magazine-archive .head .len i');
+  if (lenEl) lenEl.textContent = magazines.length;
+})();
+</script>
+<script>
+/* 本期精选：从 pick-data.js 数据动态渲染
+   只需填写画廊图片路径，标题/分类/摄影师等信息自动从画廊同名 JSON 读取 */
+(function(){
+  if (!window.PICKS || !PICKS.length) return;
+  var grid = document.getElementById('pick-grid');
+  if (!grid) return;
+
+  /* 从图片路径推导 JSON 路径（如 01.jpg → 01.json） */
+  function imgToJsonPath(imgSrc){
+    return imgSrc.replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '.json');
+  }
+
+  /* 逐个渲染精选卡片 */
+  PICKS.forEach(function(p){
+    var link = p.link || 'gallery.html';
+    var span = p.span || 's4';
+    var a = document.createElement('a');
+    a.href = link;
+    a.className = 'item ' + span;
+    a.innerHTML =
+      '<div class="img" data-zoom><img loading="lazy" alt="" src="' + p.img + '"></div>' +
+      '<div class="lbl"><span>　</span><span>　</span></div>' +
+      '<h3>　<span class="en"></span></h3>' +
+      '<div class="credit"><b>　</b> · 　</div>';
+    grid.appendChild(a);
+
+    /* 异步加载画廊 JSON，填充标题/分类/摄影师等信息 */
+    fetch(imgToJsonPath(p.img))
+      .then(function(res){ return res.ok ? res.json() : null; })
+      .then(function(d){
+        if (!d) return;
+        var img = a.querySelector('.img img');
+        if (img) img.alt = d.title || '';
+        var spans = a.querySelectorAll('.lbl span');
+        if (spans.length >= 2){
+          if (d.category) spans[0].textContent = d.category;
+          if (d.date) spans[1].textContent = d.date;
+        }
+        var h3 = a.querySelector('h3');
+        if (h3){
+          h3.childNodes[0].nodeValue = d.title || '';
+          var en = h3.querySelector('.en');
+          if (en && d.titleEn) en.textContent = d.titleEn;
+        }
+        var credit = a.querySelector('.credit');
+        if (credit){
+          var b = credit.querySelector('b');
+          if (b && d.photographer) b.textContent = d.photographer;
+          /* role 前的 " · " 保留，只替换后半段 */
+          if (d.role) credit.lastChild.textContent = ' ' + d.role;
+        }
+      })
+      .catch(function(){ /* JSON 不存在时保持占位空白 */ });
+  });
 })();
 </script>
 </body>

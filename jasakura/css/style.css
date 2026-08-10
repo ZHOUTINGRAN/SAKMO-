@@ -43,6 +43,9 @@ a{color:inherit;text-decoration:none}
 /* header 内边距：取 --gut 的 20%（min 10px），让品牌与菜单按钮贴近视口边、突破内容宽度 */
 #h{position:fixed;top:0;left:0;width:100%;height:88px;z-index:80;mix-blend-mode:difference;display:flex;align-items:flex-end;justify-content:space-between;padding:0 max(10px,calc(var(--gut) * .2));transition:height .4s cubic-bezier(.2,.7,.2,1)}
 @media(min-width:768px){#h{height:100px}}
+/* 页面加载时 header 淡入滑动动画（logo + 菜单按钮同步） */
+@keyframes header-in{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+#h{animation:header-in .6s cubic-bezier(.2,.7,.2,1) both}
 /* Logo：顶部锚定，滚动缩小时距顶部边界距离不变（原地缩小，不上移） */
 #h .logo{position:relative;top:auto;left:auto;bottom:auto;align-self:flex-start;padding-top:14px;transition:all .4s cubic-bezier(.2,.7,.2,1)}
 @media(min-width:768px){#h .logo{padding-top:22px}}
@@ -734,6 +737,35 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 .magazine-detail .pagenation .all:hover svg{transform:rotate(90deg)}
 
 /* ============================================================
+   项目专题翻页导航（project-*.html 底部 · 循环切换 6 个专题）
+   ============================================================ */
+.project-pagenation{position:relative;margin:67px auto 44px;width:100vw;text-align:center;padding:0 25px}
+@media(min-width:768px){.project-pagenation{margin:80px auto 0;padding:0 4vw}}
+/* PREV / NEXT */
+.project-pagenation .prev,.project-pagenation .next{position:absolute;top:0;display:inline-block;text-decoration:none;color:var(--ink)}
+.project-pagenation .prev{left:25px}
+.project-pagenation .next{right:25px}
+@media(min-width:768px){.project-pagenation .prev{left:4vw}.project-pagenation .next{right:4vw}}
+.project-pagenation .prev span,.project-pagenation .next span{font-size:1.6rem;line-height:1;position:relative;display:inline-block;padding-bottom:6px;transition:color .3s ease}
+@media(min-width:768px){.project-pagenation .prev span,.project-pagenation .next span{font-size:2.4rem}}
+/* 下划线由中部向两侧展开 */
+.project-pagenation .prev span::after,.project-pagenation .next span::after{content:"";position:absolute;bottom:0;left:50%;width:0;height:1px;background:var(--ink);transition:width .4s cubic-bezier(.2,.7,.2,1),left .4s cubic-bezier(.2,.7,.2,1)}
+@media(min-width:768px){
+  .project-pagenation .prev:hover span::after,
+  .project-pagenation .next:hover span::after{width:100%;left:0}
+}
+/* ALL（中部，图标旋转，返回专题列表） */
+.project-pagenation .all{width:16px;height:16px;margin:0 auto;display:inline-block;position:relative;overflow:hidden;text-decoration:none}
+@media(min-width:768px){.project-pagenation .all{width:30px;height:30px}}
+.project-pagenation .all svg{position:absolute;top:0;right:0;bottom:0;left:0;margin:auto;width:16px;height:16px;z-index:10;transition:transform .3s}
+@media(min-width:768px){.project-pagenation .all svg{width:20px;height:20px}}
+.project-pagenation .all:hover svg{transform:rotate(90deg)}
+
+/* 项目专题页面切换过渡动画 */
+body{opacity:1;transition:opacity .4s ease}
+body.is-fading{opacity:0;pointer-events:none}
+
+/* ============================================================
    档案杂志快捷选择（magazine-detail.html 底部 ARCHIVES 轮播）
    纯 CSS 横向滚动 + scroll-snap，无 Swiper.js 依赖
    ============================================================ */
@@ -1274,6 +1306,11 @@ body.is-hidden{overflow:hidden}
 .photo-detail .pd-info .desc{font-family:var(--serif);font-size:1.6rem;line-height:1.92;color:var(--ink-soft);letter-spacing:.005em;margin-top:8px;text-align:justify;text-justify:inter-ideograph}
 .photo-detail .pd-info .desc::first-letter{font-family:var(--serif);font-size:3.8rem;font-weight:600;float:left;line-height:.8;margin:8px 14px 0 0;color:var(--ink)}
 
+/* 拍摄故事段落（JSON 描述文件中 story 字段存在时显示） */
+.photo-detail .pd-story-note{display:flex;align-items:center;gap:12px;font-family:var(--sans);font-size:.76rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line-2);padding-top:22px;margin-top:24px}
+.photo-detail .pd-story-note::before{content:"";display:inline-block;width:26px;height:1px;background:var(--ink-soft);flex:none}
+.photo-detail .pd-story{font-family:var(--serif);font-size:1.5rem;line-height:1.88;color:var(--ink-soft);letter-spacing:.005em;margin-top:8px;text-align:justify;text-justify:inter-ideograph}
+
 /* 分页导航（复用 magazine-detail 分页效果：PREV/NEXT 下划线滑入 + ALL 图标旋转） */
 /* 固定底部，始终可点击切换；背景站点底色 + 上边细线分隔 */
 .photo-detail .pd-pagenation{position:fixed;bottom:0;left:0;right:0;height:72px;display:flex;align-items:center;justify-content:center;background:var(--paper);border-top:1px solid var(--line);z-index:5;opacity:0;transform:translateY(100%);transition:opacity .5s ease .2s,transform .5s cubic-bezier(.2,.7,.2,1) .2s}
@@ -1327,6 +1364,7 @@ body.is-hidden{overflow:hidden}
   .photo-detail .pd-info{border-left:0;padding-left:0}
   .photo-detail .pd-info .desc{font-size:1.45rem;line-height:1.85}
   .photo-detail .pd-info .desc::first-letter{font-size:3.2rem}
+  .photo-detail .pd-story{font-size:1.4rem;line-height:1.8}
   .photo-detail .pd-pagenation{height:64px}
   .photo-detail .pd-pagenation .prev span,.photo-detail .pd-pagenation .next span{font-size:1.5rem}
 }

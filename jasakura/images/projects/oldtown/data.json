@@ -1,0 +1,78 @@
+﻿{
+    "lead":  "檐角与石板之间，时间走得比城市慢。我们走访正在消失的乡镇肌理——老铺、庙脊、石桥、收摊前的集市，以及坐在门前的老人。两位摄影师，两种走法。",
+    "photographers":  "林叙 · 周野",
+    "projectNum":  "01",
+    "heroImg":  "images/projects/oldtown/01.jpg",
+    "photos":  [
+                   {
+                       "creditName":  "林叙",
+                       "date":  "2026.04",
+                       "creditRole":  "常驻",
+                       "span":  "s6",
+                       "photographer":  "林叙",
+                       "imgAlt":  "老镇屋脊与天光",
+                       "img":  "images/projects/oldtown/02.jpg",
+                       "titleEn":  "Ridges \u0026 Sky",
+                       "title":  "屋脊与天光",
+                       "cat":  "documentary"
+                   },
+                   {
+                       "creditName":  "周野",
+                       "date":  "2026.04",
+                       "creditRole":  "客座",
+                       "span":  "s3",
+                       "photographer":  "周野",
+                       "imgAlt":  "老铺店主肖像",
+                       "img":  "images/projects/oldtown/03.jpg",
+                       "titleEn":  "Shopkeeper",
+                       "title":  "老铺肖像",
+                       "cat":  "portrait"
+                   },
+                   {
+                       "creditName":  "苏砚",
+                       "date":  "2026.05",
+                       "creditRole":  "客座",
+                       "span":  "s3",
+                       "photographer":  "苏砚",
+                       "imgAlt":  "巷口午后",
+                       "img":  "images/projects/oldtown/04.jpg",
+                       "titleEn":  "Alley Noon",
+                       "title":  "巷口午后",
+                       "cat":  "documentary"
+                   },
+                   {
+                       "creditName":  "沈墨",
+                       "date":  "2026.05",
+                       "creditRole":  "客座",
+                       "span":  "s4",
+                       "photographer":  "沈墨",
+                       "imgAlt":  "石桥晨雾",
+                       "img":  "images/projects/oldtown/05.jpg",
+                       "titleEn":  "Bridge Mist",
+                       "title":  "石桥晨雾",
+                       "cat":  "documentary"
+                   },
+                   {
+                       "creditName":  "陆深",
+                       "date":  "2026.06",
+                       "creditRole":  "客座",
+                       "span":  "s4",
+                       "photographer":  "陆深",
+                       "imgAlt":  "收摊前的集市",
+                       "img":  "images/projects/oldtown/06.jpg",
+                       "titleEn":  "Market Close",
+                       "title":  "收摊集市",
+                       "cat":  "documentary"
+                   }
+               ],
+    "titleEn":  "Old Towns",
+    "startDate":  "2026 春",
+    "status":  "进行中",
+    "deepRead":  [
+                     "老乡镇不是一个地理概念，而是一种时间状态。当城市以季度为单位刷新天际线时，这些乡镇仍以代际为刻度——一家杂货铺开四十年，一座石桥走三代人，一堵土墙在雨季塌了又垒。我们选择在午后最静的时刻进入：这个时间段属于留守者，属于打盹的店主、晒太阳的老人，以及绕过石墩跑过巷口的放学的孩子。",
+                     "光线斜下来，把瓦片的纹路、木门的裂痕、青石板上的水渍一一显影。我们尽量不说话，只让相机做记录者。每一次按下快门，都像在为一段即将被推平的肌理留一份拓片。",
+                     "专题采用两人对照的方式推进：林叙走外景，拍屋脊、街角与天光；周野走内景，拍铺面、灶台与肖像。两种焦段、两种距离，拼回一个正在消失的老乡镇。"
+                 ],
+    "title":  "老乡镇",
+    "heroImgAlt":  "老乡镇屋顶俯瞰"
+}
