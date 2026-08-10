@@ -5,10 +5,10 @@
 window.magazines = [
   {
     id:'001',
-    issue:'立秋 2026 No.001',
-    title:'PRELUDE 序',
-    titleEn:'Prelude',
-    cover:'images/magazine/001.jpg',
+    issue:'SUMMER 2026 No.001',
+    title:'WHISPERS OF PINES 树语',
+    titleEn:'WHISPERS OF PINES',
+    cover:'images/magazine/001/01.webp',
     description:'创刊号「序」。清晨旧巷，撑伞的孤影走过潮湿的青砖——樱茉序的第一页，从一束落在城乡之间的光开始。本期收录十二位共创摄影师的序章作品，建立 A/B 双调对照、长线企划与生灵日记四大板块的雏形。',
     lookInside:'index.html',
     shops:[
@@ -18,10 +18,10 @@ window.magazines = [
   },
   {
     id:'002',
-    issue:'白露 2026 No.002',
-    title:'BAMBOO MIST 竹雾',
-    titleEn:'Bamboo Mist',
-    cover:'images/magazine/002.jpg',
+    issue:'SUMMER 2026 No.002',
+    title:'QUIET GREENS 栖绿',
+    titleEn:'QUIET GREENS',
+    cover:'images/magazine/002/01.webp',
     description:'第二期「竹雾」。白露清晨，竹林深处雾气未散，35mm 镜头在湿润空气中铺出一层灰阶。本期延续序章的留白美学，加入静物与枯花专题，把"将凉未凉的茶"作为视觉母题贯穿全刊。',
     lookInside:'index.html',
     shops:[
@@ -32,9 +32,9 @@ window.magazines = [
   {
     id:'003',
     issue:'长线企划 No.003',
-    title:'OLD TOWNS 老乡镇',
-    titleEn:'Old Towns',
-    cover:'images/magazine/003.jpg',
+    title:'CREATURE DIARY 生灵日记',
+    titleEn:'CREATURE DIARY',
+    cover:'images/magazine/003/01.webp',
     description:'长线企划第三弹「老乡镇」。窄巷、石屋、午后斜阳，记录正在消失的檐角与集市。这是樱茉序第一个长期专题的开篇，将以一年为跨度持续回访六处老镇，见证它们在四季里的呼吸节奏。',
     lookInside:'project-oldtown.html',
     shops:[
@@ -44,10 +44,10 @@ window.magazines = [
   },
   {
     id:'004',
-    issue:'长线企划 No.004',
-    title:'NEW COUNTRYSIDE 新农村',
-    titleEn:'New Countryside',
-    cover:'images/magazine/004.jpg',
+    issue:'SUMMER 2026 No.004',
+    title:'CONQUER 征服',
+    titleEn:'CONQUER',
+    cover:'images/magazine/004/01.webp',
     description:'长线企划第四弹「新农村」。水泥新房与稻田交错，传统与重建在同一片土地上并置。本期以建筑的几何切面切入，对照乡镇的有机生长与农村的规划肌理。',
     lookInside:'project-newcountry.html',
     shops:[
@@ -55,6 +55,7 @@ window.magazines = [
       {name:'amazon.co.jp',url:'#'}
     ]
   },
+  /* 以下杂志尚未设计封面，暂时隐藏，设计完成后取消注释即可
   {
     id:'005',
     issue:'长线企划 No.005',
@@ -107,4 +108,5 @@ window.magazines = [
       {name:'amazon.co.jp',url:'#'}
     ]
   }
+  */
 ];

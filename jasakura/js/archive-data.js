@@ -2,43 +2,43 @@
    往期归档数据（about.html 使用）
    修改归档信息只需编辑本文件对应字段即可
 
-   图片放在 images/archive/ 文件夹下
+   与主页 magazine-data.js 保持同步，展示相同的 4 本杂志
    ============================================================ */
 window.archives = [
   {
-    img: 'images/archive/001.jpg',
-    imgAlt: 'No.001 立春封面',
+    img: 'images/magazine/001/01.webp',
+    imgAlt: 'No.001 WHISPERS OF PINES 树语',
     issue: 'Issue No.001',
-    date: '立春 2026',
-    title: '在城乡之间，光落下的一页',
-    titleEn: 'A Page Where Light Falls',
+    date: 'SUMMER 2026',
+    title: 'WHISPERS OF PINES 树语',
+    titleEn: 'Whispers of Pines',
     link: 'magazine-detail.html?id=001'
   },
   {
-    img: 'images/archive/002.jpg',
-    imgAlt: 'No.002 竹雾封面',
+    img: 'images/magazine/002/01.webp',
+    imgAlt: 'No.002 QUIET GREENS 栖绿',
     issue: 'Issue No.002',
-    date: '白露 2026',
-    title: '竹雾',
-    titleEn: 'Bamboo Mist',
+    date: 'SUMMER 2026',
+    title: 'QUIET GREENS 栖绿',
+    titleEn: 'Quiet Greens',
     link: 'magazine-detail.html?id=002'
   },
   {
-    img: 'images/archive/003.jpg',
-    imgAlt: 'No.003 霜降封面',
+    img: 'images/magazine/003/01.webp',
+    imgAlt: 'No.003 CREATURE DIARY 生灵日记',
     issue: 'Issue No.003',
-    date: '霜降 2026',
-    title: '枝上霜',
-    titleEn: 'Frost on Branches',
+    date: '长线企划',
+    title: 'CREATURE DIARY 生灵日记',
+    titleEn: 'Creature Diary',
     link: 'magazine-detail.html?id=003'
   },
   {
-    img: 'images/archive/004.jpg',
-    imgAlt: 'No.004 冬至封面',
+    img: 'images/magazine/004/01.webp',
+    imgAlt: 'No.004 CONQUER 征服',
     issue: 'Issue No.004',
-    date: '冬至 2026',
-    title: '雪与鸟居',
-    titleEn: 'Snow & Torii',
+    date: 'SUMMER 2026',
+    title: 'CONQUER 征服',
+    titleEn: 'Conquer',
     link: 'magazine-detail.html?id=004'
   }
 ];

@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/favicon.png">
 </head>
 <body>
 
@@ -18,132 +20,27 @@
 </header>
 
 <section style="padding-top:90px">
-  <div class="wrap">
+  <div class="wrap wrap--edge">
     <div class="sec-head">
       <div class="l"><h2>影像画廊<span class="en">Gallery</span></h2></div>
       <div class="r">多人共创 · 常驻 + 客座</div>
     </div>
-    <p class="annot" style="max-width:60ch;margin-bottom:30px;font-size:1.4rem;color:var(--ink-soft);font-family:var(--serif)">五类作品并列陈列。点击图片可放大；每张附带摄影师署名、拍摄参数，并可跳转影像解析专栏。</p>
+    <p class="annot" style="max-width:80ch;margin-bottom:36px;font-size:1.5rem;color:var(--ink-soft);font-family:var(--serif)">五类作品并列陈列。点击图片可放大；每张附带摄影师署名、拍摄参数，并可跳转影像解析专栏。</p>
 
     <!-- ============ 筛选 chips ============ -->
     <div class="filters filterable">
       <span class="grp-label">CATEGORY</span>
-      <button class="chip active" data-filter="all">全部</button>
-      <button class="chip" data-filter="landscape">风光</button>
-      <button class="chip" data-filter="documentary">纪实</button>
-      <button class="chip" data-filter="newtopographic">新地形</button>
-      <button class="chip" data-filter="stilllife">静物</button>
-      <button class="chip" data-filter="creative">创意</button>
+      <button class="chip active" data-filter="all">全部 <i>150</i></button>
+      <button class="chip" data-filter="landscape">风光 <i>30</i></button>
+      <button class="chip" data-filter="documentary">纪实 <i>30</i></button>
+      <button class="chip" data-filter="newtopographic">新地形 <i>30</i></button>
+      <button class="chip" data-filter="stilllife">静物 <i>30</i></button>
+      <button class="chip" data-filter="creative">创意 <i>30</i></button>
     </div>
 
-    <!-- ============ 画廊网格 ============ -->
-    <div class="grid-edit filterable">
-
-      <a href="reading.html" class="item s6" data-cat="landscape">
-        <div class="img ar-43" data-zoom><img loading="lazy" alt="山色空蒙" src="images/gallery/landscape/01.jpg"></div>
-        <div class="lbl"><span>风光</span><span>2026.08</span></div>
-        <h3>山色空蒙<span class="en">Mountain in Void</span></h3>
-        <div class="credit"><b>林叙</b> · 常驻</div>
-        <div class="params">35mm · f/8 · 1/60s · ISO 200</div>
-      </a>
-
-      <a href="reading.html" class="item s3" data-cat="landscape">
-        <div class="img ar-34" data-zoom><img loading="lazy" alt="雾松晨雪" src="images/gallery/landscape/02.jpg"></div>
-        <div class="lbl"><span>风光</span><span>2026.08</span></div>
-        <h3>雾松晨雪<span class="en">Frost Pines at Dawn</span></h3>
-        <div class="credit"><b>陆深</b> · 客座</div>
-        <div class="params">85mm · f/4 · 1/250s · ISO 100</div>
-      </a>
-
-      <a href="reading.html" class="item s3" data-cat="documentary">
-        <div class="img ar-43" data-zoom><img loading="lazy" alt="暮色集市" src="images/gallery/documentary/01.jpg"></div>
-        <div class="lbl"><span>纪实</span><span>2026.08</span></div>
-        <h3>暮色集市<span class="en">Market at Dusk</span></h3>
-        <div class="credit"><b>周野</b> · 常驻</div>
-        <div class="params">35mm · f/2.8 · 1/125s · ISO 1600</div>
-      </a>
-
-      <a href="reading.html" class="item s4" data-cat="documentary">
-        <div class="img ar-34" data-zoom><img loading="lazy" alt="渡口归人" src="images/gallery/documentary/02.jpg"></div>
-        <div class="lbl"><span>纪实</span><span>2026.07</span></div>
-        <h3>渡口归人<span class="en">Returners at the Ferry</span></h3>
-        <div class="credit"><b>周野</b> · 客座</div>
-        <div class="params">50mm · f/2 · 1/200s · ISO 800</div>
-      </a>
-
-      <a href="reading.html" class="item s4" data-cat="newtopographic">
-        <div class="img ar-43" data-zoom><img loading="lazy" alt="边缘之郊" src="images/gallery/newtopo/01.jpg"></div>
-        <div class="lbl"><span>新地形</span><span>2026.08</span></div>
-        <h3>边缘之郊<span class="en">Edge of Suburbia</span></h3>
-        <div class="credit"><b>沈墨</b> · 常驻</div>
-        <div class="params">24mm · f/11 · 1/100s · ISO 100</div>
-      </a>
-
-      <a href="reading.html" class="item s4" data-cat="newtopographic">
-        <div class="img ar-43" data-zoom><img loading="lazy" alt="仓体几何" src="images/gallery/newtopo/02.jpg"></div>
-        <div class="lbl"><span>新地形</span><span>2026.07</span></div>
-        <h3>仓体几何<span class="en">Warehouse Geometry</span></h3>
-        <div class="credit"><b>陈青</b> · 客座</div>
-        <div class="params">28mm · f/8 · 1/160s · ISO 200</div>
-      </a>
-
-      <a href="reading.html" class="item s3" data-cat="stilllife">
-        <div class="img ar-34" data-zoom><img loading="lazy" alt="枯花与亚麻" src="images/gallery/stilllife/01.jpg"></div>
-        <div class="lbl"><span>静物</span><span>2026.08</span></div>
-        <h3>枯花与亚麻<span class="en">Dried Flowers on Linen</span></h3>
-        <div class="credit"><b>苏砚</b> · 常驻</div>
-        <div class="params">90mm · f/4 · 1/30s · ISO 400</div>
-      </a>
-
-      <a href="reading.html" class="item s3" data-cat="stilllife">
-        <div class="img ar-1" data-zoom><img loading="lazy" alt="陶与影" src="images/gallery/stilllife/02.jpg"></div>
-        <div class="lbl"><span>静物</span><span>2026.07</span></div>
-        <h3>陶与影<span class="en">Clay and Shadow</span></h3>
-        <div class="credit"><b>苏砚</b> · 常驻</div>
-        <div class="params">100mm · f/5.6 · 1/60s · ISO 200</div>
-      </a>
-
-      <a href="reading.html" class="item s6" data-cat="creative">
-        <div class="img ar-43" data-zoom><img loading="lazy" alt="残像重叠" src="images/gallery/creative/01.jpg"></div>
-        <div class="lbl"><span>创意</span><span>2026.08</span></div>
-        <h3>残像重叠<span class="en">Overlapping Afterimages</span></h3>
-        <div class="credit"><b>沈墨</b> · 常驻</div>
-        <div class="params">50mm · f/2.8 · 1/15s · ISO 800 · 多重曝光</div>
-      </a>
-
-      <a href="reading.html" class="item s6" data-cat="creative">
-        <div class="img ar-169" data-zoom><img loading="lazy" alt="镜中之昼" src="images/gallery/creative/02.jpg"></div>
-        <div class="lbl"><span>创意</span><span>2026.08</span></div>
-        <h3>镜中之昼<span class="en">Day in the Mirror</span></h3>
-        <div class="credit"><b>陈青</b> · 客座</div>
-        <div class="params">35mm · f/4 · 1/250s · ISO 100</div>
-      </a>
-
-      <a href="reading.html" class="item s6" data-cat="landscape">
-        <div class="img ar-43" data-zoom><img loading="lazy" alt="海雾长滩" src="images/gallery/landscape/03.jpg"></div>
-        <div class="lbl"><span>风光</span><span>2026.07</span></div>
-        <h3>海雾长滩<span class="en">Long Beach in Sea Mist</span></h3>
-        <div class="credit"><b>陆深</b> · 客座</div>
-        <div class="params">45mm · f/5.6 · 1/200s · ISO 200</div>
-      </a>
-
-      <a href="reading.html" class="item s6" data-cat="documentary">
-        <div class="img ar-43" data-zoom><img loading="lazy" alt="雨夜便利店" src="images/gallery/documentary/03.jpg"></div>
-        <div class="lbl"><span>纪实</span><span>2026.07</span></div>
-        <h3>雨夜便利店<span class="en">Store in the Rain</span></h3>
-        <div class="credit"><b>林叙</b> · 常驻</div>
-        <div class="params">28mm · f/1.8 · 1/60s · ISO 3200</div>
-      </a>
-
-      <!-- 演示卡片：配合 demo-image.json 显示详细介绍 -->
-      <a href="reading.html" class="item s6" data-cat="documentary">
-        <div class="img ar-43" data-zoom><img loading="lazy" alt="旧巷晨光" src="images/gallery/documentary/demo-image.jpg"></div>
-        <div class="lbl"><span>纪实</span><span>2026.08</span></div>
-        <h3>旧巷晨光<span class="en">Morning Light in the Old Alley</span></h3>
-        <div class="credit"><b>林叙</b> · 常驻</div>
-        <div class="params">35mm · f/2.8 · 1/125s · ISO 800</div>
-      </a>
-
+    <!-- ============ 画廊网格（数据驱动 · 见 js/gallery-data.js） ============ -->
+    <div class="grid-edit filterable" id="gallery-grid">
+      <!-- JS 从 gallery-data.js 数据动态渲染 -->
     </div>
 
   </div>
@@ -183,6 +80,35 @@
   </div>
 </footer>
 
+<script src="js/gallery-data.js"></script>
+<script>
+/* ============================================================
+   影像画廊渲染 — 从 gallery-data.js 数据动态生成卡片
+   必须在 app.js 之前执行（筛选绑定需要卡片已存在）
+   添加新图片只需编辑 js/gallery-data.js，无需改此文件
+   ============================================================ */
+(function(){
+  if (!window.galleryItems || !galleryItems.length) return;
+  var grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+
+  galleryItems.forEach(function(p){
+    var a = document.createElement('a');
+    a.href = 'reading.html';
+    a.className = 'item ' + (p.span || 's4');
+    if (p.cat) a.setAttribute('data-cat', p.cat);
+    a.innerHTML =
+      '<div class="img ' + (p.ratio || 'ar-43') + '" data-zoom>' +
+        '<img loading="lazy" alt="' + (p.imgAlt || '') + '" src="' + p.img + '">' +
+      '</div>' +
+      '<div class="lbl"><span>' + (p.catLabel || '') + '</span><span>' + (p.date || '') + '</span></div>' +
+      '<h3>' + (p.title || '') + '<span class="en">' + (p.titleEn || '') + '</span></h3>' +
+      '<div class="credit"><b>' + (p.photographer || '') + '</b> · ' + (p.role || '') + '</div>' +
+      (p.params ? '<div class="params">' + p.params + '</div>' : '');
+    grid.appendChild(a);
+  });
+})();
+</script>
 <script src="js/app.js"></script>
 </body>
 </html>

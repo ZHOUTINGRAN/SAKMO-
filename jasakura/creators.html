@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/favicon.png">
 </head>
 <body>
 
@@ -22,9 +24,9 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="l"><h2>创作者名册<span class="en">Roster</span></h2></div>
-      <div class="r">Editor-in-Chief + Resident + Guest · 主编 + 常驻 + 客座</div>
+      <div class="r">Editor-in-Chief + Resident · 主编 + 常驻</div>
     </div>
-    <p class="annot" style="max-width:62ch;margin-bottom:40px;font-size:1.4rem;color:var(--ink-soft);font-family:var(--serif);line-height:1.85">以人为主角，看见镜头背后的目光。主编统筹全刊，常驻摄影师每期稳定产出，客座创作者每期轮换——三种目光并列陈列，才构成一张完整的桌面。点击名片进入各自影像画廊。</p>
+    <p class="annot" style="max-width:62ch;margin-bottom:40px;font-size:1.4rem;color:var(--ink-soft);font-family:var(--serif);line-height:1.85">以人为主角，看见镜头背后的目光。主编统筹全刊，常驻摄影师每期稳定产出——两种目光并列陈列，构成一张完整的桌面。点击名片进入各自影像画廊。</p>
 
     <!-- ============ 主编 ============ -->
     <div class="creator-zone editor-zone">
@@ -50,17 +52,7 @@
       </div>
     </div>
 
-    <!-- ============ 客座创作者 ============ -->
-    <div class="creator-zone">
-      <div class="zhead">
-        <span class="n">03</span>
-        <h3>客座创作者</h3>
-        <span class="e">Guest Contributors</span>
-      </div>
-      <div class="creator-grid" id="creator-guest">
-        <!-- JS 从 creators-data.js 动态渲染 -->
-      </div>
-    </div>
+    <!-- 客座创作者区域暂未开放，数据保留在 js/creators-data.js 的 guest 数组中，有客座时恢复即可 -->
 
     <div class="submit-strip" style="margin-top:48px;padding:72px 0">
       <h3>想成为客座创作者？<span class="en" style="display:block;font-style:italic;font-weight:400;font-size:1.3rem;color:var(--muted);margin-top:6px">Become a Guest Contributor</span></h3>

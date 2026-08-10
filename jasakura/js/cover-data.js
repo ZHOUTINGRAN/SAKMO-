@@ -15,35 +15,27 @@
 */
 var COVER_SLIDES = [
   {
-    img: 'images/magazine/001.jpg',
-    imgAlt: 'No.001 封面：清晨旧巷',
-    issue: 'Issue No.001 · 立秋 2026 · Prelude 序',
-    title: '在城乡之间，光落下的一页',
-    titleEn: 'A Page Where Light Falls',
-    annot: '封面 · 清晨旧巷<br>摄影 / 林叙'
+    img: 'images/gallery/documentary/02.webp',
+    imgAlt: 'No.003 封面：生灵日记',
+    issue: 'Issue No.003 · 长线企划 · Creature Diary',
+   title: '城市与山野之间，无数微小生命自在栖居',
+   titleEn: 'Between city and wilderness, countless small‑scale lives dwell freely.',
+   annot: '封面 · 生灵日记 摄影 / 周亭燃'
   },
   {
-    img: 'images/magazine/002.jpg',
-    imgAlt: 'No.002 封面：竹雾',
-    issue: 'Issue No.002 · 白露 2026 · Bamboo Mist',
-    title: '竹雾深处，呼吸可闻',
-    titleEn: 'Bamboo Whisper',
-    annot: '封面 · 竹林晨雾<br>摄影 / 苏砚'
-  },
+    img: 'images/gallery/landscape/01.webp',
+    imgAlt: 'No.002 封面：万家灯火',
+    issue: 'Issue No.002 · 初夏 2026 · prelede 万家灯火',
+    title: '城隅灯息',
+    titleEn: 'City Glow',
+    annot: '封面 · 万家灯火<br>摄影 / 周亭燃'
+    },
   {
-    img: 'images/magazine/003.jpg',
-    imgAlt: 'No.003 封面：老乡镇',
-    issue: 'Issue No.003 · 长线企划 · Old Towns',
-    title: '老乡镇的最后一道光',
-    titleEn: 'The Last Light of Old Towns',
-    annot: '封面 · 老镇小巷<br>摄影 / 周野'
-  },
-  {
-    img: 'images/magazine/004.jpg',
-    imgAlt: 'No.004 封面：新农村',
-    issue: 'Issue No.004 · 长线企划 · New Countryside',
-    title: '新农村，旧时光',
-    titleEn: 'New Country, Old Time',
-    annot: '封面 · 田间午后<br>摄影 / 林叙'
+    img: 'images/gallery/newtopo/01.webp',
+    imgAlt: 'No.004 封面：城市边缘发展',
+    issue: 'Issue No.004 · 长线企划 · Citys Edge',
+    title: '变迁的城疆',
+    titleEn: 'Shifting Urban Frontier',
+    annot: '封面 · 城市边缘发展<br>摄影 / 周亭燃'
   }
 ];
