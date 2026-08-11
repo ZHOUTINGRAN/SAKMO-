@@ -81,13 +81,13 @@ window.creators = {
       link: 'gallery.html'
     },
     {
-      name: '待补充',
-      nameEn: 'TBD',
+      name: '尚色教主',
+      nameEn: 'Shang Se',
       role: '常驻 / 摄影',
       portrait: 'images/creators/08.webp',
-      portraitAlt: '肖像',
-      bio: '',
-      specs: '',
+      portraitAlt: '尚色教主肖像',
+      bio: '06年入行的野生摄影人。喜游走于城市边缘，离自然很近，距红尘不远。向外可发现被时代忽略的美景，向内可扎进人海捕捉当下。',
+      specs: 'LUMIX S9',
       link: 'gallery.html'
     },
     {

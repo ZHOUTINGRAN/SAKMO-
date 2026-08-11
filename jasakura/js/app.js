@@ -173,30 +173,40 @@
   }
 
   /* ---- 筛选 (gallery / creators 等) ----
-     用法：容器 .filterable，子项带 data-cat="landscape"；.filters .chip 带 data-filter。
+     用法：容器 .filterable，子项带 data-cat="landscape"（或可选 data-photographer="XX"）；
+           .filters .chip 带 data-filter；.filters 带 data-filter-group="category|photographer"。
+     多个 filter-group 组合生效（AND 关系），如同时选"风光 + 周亭燃"。
      支持 data-cat 多值以空格分隔。 */
   var filterables = document.querySelectorAll('.filterable');
   var filterTimer = null;
-  function applyFilter(f){
-    document.querySelectorAll('.filters').forEach(function (fbar) {
-      fbar.querySelectorAll('.chip').forEach(function (c) {
-        c.classList.toggle('active', c.dataset.filter === f);
-      });
-    });
+  /* 当前各筛选组的选中值（key = group 名，默认 all） */
+  var filterState = {
+    category: 'all',
+    photographer: 'all'
+  };
+
+  function applyFiltersFromState() {
     /* Phase 1：所有可见项一起淡出（网格布局不变，避免重排跳变） */
     filterables.forEach(function (group) {
       group.querySelectorAll('[data-cat]').forEach(function (item) {
         if (item.style.display !== 'none') { item.classList.add('is-hide'); }
       });
     });
-    /* 清除上一次未完成的定时器，防止快速切换冲突 */
     if (filterTimer) { clearTimeout(filterTimer); filterTimer = null; }
     /* Phase 2：淡出完成后更新 display，再下帧移除 is-hide 触发淡入 */
     filterTimer = setTimeout(function(){
       filterables.forEach(function (group) {
         group.querySelectorAll('[data-cat]').forEach(function (item) {
+          /* 分类条件 */
           var cats = (item.dataset.cat || '').split(/\s+/);
-          var show = (f === 'all' || cats.indexOf(f) > -1);
+          var catF = filterState.category || 'all';
+          var catPass = (catF === 'all' || cats.indexOf(catF) > -1);
+          /* 摄影师条件 */
+          var photo = item.dataset.photographer || '';
+          var phF = filterState.photographer || 'all';
+          var phPass = (phF === 'all' || photo === phF);
+          /* 组合：两个条件都通过才显示 */
+          var show = catPass && phPass;
           if (show) {
             item.style.display = '';
             item.classList.add('is-hide');
@@ -205,7 +215,6 @@
           }
         });
       });
-      /* 下帧统一移除 is-hide，触发淡入 */
       requestAnimationFrame(function(){
         filterables.forEach(function (group) {
           group.querySelectorAll('[data-cat]').forEach(function (item) {
@@ -216,17 +225,44 @@
       filterTimer = null;
     }, 250);
   }
+
+  /* 同步某条筛选条的激活高亮（按当前 group 激活对应 chip） */
+  function syncActive(group, value) {
+    document.querySelectorAll('.filters[data-filter-group="' + group + '"]').forEach(function (fbar) {
+      fbar.querySelectorAll('.chip').forEach(function (c) {
+        c.classList.toggle('active', c.dataset.filter === value);
+      });
+    });
+  }
+  /* 单组切换：更新 group 对应 state 字段 + 高亮 + 触发筛选 */
+  function applyFilterGroup(group, f) {
+    if (!group) group = 'category';
+    filterState[group] = f;
+    syncActive(group, f);
+    applyFiltersFromState();
+  }
+  /* 旧版单参数接口（保留兼容：creators 等页面只有一个筛选组） */
+  function applyFilter(f) { applyFilterGroup('category', f); }
+
   document.querySelectorAll('.filters').forEach(function (fbar) {
-    var chips = fbar.querySelectorAll('.chip');
-    chips.forEach(function (chip) {
-      chip.addEventListener('click', function () { if (!chip.classList.contains('active')) applyFilter(chip.dataset.filter); });
+    var group = fbar.dataset.filterGroup || 'category';
+    fbar.querySelectorAll('.chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        if (chip.classList.contains('active')) return;
+        applyFilterGroup(group, chip.dataset.filter);
+      });
     });
   });
-  // 通过 URL hash 激活筛选（如抽屉标签 gallery.html#documentary）
+  // 通过 URL hash 激活筛选（如抽屉标签 gallery.html#documentary 或 #周亭燃）
   if (location.hash) {
     var hash = location.hash.slice(1);
-    var hasChip = document.querySelector('.chip[data-filter="' + hash + '"]');
-    if (hasChip) applyFilter(hash);
+    var categoryChip = document.querySelector('.filters[data-filter-group="category"] .chip[data-filter="' + hash + '"]');
+    if (categoryChip) {
+      applyFilterGroup('category', hash);
+    } else {
+      var phChip = document.querySelector('.filters[data-filter-group="photographer"] .chip[data-filter="' + hash + '"]');
+      if (phChip) applyFilterGroup('photographer', hash);
+    }
   }
 
   /* ---- 影像解析头条轮播 ----
