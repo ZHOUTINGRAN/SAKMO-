@@ -1259,7 +1259,7 @@ body.is-hidden{overflow:hidden}
 .photo-detail .pd-close:hover span:last-child{transform:rotate(-15deg) scaleX(1.12)}
 
 /* 内容布局：突破 max-width 限制（1500px），图片占比更大（3fr : 1fr），居中限宽 */
-.photo-detail .pd-inner{position:relative;max-width:1500px;margin:0 auto;padding:120px var(--gut) 120px;display:grid;grid-template-columns:3fr 1fr;gap:64px;align-items:center;min-height:100vh;z-index:2}
+.photo-detail .pd-inner{position:relative;max-width:1700px;margin:0 auto;padding:120px var(--gut) 120px;display:grid;grid-template-columns:5fr 2fr;gap:72px;align-items:center;min-height:100vh;z-index:2}
 
 /* 入场动画：图片与信息区分别从下淡入，信息区略延迟（克制的层叠感） */
 .photo-detail .pd-img,.photo-detail .pd-info{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
@@ -1271,11 +1271,17 @@ body.is-hidden{overflow:hidden}
 
 /* 左侧：放大图片（细边框 + 双层柔和阴影 + 显影式微缩放入场） */
 /* 容器 fit-content 收缩贴边，图片 max-height 限制在视口内，竖图不再溢出 */
+/* 图片容器（带白底与灰边，杂志编辑式装裱框）
+   竖图：width:fit-content 让边框贴着图片边缘，不产生多余留白；
+   横图：justify-self:stretch + width:100% 撑满整列宽度，视觉最大化。 */
 .photo-detail .pd-img{overflow:hidden;background:var(--paper-2);border:1px solid var(--line);box-shadow:0 6px 40px rgba(0,0,0,.10),0 1px 6px rgba(0,0,0,.05);width:fit-content;max-width:100%;justify-self:center}
 .photo-detail .pd-img img{display:block;max-width:100%;max-height:calc(100vh - 240px);width:auto;height:auto;transform:scale(1.03);transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .photo-detail.is-in .pd-img img{transform:scale(1)}
-/* 竖图：max-height 已限制高度，无需再限宽，让图片尽可能大 */
-.photo-detail .pd-img.is-portrait{max-width:100%}
+/* 竖图：max-height 限制高度不超出视口，宽度自然按比例收缩 */
+.photo-detail .pd-img.is-portrait{width:fit-content;max-width:100%;justify-self:center}
+/* 横图：撑满整列宽度，最大化视觉尺寸（justify-self:stretch 让容器顶到 grid 列两端） */
+.photo-detail .pd-img.is-landscape{width:100%;justify-self:stretch;display:flex;align-items:center;justify-content:center}
+.photo-detail .pd-img.is-landscape img{width:100%;height:auto;max-height:calc(100vh - 240px)}
 
 /* 右侧：信息区（左侧细线装饰 + 垂直排列 + 更舒展的间距） */
 .photo-detail .pd-info{display:flex;flex-direction:column;gap:20px;padding-left:40px;border-left:1px solid var(--line)}

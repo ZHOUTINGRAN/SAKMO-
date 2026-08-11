@@ -551,13 +551,37 @@
     var itemParams = item.querySelector('.params');
 
     if(itemImg){ imgEl.src = itemImg.src; imgEl.alt = itemImg.alt; }
-    /* 竖图标记：根据原始卡片图片容器的比例 class（ar-34/ar-23）判断，限制面板中竖图尺寸 */
+    /* 竖图/横图标记：根据卡片容器比例 class 判断 */
     var itemImgWrap = item.querySelector('.img');
     var pdImgWrap   = panel.querySelector('.pd-img');
-    if(itemImgWrap && (itemImgWrap.classList.contains('ar-34') || itemImgWrap.classList.contains('ar-23'))){
-      pdImgWrap.classList.add('is-portrait');
-    } else {
-      pdImgWrap.classList.remove('is-portrait');
+    var imgElRect = imgEl;
+    /* 优先用比例 class 判断（数据准确），加载完成后再用原始尺寸兜底 */
+    function markOrientation(){
+      var portraitByClass = itemImgWrap && (itemImgWrap.classList.contains('ar-34') || itemImgWrap.classList.contains('ar-23'));
+      var isLandscape = false;
+      if (imgElRect.naturalWidth > 0) {
+        isLandscape = imgElRect.naturalWidth >= imgElRect.naturalHeight;
+        if (!isLandscape) {
+          pdImgWrap.classList.add('is-portrait');
+          pdImgWrap.classList.remove('is-landscape');
+        } else {
+          pdImgWrap.classList.add('is-landscape');
+          pdImgWrap.classList.remove('is-portrait');
+        }
+      } else {
+        if (portraitByClass) {
+          pdImgWrap.classList.add('is-portrait');
+          pdImgWrap.classList.remove('is-landscape');
+        } else {
+          pdImgWrap.classList.add('is-landscape');
+          pdImgWrap.classList.remove('is-portrait');
+        }
+      }
+    }
+    markOrientation();
+    if (imgElRect.addEventListener && !imgElRect._pdOrigBound) {
+      imgElRect._pdOrigBound = true;
+      imgElRect.addEventListener('load', function(){ markOrientation(); });
     }
     if(itemLbl){ lblEl.innerHTML = itemLbl.innerHTML; }
     if(itemTitle){ titleEl.innerHTML = itemTitle.innerHTML; }
