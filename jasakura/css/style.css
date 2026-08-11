@@ -313,7 +313,8 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 .editor-feature .link{align-self:flex-start;margin-top:6px;font-size:.98rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px}
 @media(max-width:767px){
   .editor-feature{grid-template-columns:1fr;gap:30px;padding:30px}
-  .editor-feature .portrait{aspect-ratio:4/3;max-width:300px}
+  /* 移动端保留竖向比例，避免肖像图被横向裁切；放宽限宽让图片更舒展 */
+  .editor-feature .portrait{aspect-ratio:3/4;max-width:360px}
 }
 
 /* ---------- 解析专栏 ---------- */
@@ -553,13 +554,18 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
   .grid-edit .s4,.grid-edit .s3{grid-column:span 6}
   .ab-row{grid-template-columns:1fr}
   .cover .frame{aspect-ratio:4/3}
+  /* 移动端 100vw 会包含滚动条宽度导致横向溢出，改用 100% 避免底部可拖动 */
+  .cover .frame{width:100%;margin-left:0}
 }
 @media (max-width:768px){
   body{padding-top:60px}
   section{padding:72px 0}
   .sec-head{flex-direction:column;align-items:flex-start;gap:12px}
   .sec-head .r{text-align:left}
-  .grid-edit .s4,.grid-edit .s3{grid-column:span 12}
+  /* 移动端所有 span 统一占满 12 列（单列堆叠，避免横向溢出） */
+  .grid-edit .s3,.grid-edit .s4,.grid-edit .s5,.grid-edit .s6,.grid-edit .s7,.grid-edit .s8{grid-column:span 12}
+  /* 移动端减小网格间距，避免拥挤 */
+  .grid-edit{gap:40px 0}
   .quick-4,.creator-grid,.read-list,.archive-grid{grid-template-columns:1fr}
   .cross .links{grid-template-columns:1fr}
   .spec-table .row{grid-template-columns:1fr;gap:6px}
@@ -1387,11 +1393,26 @@ body.is-hidden{overflow:hidden}
   .photo-detail .pd-logo{top:24px;left:26px}
   .photo-detail .pd-logo .en{font-size:2rem}
   .photo-detail .pd-logo .ja{font-size:.9rem}
-  .photo-detail .pd-inner{padding:80px 25px 100px;grid-template-columns:1fr;gap:36px;min-height:auto}
-  .photo-detail .pd-info{border-left:0;padding-left:0}
-  .photo-detail .pd-info .desc{font-size:1.45rem;line-height:1.85}
+  /* 移动端重新排版：标题/参数在上 → 图片居中 → 简介在底部
+     pd-info 用 display:contents 让子元素穿透到 pd-inner 的 flex 上下文，
+     这样 pd-img 可通过 order 插到「头部信息」与「底部简介」之间 */
+  .photo-detail .pd-inner{padding:72px 25px 88px;display:flex;flex-direction:column;gap:14px;min-height:100vh;justify-content:center}
+  .photo-detail .pd-info{display:contents}
+  /* 头部信息组（order 1-5）：编号/标签/标题/署名/参数 */
+  .photo-detail .pd-info .index{order:1}
+  .photo-detail .pd-info .lbl{order:2}
+  .photo-detail .pd-info h3{order:3;margin-bottom:4px}
+  .photo-detail .pd-info .credit{order:4}
+  .photo-detail .pd-info .params{order:5;margin-bottom:8px}
+  /* 图片居中（order 10）：限制高度让图片尽量占据中心区域 */
+  .photo-detail .pd-img{order:10;width:100%;max-width:100%;max-height:calc(100vh - 380px);margin:4px 0}
+  .photo-detail .pd-img img{max-height:calc(100vh - 380px)}
+  /* 底部简介组（order 11-14）：摄影手记/简介/故事标题/故事 */
+  .photo-detail .pd-info .pd-note{order:11;margin-top:8px}
+  .photo-detail .pd-info .desc{order:12;font-size:1.45rem;line-height:1.85}
   .photo-detail .pd-info .desc::first-letter{font-size:3.2rem}
-  .photo-detail .pd-story{font-size:1.4rem;line-height:1.8}
+  .photo-detail .pd-info .pd-story-note{order:13}
+  .photo-detail .pd-info .pd-story{order:14;font-size:1.4rem;line-height:1.8}
   .photo-detail .pd-pagenation{height:64px}
   .photo-detail .pd-pagenation .prev span,.photo-detail .pd-pagenation .next span{font-size:1.5rem}
 }
