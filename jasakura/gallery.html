@@ -19,10 +19,10 @@
   <button id="menu-btn" aria-label="菜单"></button>
 </header>
 
-<section style="padding-top:90px">
+<section style="padding-top:140px">
   <div class="wrap wrap--edge">
-    <div class="sec-head">
-      <div class="l"><h2>影像画廊<span class="en">Gallery</span></h2></div>
+    <div class="sec-head sec-head--h3">
+      <div class="l"><h2>Gallery<span class="ja">影像画廊</span></h2></div>
       <div class="r">多人共创 · 常驻 + 客座</div>
     </div>
     <p class="annot" style="max-width:80ch;margin-bottom:36px;font-size:1.5rem;color:var(--ink-soft);font-family:var(--serif)">五类作品并列陈列。点击图片可放大；每张附带摄影师署名、拍摄参数，并可跳转影像解析专栏。</p>
@@ -90,6 +90,12 @@
     <small>© 2026 樱茉序 Sakmo · 多人共创</small>
   </div>
 </footer>
+
+<!-- ============ 回到顶部按钮 Back-to-top ============ -->
+<button id="back-top" aria-label="回到顶部 Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-8 8 1.4 1.4L11 7.8V20h2V7.8l5.6 5.6L20 12z"/></svg>
+  <span>TOP</span>
+</button>
 
 <script src="js/gallery-data.js"></script>
 <script>
@@ -172,6 +178,28 @@
       });
     }
   })();
+})();
+
+/* ---- 回到顶部按钮 Back-to-top ----
+   滚动超过阈值淡入显示 · 点击平滑回顶 · rAF 节流 */
+(function(){
+  var btn = document.getElementById('back-top');
+  if(!btn) return;
+  var SHOW_AT = 420; /* 滚动超过 420px 显示 */
+  var ticking = false;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      ticking = false;
+      btn.classList.toggle('is-visible', window.scrollY > SHOW_AT);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  btn.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
 })();
 </script>
 <script src="js/app.js"></script>

@@ -1395,3 +1395,37 @@ body.is-hidden{overflow:hidden}
   .photo-detail .pd-pagenation{height:64px}
   .photo-detail .pd-pagenation .prev span,.photo-detail .pd-pagenation .next span{font-size:1.5rem}
 }
+
+/* ---------- 回到顶部按钮（画廊页 · 右下角浮动） ----------
+   极简圆形 · 细线边框 · 滚动超过阈值淡入 · hover 反色
+   z-index:60 低于 photo-detail(100) 与 header(80)，面板/菜单打开时自然被遮挡
+   Back-to-top floating button (gallery page, bottom-right) */
+#back-top{position:fixed;right:max(16px,calc(var(--gut) * .5));bottom:36px;width:56px;height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:var(--paper);border:1px solid var(--line-2);border-radius:50%;cursor:pointer;padding:0;z-index:60;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .45s ease,transform .45s cubic-bezier(.2,.7,.2,1),background .35s ease,border-color .35s ease}
+#back-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+#back-top svg{width:16px;height:16px;fill:var(--ink);transition:fill .35s ease,transform .35s cubic-bezier(.2,.7,.2,1)}
+#back-top span{font-family:var(--sans);font-size:.62rem;letter-spacing:.22em;color:var(--ink-soft);line-height:1;transition:color .35s ease}
+/* 桌面 hover：反色为墨黑底 */
+@media(min-width:768px){
+  #back-top:hover{background:var(--ink);border-color:var(--ink)}
+  #back-top:hover svg{fill:var(--paper);transform:translateY(-2px)}
+  #back-top:hover span{color:var(--paper)}
+}
+/* 点击反馈 */
+#back-top:active{transform:translateY(0) scale(.94)}
+/* 减少动效偏好 */
+@media(prefers-reduced-motion:reduce){
+  #back-top{transition:opacity .2s ease}
+  #back-top:hover svg{transform:none}
+}
+/* 移动端：缩小并贴近边缘 */
+@media(max-width:768px){
+  #back-top{width:48px;height:48px;bottom:24px;right:16px}
+  #back-top svg{width:14px;height:14px}
+}
+
+/* ---------- sec-head--h3 标题：左侧贴近视口边缘 ----------
+   去掉 .wrap--edge 给 sec-head 的左 padding，让粗短杠贴网页边
+   与 PROJECTS / MAGAZINE 的 .h3-common 一致；右侧 padding 保留以与
+   下方 .annot / .filters 右对齐
+   适用于画廊页及 index 的 SAKMO IMAGERY / Editor's Pick */
+.wrap--edge .sec-head--h3{padding-left:0}
