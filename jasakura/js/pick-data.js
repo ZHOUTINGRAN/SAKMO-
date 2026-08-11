@@ -8,18 +8,18 @@
    ============================================================ */
 window.PICKS = [
   {
-    img: 'images/gallery/documentary/01.jpg',  // ← 画廊图片路径
-    span: 's6',                                 // ← 网格宽度
-    link: 'gallery.html'                        // ← 点击跳转链接（可选，默认 gallery.html）
+    img: 'images/gallery/landscape/03.webp',   // ← 加米峰 No.2
+    span: 's3',                                // ← 网格宽度
+    link: 'gallery.html'                       // ← 点击跳转链接（可选，默认 gallery.html）
   },
   {
-    img: 'images/gallery/stilllife/01.jpg',
+    img: 'images/gallery/landscape/05.webp',   // ← 奔腾
     span: 's3',
     link: 'gallery.html'
   },
   {
-    img: 'images/gallery/documentary/03.jpg',
-    span: 's3',
+    img: 'images/gallery/documentary/02.webp', // ← 自由
+    span: 's6',
     link: 'gallery.html'
   }
 ];

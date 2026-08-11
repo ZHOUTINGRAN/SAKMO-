@@ -1,14 +1,14 @@
 {
-  "title": "渡口归人",
-  "titleEn": "Returners at the Ferry",
+  "title": "自由",
+  "titleEn": "Freely",
   "category": "纪实",
   "categoryEn": "Documentary",
-  "photographer": "周野",
-  "role": "客座创作者",
+  "photographer": "周亭燃",
+  "role": "主编",
   "date": "2026.07",
-  "params": "50mm · f/2 · 1/200s · ISO 800",
-  "location": "江南 · 老渡口",
-  "description": "最后一班渡船靠岸，下船的人各自散去。有人在打电话，有人拎着行李，有人回头看了一眼河面。每个人的归途都不一样。",
-  "story": "50mm 是最接近人眼视角的焦段，适合拍"看见"的画面。我站在渡口等了一个下午，就为了这一班船的人。",
-  "tags": ["渡口", "归人", "纪实", "50mm"]
+  "params": "50mm · f/8 · 1/125s · ISO 200",
+  "location": "未知",
+  "description": "捕捉自由的瞬间，展现人物的真实状态。",
+  "story": "自由不是一种状态，而是一种被捕捉到的片刻。",
+  "tags": ["纪实", "人像", "50mm"]
 }

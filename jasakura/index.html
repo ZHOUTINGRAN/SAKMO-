@@ -1,4 +1,4 @@
-﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -247,11 +247,24 @@
     a.href = link;
     a.className = 'item ' + span;
     a.innerHTML =
-      '<div class="img" data-zoom><img loading="lazy" alt="" src="' + p.img + '"></div>' +
+      '<div class="img is-loading" data-zoom><img loading="lazy" alt="" src="' + p.img + '"></div>' +
       '<div class="lbl"><span>　</span><span>　</span></div>' +
-      '<h3>　<span class="en"></span></h3>' +
-      '<div class="credit"><b>　</b> · 　</div>';
+      '<h3>　<span class="en"></span></h3>';
     grid.appendChild(a);
+
+    /* 图片加载完成：移除骨架屏 + 淡入显示（与画廊页渲染一致，避免 img 默认 opacity:0 不显示） */
+    var imgEl = a.querySelector('img');
+    function onImgReady(){
+      var wrap = a.querySelector('.img');
+      if (wrap) wrap.classList.remove('is-loading');
+      imgEl.classList.add('is-loaded');
+    }
+    if (imgEl.complete && imgEl.naturalWidth > 0) {
+      onImgReady();
+    } else {
+      imgEl.addEventListener('load', onImgReady);
+      imgEl.addEventListener('error', onImgReady);
+    }
 
     /* 异步加载画廊 JSON，填充标题/分类/摄影师等信息 */
     fetch(imgToJsonPath(p.img))
@@ -270,13 +283,6 @@
           h3.childNodes[0].nodeValue = d.title || '';
           var en = h3.querySelector('.en');
           if (en && d.titleEn) en.textContent = d.titleEn;
-        }
-        var credit = a.querySelector('.credit');
-        if (credit){
-          var b = credit.querySelector('b');
-          if (b && d.photographer) b.textContent = d.photographer;
-          /* role 前的 " · " 保留，只替换后半段 */
-          if (d.role) credit.lastChild.textContent = ' ' + d.role;
         }
       })
       .catch(function(){ /* JSON 不存在时保持占位空白 */ });
