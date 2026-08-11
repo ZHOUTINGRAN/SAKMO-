@@ -103,21 +103,39 @@
   var grid = document.getElementById('gallery-grid');
   if (!grid) return;
 
-  galleryItems.forEach(function(p){
+  galleryItems.forEach(function(p, idx){
     var a = document.createElement('a');
     a.href = 'reading.html';
     a.className = 'item ' + (p.span || 's4');
     if (p.cat) a.setAttribute('data-cat', p.cat);
     if (p.photographer) a.setAttribute('data-photographer', p.photographer);
+    /* 前 6 张（首屏可见）用 high 优先级 + 立即加载，其余 lazy + low */
+    var isFirstScreen = idx < 6;
+    var loadingAttr = isFirstScreen ? 'eager' : 'lazy';
+    var fetchAttr   = isFirstScreen ? 'high' : 'low';
     a.innerHTML =
-      '<div class="img ' + (p.ratio || 'ar-43') + '" data-zoom>' +
-        '<img loading="lazy" alt="' + (p.imgAlt || '') + '" src="' + p.img + '">' +
+      '<div class="img ' + (p.ratio || 'ar-43') + ' is-loading" data-zoom>' +
+        '<img loading="' + loadingAttr + '" decoding="async" fetchpriority="' + fetchAttr + '" alt="' + (p.imgAlt || '') + '" src="' + p.img + '">' +
       '</div>' +
       '<div class="lbl"><span>' + (p.catLabel || '') + '</span><span>' + (p.date || '') + '</span></div>' +
       '<h3>' + (p.title || '') + '<span class="en">' + (p.titleEn || '') + '</span></h3>' +
       '<div class="credit"><b>' + (p.photographer || '') + '</b> · ' + (p.role || '') + '</div>' +
       (p.params ? '<div class="params">' + p.params + '</div>' : '');
     grid.appendChild(a);
+
+    /* 监听图片加载完成，移除骨架屏并触发淡入 */
+    var imgEl = a.querySelector('img');
+    function onImgReady(){
+      var wrap = a.querySelector('.img');
+      if (wrap) wrap.classList.remove('is-loading');
+      imgEl.classList.add('is-loaded');
+    }
+    if (imgEl.complete && imgEl.naturalWidth > 0) {
+      onImgReady();
+    } else {
+      imgEl.addEventListener('load', onImgReady);
+      imgEl.addEventListener('error', onImgReady);
+    }
   });
 
   /* 动态更新摄影师筛选条上的数量标注（按实际 gallery-data 数据计算） */

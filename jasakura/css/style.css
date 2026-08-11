@@ -203,9 +203,27 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 .grid-edit .item.is-hide{opacity:0;pointer-events:none}
 .grid-edit .s6{grid-column:span 6}.grid-edit .s4{grid-column:span 4}.grid-edit .s3{grid-column:span 3}.grid-edit .s5{grid-column:span 5}.grid-edit .s7{grid-column:span 7}.grid-edit .s8{grid-column:span 8}
 .ar-43{aspect-ratio:4/3}.ar-34{aspect-ratio:3/4}.ar-169{aspect-ratio:16/9}.ar-23{aspect-ratio:2/3}.ar-1{aspect-ratio:1/1}
-.item .img{overflow:hidden;background:var(--paper-2);margin-bottom:20px;cursor:zoom-in}
-.item .img img{transition:transform 1.8s cubic-bezier(.2,.7,.2,1)}
+.item .img{overflow:hidden;background:var(--paper-2);margin-bottom:20px;cursor:zoom-in;position:relative}
+.item .img img{transition:transform 1.8s cubic-bezier(.2,.7,.2,1),opacity .8s ease;opacity:0}
 .item:hover .img img{transform:scale(1.02)}
+
+/* 图片加载优化：骨架屏 + 淡入（HTML 层优化） */
+/* 骨架屏：容器在加载中显示 shimmer 动画占位 */
+.item .img.is-loading::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(110deg,var(--paper-2) 8%,var(--line) 18%,var(--paper-2) 33%);
+  background-size:200% 100%;
+  animation:img-shimmer 1.6s linear infinite;
+  z-index:1;pointer-events:none;
+}
+@keyframes img-shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
+/* 图片加载完成后淡入显示（is-loaded 类由 JS 在 load 事件触发时添加） */
+.item .img img.is-loaded{opacity:1}
+/* 容器移除 is-loading 后停止 shimmer（避免遮挡已加载图片） */
+.item .img:not(.is-loading)::before{display:none}
 .item .lbl{display:flex;justify-content:space-between;gap:12px;font-size:1.02rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .item h3{font-family:var(--serif);font-weight:500;font-size:2rem;line-height:1.22}
 .item h3 .en{display:block;font-style:italic;font-weight:400;font-size:1.18rem;color:var(--muted);margin-top:4px}
