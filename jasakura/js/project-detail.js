@@ -10,7 +10,12 @@
   var jsonPath = 'images/projects/' + projectId + '/data.json';
 
   fetch(jsonPath)
-    .then(function(res){ return res.ok ? res.json() : null; })
+    .then(function(res){ return res.ok ? res.text() : null; })
+    .then(function(text){
+      if (!text) return null;
+      if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+      return JSON.parse(text);
+    })
     .then(function(d){
       if (!d) { console.warn('Project data not found: ' + jsonPath); return; }
       renderHero(d);
