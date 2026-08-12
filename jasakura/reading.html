@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -122,66 +122,60 @@
 </footer>
 
 <script src="js/app.js"></script>
+<script src="js/reading-data.js"></script>
 <script>
 /* ============================================================
-   影像解析列表页 — 从 JSON 文件动态渲染
-   每篇文章对应一个 JSON 文件：images/reading/{id}.json
-   修改文章内容只需编辑对应的 JSON 文件即可
+   影像解析列表页 — 从 js/reading-data.js 渲染
+   修改文章内容只需编辑 reading-data.js 即可
    ============================================================ */
 (function(){
-  var RD_IDS = ['001','002','003','004','005','006','007'];
+  var articles = window.readingData || [];
+  if(!articles.length) return;
 
-  /* 加载所有文章 JSON */
-  Promise.all(RD_IDS.map(function(id){
-    return fetch('images/reading/' + id + '.json')
-      .then(function(res){ return res.ok ? res.json() : null; })
-      .catch(function(){ return null; });
-  })).then(function(list){
-    var articles = list.filter(function(a){ return a !== null; });
-    if(!articles.length) return;
+  /* ---- 头条解析（第一篇） ---- */
+  var feature = articles[0];
+  var featureEl = document.getElementById('rd-feature');
+  if(featureEl){
+    featureEl.setAttribute('data-id', feature.id);
+    var previewP = '';
+    if(feature.body && feature.body.length){
+      previewP += '<p>' + feature.body[0] + '</p>';
+      if(feature.body.length > 1) previewP += '<p>' + feature.body[1] + '</p>';
+    }
+    featureEl.innerHTML =
+      '<div class="img"><img loading="lazy" alt="' + (feature.imgAlt||'') + '" src="' + feature.img + '"></div>' +
+      '<div>' +
+        '<div class="cat">' + feature.cat + ' · ' + feature.date + '</div>' +
+        '<h3>' + feature.title + '<span class="en">' + feature.titleEn + '</span></h3>' +
+        previewP +
+        '<a href="reading-detail.html?id=' + feature.id + '" class="go">阅读全文</a>' +
+      '</div>';
+  }
 
-    /* ---- 头条解析（第一篇） ---- */
-    var feature = articles[0];
-    var featureEl = document.getElementById('rd-feature');
-    if(featureEl){
-      featureEl.setAttribute('data-id', feature.id);
-      var previewP = '';
-      if(feature.body && feature.body.length){
-        previewP += '<p>' + feature.body[0] + '</p>';
-        if(feature.body.length > 1) previewP += '<p>' + feature.body[1] + '</p>';
-      }
-      featureEl.innerHTML =
-        '<div class="img"><img loading="lazy" alt="' + (feature.imgAlt||'') + '" src="' + feature.img + '"></div>' +
-        '<div>' +
-          '<div class="cat">' + feature.cat + ' · ' + feature.date + '</div>' +
-          '<h3>' + feature.title + '<span class="en">' + feature.titleEn + '</span></h3>' +
-          previewP +
-          '<a href="reading-detail.html?id=' + feature.id + '" class="go">阅读全文</a>' +
+  /* ---- 解析列表网格（其余篇） ---- */
+  var grid = document.getElementById('rd-grid');
+  if(grid){
+    articles.slice(1).forEach(function(a){
+      var cell = document.createElement('a');
+      cell.className = 'cell u';
+      cell.href = 'reading-detail.html?id=' + a.id;
+      cell.innerHTML =
+        '<figure class="img"><span class="scale">' +
+          '<img loading="lazy" alt="' + (a.imgAlt||'') + '" src="' + a.img + '">' +
+        '</span></figure>' +
+        '<div class="txts">' +
+          '<div class="in"><span>' + a.cat + ' · ' + a.date + '</span></div>' +
+          '<strong>' + a.title + '<span class="en">' + a.titleEn + '</span></strong>' +
+          '<em class="credit">' + (a.credit || (a.author + ' · ' + a.authorRole)) + '</em>' +
+          '<i class="u-target1"></i>' +
+          '<i class="u-target2"></i>' +
         '</div>';
-    }
+      grid.appendChild(cell);
+    });
+  }
 
-    /* ---- 解析列表网格（其余篇） ---- */
-    var grid = document.getElementById('rd-grid');
-    if(grid){
-      articles.slice(1).forEach(function(a){
-        var cell = document.createElement('a');
-        cell.className = 'cell u';
-        cell.href = 'reading-detail.html?id=' + a.id;
-        cell.innerHTML =
-          '<figure class="img"><span class="scale">' +
-            '<img loading="lazy" alt="' + (a.imgAlt||'') + '" src="' + a.img + '">' +
-          '</span></figure>' +
-          '<div class="txts">' +
-            '<div class="in"><span>' + a.cat + ' · ' + a.date + '</span></div>' +
-            '<strong>' + a.title + '<span class="en">' + a.titleEn + '</span></strong>' +
-            '<em class="credit">' + (a.credit || (a.author + ' · ' + a.authorRole)) + '</em>' +
-            '<i class="u-target1"></i>' +
-            '<i class="u-target2"></i>' +
-          '</div>';
-        grid.appendChild(cell);
-      });
-    }
-  });
+  /* 通知 app.js 内容已渲染完成，启动轮播 */
+  document.dispatchEvent(new CustomEvent('reading:ready'));
 })();
 </script>
 </body>

@@ -1,78 +1,30 @@
-﻿{
+{
     "lead":  "以二十四节气为刻度，记录光在一年里的位移。同一面墙、同一扇窗、同一棵树——节气不同，光便不同。这是一份用相机做的历法，缓慢、循环、且永不完结。两位摄影师，一拍室内的光、一拍室外的影。",
     "photographers":  "苏砚 · 林叙",
     "projectNum":  "05",
-    "heroImg":  "images/projects/seasonlight/01.jpg",
+    "heroImg":  "images/projects/seasonlight/01.webp",
     "photos":  [
-                   {
-                       "creditName":  "林叙",
-                       "date":  "2026.立春",
-                       "creditRole":  "常驻",
-                       "span":  "s6",
-                       "photographer":  "林叙",
-                       "imgAlt":  "白墙树影午后",
-                       "img":  "images/projects/seasonlight/02.jpg",
-                       "titleEn":  "Wall Shadow",
-                       "title":  "墙上的影",
-                       "cat":  "documentary"
-                   },
-                   {
-                       "creditName":  "苏砚",
-                       "date":  "2026.春分",
-                       "creditRole":  "常驻",
-                       "span":  "s3",
-                       "photographer":  "苏砚",
-                       "imgAlt":  "窗台光斑",
-                       "img":  "images/projects/seasonlight/03.jpg",
-                       "titleEn":  "Window Light",
-                       "title":  "窗台光斑",
-                       "cat":  "documentary"
-                   },
-                   {
-                       "creditName":  "林叙",
-                       "date":  "2026.夏至",
-                       "creditRole":  "常驻",
-                       "span":  "s3",
-                       "photographer":  "林叙",
-                       "imgAlt":  "屋檐投影",
-                       "img":  "images/projects/seasonlight/04.jpg",
-                       "titleEn":  "Eave Shadow",
-                       "title":  "屋檐投影",
-                       "cat":  "documentary"
-                   },
-                   {
-                       "creditName":  "沈墨",
-                       "date":  "2026.霜降",
-                       "creditRole":  "客座",
-                       "span":  "s4",
-                       "photographer":  "沈墨",
-                       "imgAlt":  "巷道光柱",
-                       "img":  "images/projects/seasonlight/05.jpg",
-                       "titleEn":  "Alley Beam",
-                       "title":  "巷道光柱",
-                       "cat":  "documentary"
-                   },
-                   {
-                       "creditName":  "陈青",
-                       "date":  "2026.冬至",
-                       "creditRole":  "客座",
-                       "span":  "s4",
-                       "photographer":  "陈青",
-                       "imgAlt":  "冬至低光",
-                       "img":  "images/projects/seasonlight/06.jpg",
-                       "titleEn":  "Winter Low",
-                       "title":  "冬至低光",
-                       "cat":  "documentary"
-                   }
-               ],
+        { "creditName":"林叙","date":"2026.立春","creditRole":"常驻","span":"s6","photographer":"林叙","imgAlt":"白墙树影午后","img":"images/projects/seasonlight/02.webp","titleEn":"Wall Shadow","title":"墙上的影","cat":"documentary" },
+        { "creditName":"苏砚","date":"2026.春分","creditRole":"常驻","span":"s6","photographer":"苏砚","imgAlt":"窗台光斑","img":"images/projects/seasonlight/03.webp","titleEn":"Window Light","title":"窗台光斑","cat":"documentary" },
+        { "creditName":"林叙","date":"2026.清明","creditRole":"常驻","span":"s4","photographer":"林叙","imgAlt":"屋檐投影","img":"images/projects/seasonlight/04.webp","titleEn":"Eave Shadow","title":"屋檐投影","cat":"documentary" },
+        { "creditName":"苏砚","date":"2026.谷雨","creditRole":"常驻","span":"s4","photographer":"苏砚","imgAlt":"地板光纹","img":"images/projects/seasonlight/05.webp","titleEn":"Floor Pattern","title":"地板光纹","cat":"documentary" },
+        { "creditName":"沈墨","date":"2026.夏至","creditRole":"客座","span":"s4","photographer":"沈墨","imgAlt":"巷道光柱","img":"images/projects/seasonlight/06.webp","titleEn":"Alley Beam","title":"巷道光柱","cat":"documentary" },
+        { "creditName":"林叙","date":"2026.大暑","creditRole":"常驻","span":"s3","photographer":"林叙","imgAlt":"树荫斑驳","img":"images/projects/seasonlight/07.webp","titleEn":"Dappled Shade","title":"树荫斑驳","cat":"documentary" },
+        { "creditName":"苏砚","date":"2026.处暑","creditRole":"常驻","span":"s3","photographer":"苏砚","imgAlt":"桌面光痕","img":"images/projects/seasonlight/08.webp","titleEn":"Table Light","title":"桌面光痕","cat":"documentary" },
+        { "creditName":"陈青","date":"2026.秋分","creditRole":"客座","span":"s6","photographer":"陈青","imgAlt":"墙面夕照","img":"images/projects/seasonlight/09.webp","titleEn":"Wall Glow","title":"墙面夕照","cat":"documentary" },
+        { "creditName":"林叙","date":"2026.霜降","creditRole":"常驻","span":"s4","photographer":"林叙","imgAlt":"窗格光影","img":"images/projects/seasonlight/10.webp","titleEn":"Window Grid","title":"窗格光影","cat":"documentary" },
+        { "creditName":"苏砚","date":"2026.立冬","creditRole":"常驻","span":"s4","photographer":"苏砚","imgAlt":"室内暖光","img":"images/projects/seasonlight/11.webp","titleEn":"Warm Light","title":"室内暖光","cat":"documentary" },
+        { "creditName":"沈墨","date":"2026.小雪","creditRole":"客座","span":"s4","photographer":"沈墨","imgAlt":"雾中漫射","img":"images/projects/seasonlight/12.webp","titleEn":"Diffused Fog","title":"雾中漫射","cat":"documentary" },
+        { "creditName":"陈青","date":"2026.冬至","creditRole":"客座","span":"s8","photographer":"陈青","imgAlt":"冬至低光","img":"images/projects/seasonlight/13.webp","titleEn":"Winter Low","title":"冬至低光","cat":"documentary" }
+    ],
     "titleEn":  "Seasons \u0026 Light",
     "startDate":  "2026 立春",
     "status":  "跨年进行中",
     "deepRead":  [
-                     "这是樱茉序最缓慢的一个专题。它不追求事件，不记录人物，只关心一件事——光。同一个位置、同一面墙、同一扇窗，在二十四个节气里被拍摄二十四次。立春的光带着寒，夏至的光最直最长，霜降的光开始发黄，冬至的光几乎贴着地面来。光在变，墙没变；变与不变之间，是一整年的时间感。",
-                     "拍摄有严格的纪律：固定机位、固定时段（午后两点至三点）、固定焦段。我们刻意剔除\"好看\"的诱惑，让影像回归到一种近乎监测的克制。当二十四张照片并排摆开，你看到的不是单张的好坏，而是时间的形状——它如何爬过一面墙，又如何退回去。",
-                     "苏砚负责室内的光——窗台、地板、桌面上的光斑位移；林叙负责室外的影——墙上的树影、屋檐的投影、巷道里的光柱。两条线索像钟表的两个指针，缓慢地、各按各的节奏，把一年转完。"
-                 ],
+        "这是樱茉序最缓慢的一个专题。它不追求事件，不记录人物，只关心一件事——光。同一个位置、同一面墙、同一扇窗，在二十四个节气里被拍摄二十四次。立春的光带着寒，夏至的光最直最长，霜降的光开始发黄，冬至的光几乎贴着地面来。光在变，墙没变；变与不变之间，是一整年的时间感。",
+        "拍摄有严格的纪律：固定机位、固定时段（午后两点至三点）、固定焦段。我们刻意剔除\"好看\"的诱惑，让影像回归到一种近乎监测的克制。当二十四张照片并排摆开，你看到的不是单张的好坏，而是时间的形状——它如何爬过一面墙，又如何退回去。",
+        "苏砚负责室内的光——窗台、地板、桌面上的光斑位移；林叙负责室外的影——墙上的树影、屋檐的投影、巷道里的光柱。两条线索像钟表的两个指针，缓慢地、各按各的节奏，把一年转完。"
+    ],
     "title":  "岁与光影",
     "heroImgAlt":  "白墙上树影"
 }

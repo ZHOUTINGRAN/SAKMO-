@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -90,65 +90,42 @@
   </div>
 </footer>
 
+<script src="js/reading-data.js"></script>
 <script>
 /* ============================================================
-   影像解析详情页 — 从 JSON 文件加载文章数据
-   每篇文章对应一个 JSON 文件：images/reading/{id}.json
-   修改文章内容只需编辑对应的 JSON 文件即可
+   影像解析详情页 — 从 js/reading-data.js 加载文章数据
+   修改文章内容只需编辑 reading-data.js 即可
    ============================================================ */
-
-/* 文章 ID 列表（用于翻页导航；新增文章时在此追加 ID） */
-var RD_IDS = ['001','002','003','004','005','006','007'];
-
-/* JSON 文件路径 */
-function rdJsonPath(id){
-  return 'images/reading/' + id + '.json';
-}
-
-/* 根据 URL 参数加载文章 */
 (function(){
+  var articles = window.readingData || [];
   var params = new URLSearchParams(location.search);
-  var id = params.get('id') || '001';
-  if(RD_IDS.indexOf(id) === -1) id = RD_IDS[0];
-  var idx = RD_IDS.indexOf(id);
+  var id = params.get('id') || articles[0].id;
+  var article = articles.find(function(a){ return a.id === id; }) || articles[0];
+  var idx = articles.indexOf(article);
 
-  fetch(rdJsonPath(id))
-    .then(function(res){
-      if(!res.ok) throw new Error('文章数据加载失败');
-      return res.json();
-    })
-    .then(function(article){
-      /* 填充内容 */
-      document.title = article.title + ' — 樱茉序 Sakmo';
-      var img = document.getElementById('rd-img');
-      img.src = article.img; img.alt = article.imgAlt;
-      document.getElementById('rd-cat').textContent = article.cat;
-      document.getElementById('rd-date').textContent = article.date;
-      document.getElementById('rd-title').textContent = article.title;
-      document.getElementById('rd-title-en').textContent = article.titleEn;
-      document.getElementById('rd-author').innerHTML = '<b>' + article.author + '</b> · ' + article.authorRole;
-      document.getElementById('rd-params').textContent = article.params;
+  /* 填充内容 */
+  document.title = article.title + ' — 樱茉序 Sakmo';
+  var img = document.getElementById('rd-img');
+  img.src = article.img; img.alt = article.imgAlt;
+  document.getElementById('rd-cat').textContent = article.cat;
+  document.getElementById('rd-date').textContent = article.date;
+  document.getElementById('rd-title').textContent = article.title;
+  document.getElementById('rd-title-en').textContent = article.titleEn;
+  document.getElementById('rd-author').innerHTML = '<b>' + article.author + '</b> · ' + article.authorRole;
+  document.getElementById('rd-params').textContent = article.params;
 
-      /* 文章正文（首字下沉） */
-      var body = document.getElementById('rd-body');
-      body.innerHTML = article.body.map(function(p, i){
-        if(i === 0){
-          return '<p class="rd-dropcap">' + p + '</p>';
-        }
-        return '<p>' + p + '</p>';
-      }).join('');
-    })
-    .catch(function(err){
-      document.getElementById('rd-title').textContent = '文章加载失败';
-      document.getElementById('rd-body').innerHTML = '<p>无法加载文章数据，请检查 JSON 文件是否存在：' + rdJsonPath(id) + '</p>';
-      console.error(err);
-    });
+  /* 文章正文（首字下沉） */
+  var body = document.getElementById('rd-body');
+  body.innerHTML = article.body.map(function(p, i){
+    if(i === 0) return '<p class="rd-dropcap">' + p + '</p>';
+    return '<p>' + p + '</p>';
+  }).join('');
 
-  /* 循环导航（不依赖 JSON 加载完成） */
-  var prevIdx = (idx - 1 + RD_IDS.length) % RD_IDS.length;
-  var nextIdx = (idx + 1) % RD_IDS.length;
-  document.getElementById('rd-prev').href = 'reading-detail.html?id=' + RD_IDS[prevIdx];
-  document.getElementById('rd-next').href = 'reading-detail.html?id=' + RD_IDS[nextIdx];
+  /* 循环导航 */
+  var prevIdx = (idx - 1 + articles.length) % articles.length;
+  var nextIdx = (idx + 1) % articles.length;
+  document.getElementById('rd-prev').href = 'reading-detail.html?id=' + articles[prevIdx].id;
+  document.getElementById('rd-next').href = 'reading-detail.html?id=' + articles[nextIdx].id;
 })();
 </script>
 

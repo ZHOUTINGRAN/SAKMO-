@@ -1,78 +1,35 @@
-﻿{
+{
     "lead":  "吊车、围挡、塔吊与野草——城市向外蔓延的临界线。这里既不是城，也不是乡，而是一种永远在\"即将成为\"的状态。两位摄影师，一拍硬的、一拍软的。",
     "photographers":  "陆深 · 周野",
     "projectNum":  "03",
-    "heroImg":  "images/projects/cityedge/01.jpg",
+    "heroImg":  "images/projects/cityedge/01.webp",
     "photos":  [
-                   {
-                       "creditName":  "陆深",
-                       "date":  "2026.04",
-                       "creditRole":  "常驻",
-                       "span":  "s6",
-                       "photographer":  "陆深",
-                       "imgAlt":  "塔吊与天际线",
-                       "img":  "images/projects/cityedge/02.jpg",
-                       "titleEn":  "Crane Silhouette",
-                       "title":  "塔吊剪影",
-                       "cat":  "documentary"
-                   },
-                   {
-                       "creditName":  "周野",
-                       "date":  "2026.04",
-                       "creditRole":  "客座",
-                       "span":  "s3",
-                       "photographer":  "周野",
-                       "imgAlt":  "围挡边的野草",
-                       "img":  "images/projects/cityedge/03.jpg",
-                       "titleEn":  "Wild Grass",
-                       "title":  "围挡野草",
-                       "cat":  "documentary"
-                   },
-                   {
-                       "creditName":  "周野",
-                       "date":  "2026.05",
-                       "creditRole":  "客座",
-                       "span":  "s3",
-                       "photographer":  "周野",
-                       "imgAlt":  "脚手架下抽烟的工人",
-                       "img":  "images/projects/cityedge/04.jpg",
-                       "titleEn":  "Under Scaffold",
-                       "title":  "脚手下的人",
-                       "cat":  "documentary"
-                   },
-                   {
-                       "creditName":  "陆深",
-                       "date":  "2026.05",
-                       "creditRole":  "常驻",
-                       "span":  "s4",
-                       "photographer":  "陆深",
-                       "imgAlt":  "未完工混凝土立面",
-                       "img":  "images/projects/cityedge/05.jpg",
-                       "titleEn":  "Raw Wall",
-                       "title":  "未完工的墙",
-                       "cat":  "documentary"
-                   },
-                   {
-                       "creditName":  "沈墨",
-                       "date":  "2026.06",
-                       "creditRole":  "客座",
-                       "span":  "s4",
-                       "photographer":  "沈墨",
-                       "imgAlt":  "临时工棚夜灯",
-                       "img":  "images/projects/cityedge/06.jpg",
-                       "titleEn":  "Shack Light",
-                       "title":  "工棚夜灯",
-                       "cat":  "documentary"
-                   }
-               ],
+        { "creditName":"陆深","date":"2026.04","creditRole":"常驻","span":"s6","photographer":"陆深","imgAlt":"塔吊与天际线","img":"images/projects/cityedge/02.webp","titleEn":"Crane Silhouette","title":"塔吊剪影","cat":"documentary" },
+        { "creditName":"周野","date":"2026.04","creditRole":"客座","span":"s6","photographer":"周野","imgAlt":"围挡边的野草","img":"images/projects/cityedge/03.webp","titleEn":"Wild Grass","title":"围挡野草","cat":"documentary" },
+        { "creditName":"陆深","date":"2026.04","creditRole":"常驻","span":"s4","photographer":"陆深","imgAlt":"脚手架下抽烟的工人","img":"images/projects/cityedge/04.webp","titleEn":"Under Scaffold","title":"脚手下的人","cat":"documentary" },
+        { "creditName":"周野","date":"2026.05","creditRole":"客座","span":"s4","photographer":"周野","imgAlt":"未完工混凝土立面","img":"images/projects/cityedge/05.webp","titleEn":"Raw Wall","title":"未完工的墙","cat":"documentary" },
+        { "creditName":"沈墨","date":"2026.05","creditRole":"客座","span":"s4","photographer":"沈墨","imgAlt":"临时工棚夜灯","img":"images/projects/cityedge/06.webp","titleEn":"Shack Light","title":"工棚夜灯","cat":"documentary" },
+        { "creditName":"陆深","date":"2026.05","creditRole":"常驻","span":"s8","photographer":"陆深","imgAlt":"工地全景","img":"images/projects/cityedge/07.webp","titleEn":"Site Panorama","title":"工地全景","cat":"documentary" },
+        { "creditName":"周野","date":"2026.06","creditRole":"客座","span":"s4","photographer":"周野","imgAlt":"水泥与野草","img":"images/projects/cityedge/08.webp","titleEn":"Concrete & Grass","title":"水泥与草","cat":"documentary" },
+        { "creditName":"陆深","date":"2026.06","creditRole":"常驻","span":"s3","photographer":"陆深","imgAlt":"塔吊基座","img":"images/projects/cityedge/09.webp","titleEn":"Crane Base","title":"塔吊基座","cat":"documentary" },
+        { "creditName":"沈墨","date":"2026.06","creditRole":"客座","span":"s3","photographer":"沈墨","imgAlt":"工人休息","img":"images/projects/cityedge/10.webp","titleEn":"Break Time","title":"工歇","cat":"portrait" },
+        { "creditName":"周野","date":"2026.06","creditRole":"客座","span":"s6","photographer":"周野","imgAlt":"围挡缝隙","img":"images/projects/cityedge/11.webp","titleEn":"Fence Gap","title":"围挡缝隙","cat":"documentary" },
+        { "creditName":"陆深","date":"2026.07","creditRole":"常驻","span":"s4","photographer":"陆深","imgAlt":"新建楼盘","img":"images/projects/cityedge/12.webp","titleEn":"New Towers","title":"新建楼盘","cat":"documentary" },
+        { "creditName":"周野","date":"2026.07","creditRole":"客座","span":"s4","photographer":"周野","imgAlt":"工地黄昏","img":"images/projects/cityedge/13.webp","titleEn":"Site at Dusk","title":"工地黄昏","cat":"documentary" },
+        { "creditName":"沈墨","date":"2026.07","creditRole":"客座","span":"s4","photographer":"沈墨","imgAlt":"泥路与车辙","img":"images/projects/cityedge/14.webp","titleEn":"Mud Tracks","title":"泥路与车辙","cat":"documentary" },
+        { "creditName":"陆深","date":"2026.07","creditRole":"常驻","span":"s6","photographer":"陆深","imgAlt":"施工细节","img":"images/projects/cityedge/15.webp","titleEn":"Construction Detail","title":"施工细节","cat":"documentary" },
+        { "creditName":"周野","date":"2026.08","creditRole":"客座","span":"s6","photographer":"周野","imgAlt":"城市边界","img":"images/projects/cityedge/16.webp","titleEn":"City Boundary","title":"城市边界","cat":"documentary" },
+        { "creditName":"沈墨","date":"2026.08","creditRole":"客座","span":"s4","photographer":"沈墨","imgAlt":"废弃与新建","img":"images/projects/cityedge/17.webp","titleEn":"Old and New","title":"废弃与新建","cat":"documentary" },
+        { "creditName":"陆深","date":"2026.08","creditRole":"常驻","span":"s8","photographer":"陆深","imgAlt":"边缘夜景","img":"images/projects/cityedge/18.webp","titleEn":"Edge at Night","title":"边缘夜景","cat":"documentary" }
+    ],
     "titleEn":  "City\u0027s Edge",
     "startDate":  "2026 春",
     "status":  "进行中",
     "deepRead":  [
-                     "城市边缘是一种\"中间地带\"：规划图上已经画好了红线，地图上却还来不及更新。这里塔吊林立、围挡连绵，野草从水泥缝里钻出来，与未干的混凝土争夺同一块地。我们感兴趣的不是\"建好了什么\"，而是\"正在建成什么\"——这种悬而未决的状态，比任何完工的楼盘都更诚实。",
-                     "拍摄多在黄昏进行。这个时候，塔吊的剪影像巨大的骨架立在天际线上，工地的探照灯刚刚亮起，而远处的乡村还残留着白昼的余温。光的过渡，恰好对应着这片土地身份的过渡。",
-                     "陆深拍\"硬\"的部分——钢结构、围挡板、未完工的混凝土立面；周野拍\"软\"的部分——围挡边生长的野草、临时工棚里晾的衣服、工人在脚手架下抽烟的影子。两种质地并置，构成一份关于城市扩张临界线的视觉档案。"
-                 ],
+        "城市边缘是一种\"中间地带\"：规划图上已经画好了红线，地图上却还来不及更新。这里塔吊林立、围挡连绵，野草从水泥缝里钻出来，与未干的混凝土争夺同一块地。我们感兴趣的不是\"建好了什么\"，而是\"正在建成什么\"——这种悬而未决的状态，比任何完工的楼盘都更诚实。",
+        "拍摄多在黄昏进行。这个时候，塔吊的剪影像巨大的骨架立在天际线上，工地的探照灯刚刚亮起，而远处的乡村还残留着白昼的余温。光的过渡，恰好对应着这片土地身份的过渡。",
+        "陆深拍\"硬\"的部分——钢结构、围挡板、未完工的混凝土立面；周野拍\"软\"的部分——围挡边生长的野草、临时工棚里晾的衣服、工人在脚手架下抽烟的影子。两种质地并置，构成一份关于城市扩张临界线的视觉档案。"
+    ],
     "title":  "城市边缘发展",
     "heroImgAlt":  "城市边缘塔吊暮色"
 }

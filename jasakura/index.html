@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -103,16 +103,16 @@
 </section>
 
 <!-- ============ 下期企划预告 ============ -->
-<section class="next-issue reveal" style="padding-top:128px">
+<section class="next-issue reveal" style="padding-top:128px" id="next-issue-section">
   <div class="wrap">
     <div class="inner">
-      <div class="img" data-zoom><img loading="lazy" alt="下期预告：竹雾" src="images/homepage/next-01.jpg"></div>
+      <div class="img" data-zoom><img loading="lazy" alt="" id="ni-img"></div>
       <div class="txt">
-        <p class="eyebrow">Next Issue · 下期预告</p>
-        <h3>No.002「竹雾」<span class="en">Bamboo Mist</span></h3>
-        <p>白露之后，我们走进竹林与雾。下期长线企划"岁与光影"更新，并开放客座投稿主题「窗」。</p>
-        <p class="when">预计发布 · 白露 2026 · 截稿 9 月 20 日</p>
-        <a href="submit.html" class="go" style="margin-top:22px">查看征稿</a>
+        <p class="eyebrow" id="ni-eyebrow"></p>
+        <h3 id="ni-title"></h3>
+        <p id="ni-desc"></p>
+        <p class="when" id="ni-when"></p>
+        <a href="" class="go" id="ni-link" style="margin-top:22px"></a>
       </div>
     </div>
   </div>
@@ -287,6 +287,21 @@
       })
       .catch(function(){ /* JSON 不存在时保持占位空白 */ });
   });
+})();
+</script>
+
+<!-- 下期预告数据 -->
+<script src="js/next-issue-data.js"></script>
+<script>
+/* 从 next-issue-data.js 渲染下期预告区域 */
+(function(){
+  var d = window.nextIssueData; if(!d) return;
+  var img = document.getElementById('ni-img');       if(img){ img.src = d.img; img.alt = d.imgAlt; }
+  var eb  = document.getElementById('ni-eyebrow');   if(eb)  eb.textContent = d.eyebrow;
+  var ttl = document.getElementById('ni-title');     if(ttl) ttl.innerHTML = d.title + '<span class="en">' + d.titleEn + '</span>';
+  var des = document.getElementById('ni-desc');      if(des) des.textContent = d.desc;
+  var wh  = document.getElementById('ni-when');      if(wh)  wh.textContent = d.when;
+  var lnk = document.getElementById('ni-link');      if(lnk){ lnk.href = d.link; lnk.textContent = d.linkText; }
 })();
 </script>
 </body>

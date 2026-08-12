@@ -267,14 +267,17 @@
 
   /* ---- 影像解析头条轮播 ----
      .read-feature 区域自动轮播，展示头条 + 列表中的全部文章。
-     淡出 → 更新内容 → 淡入，悬停暂停，点击指示器跳转。 */
+     淡出 → 更新内容 → 淡入，悬停暂停，点击指示器跳转。
+     注意：reading.html 的内容由 JS 从 JSON 异步渲染，
+     所以本函数会在 DOMContentLoaded 和 reading:ready 事件时各执行一次。 */
+  function initReadingCarousel(){
   var readFeature = document.querySelector('.read-feature');
   if (readFeature && !readFeature.classList.contains('rf-init')) {
-    readFeature.classList.add('rf-init');
     var rfImgEl = readFeature.querySelector('.img img');
     var rfImgWrap = readFeature.querySelector('.img');
     var rfTextCol = rfImgWrap ? rfImgWrap.nextElementSibling : null;
     if (rfImgEl && rfTextCol) {
+      readFeature.classList.add('rf-init');
       /* 收集轮播数据 */
       var rfSlides = [];
       var rfFirstGo = rfTextCol.querySelector('.go');
@@ -300,7 +303,7 @@
       rfSlides.forEach(function(s){ if(s.img){ var pre = new Image(); pre.src = s.img; } });
       /* 仅多张时启动轮播 */
       if (rfSlides.length > 1) {
-        var rfIdx = 0, rfTimer = null, rfFadeTimer = null, RF_INTERVAL = 5000;
+        var rfIdx = 0, rfTimer = null, rfFadeTimer = null, RF_INTERVAL = 6000;
         /* 指示器 */
         var dotsBox = document.createElement('div');
         dotsBox.className = 'rf-dots';
@@ -364,6 +367,9 @@
       });
     }
   }
+  }
+  initReadingCarousel();
+  document.addEventListener('reading:ready', initReadingCarousel);
 
   /* ---- 灯箱放大 ----
      任何 .img[data-zoom] 或其内 img 点击即放大；可选 data-caption。
