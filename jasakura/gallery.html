@@ -109,19 +109,21 @@
   var grid = document.getElementById('gallery-grid');
   if (!grid) return;
 
+  var FIRST_SCREEN = 12;
+
   galleryItems.forEach(function(p, idx){
     var a = document.createElement('a');
     a.href = 'reading.html';
     a.className = 'item ' + (p.span || 's4');
     if (p.cat) a.setAttribute('data-cat', p.cat);
     if (p.photographer) a.setAttribute('data-photographer', p.photographer);
-    /* 前 6 张（首屏可见）用 high 优先级 + 立即加载，其余 lazy + low */
-    var isFirstScreen = idx < 6;
-    var loadingAttr = isFirstScreen ? 'eager' : 'lazy';
-    var fetchAttr   = isFirstScreen ? 'high' : 'low';
+    var isFirstScreen = idx < FIRST_SCREEN;
+    var fetchAttr = isFirstScreen ? 'high' : 'low';
+    /* 首屏图片直接设置 src，其余用 data-src 交给 IntersectionObserver 按需加载 */
+    var srcAttr = isFirstScreen ? 'src="' + p.img + '"' : 'data-src="' + p.img + '"';
     a.innerHTML =
       '<div class="img ' + (p.ratio || 'ar-43') + ' is-loading" data-zoom>' +
-        '<img loading="' + loadingAttr + '" decoding="async" fetchpriority="' + fetchAttr + '" alt="' + (p.imgAlt || '') + '" src="' + p.img + '">' +
+        '<img decoding="async" fetchpriority="' + fetchAttr + '" alt="' + (p.imgAlt || '') + '" ' + srcAttr + '>' +
       '</div>' +
       '<div class="lbl"><span>' + (p.catLabel || '') + '</span><span>' + (p.date || '') + '</span></div>' +
       '<h3>' + (p.title || '') + '<span class="en">' + (p.titleEn || '') + '</span></h3>' +
@@ -129,20 +131,64 @@
       (p.params ? '<div class="params">' + p.params + '</div>' : '');
     grid.appendChild(a);
 
-    /* 监听图片加载完成，移除骨架屏并触发淡入 */
-    var imgEl = a.querySelector('img');
-    function onImgReady(){
-      var wrap = a.querySelector('.img');
-      if (wrap) wrap.classList.remove('is-loading');
-      imgEl.classList.add('is-loaded');
-    }
-    if (imgEl.complete && imgEl.naturalWidth > 0) {
-      onImgReady();
-    } else {
-      imgEl.addEventListener('load', onImgReady);
-      imgEl.addEventListener('error', onImgReady);
+    /* 首屏图片立即监听加载完成 */
+    if (isFirstScreen) {
+      var imgEl = a.querySelector('img');
+      function onImgReady(){
+        var wrap = a.querySelector('.img');
+        if (wrap) wrap.classList.remove('is-loading');
+        imgEl.classList.add('is-loaded');
+      }
+      if (imgEl.complete && imgEl.naturalWidth > 0) {
+        onImgReady();
+      } else {
+        imgEl.addEventListener('load', onImgReady);
+        imgEl.addEventListener('error', onImgReady);
+      }
     }
   });
+
+  /* IntersectionObserver：非首屏图片按需加载（进入可视区域前 500px 开始） */
+  if ('IntersectionObserver' in window) {
+    var lazyIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        var img = entry.target;
+        var dataSrc = img.getAttribute('data-src');
+        if (!dataSrc) return;
+        img.src = dataSrc;
+        img.removeAttribute('data-src');
+        function onReady(){
+          var wrap = img.closest('.img');
+          if (wrap) wrap.classList.remove('is-loading');
+          img.classList.add('is-loaded');
+        }
+        if (img.complete && img.naturalWidth > 0) {
+          onReady();
+        } else {
+          img.addEventListener('load', onReady);
+          img.addEventListener('error', onReady);
+        }
+        lazyIO.unobserve(img);
+      });
+    }, { rootMargin: '500px', threshold: 0 });
+    grid.querySelectorAll('img[data-src]').forEach(function(img){
+      lazyIO.observe(img);
+    });
+  } else {
+    /* 不支持 IntersectionObserver 的浏览器降级：直接加载所有图片 */
+    grid.querySelectorAll('img[data-src]').forEach(function(img){
+      var wrap = img.closest('.img');
+      function onReady(){
+        if (wrap) wrap.classList.remove('is-loading');
+        img.classList.add('is-loaded');
+      }
+      img.src = img.getAttribute('data-src');
+      img.removeAttribute('data-src');
+      if (img.complete && img.naturalWidth > 0) onReady();
+      else { img.addEventListener('load', onReady); img.addEventListener('error', onReady); }
+    });
+  }
 
   /* 动态更新摄影师筛选条上的数量标注（按实际 gallery-data 数据计算） */
   (function(){
