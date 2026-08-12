@@ -7,7 +7,7 @@ window.projects = [
   {
     id: '01',
     link: 'project-oldtown.html',
-    img: 'images/projects/oldtown/cover.jpg',
+    img: 'images/projects/oldtown/03.webp',
     imgAlt: '老乡镇',
     status: 'PROJECT 01 | 进行中',
     title: '老乡镇 Old Towns'

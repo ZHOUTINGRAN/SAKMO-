@@ -366,26 +366,69 @@
   }
 
   /* ---- 灯箱放大 ----
-     任何 .img[data-zoom] 或其内 img 点击即放大；可选 data-caption。 */
+     任何 .img[data-zoom] 或其内 img 点击即放大；可选 data-caption。
+     支持左右切换：从同一网格容器中收集所有可放大图片。 */
   var lb = document.getElementById('lightbox');
   if (!lb) {
     lb = document.createElement('div');
     lb.id = 'lightbox';
-    lb.innerHTML = '<span class="lb-close">×</span><img alt="放大查看"><p class="lb-cap"></p>';
+    lb.innerHTML = '<span class="lb-close" aria-label="关闭"></span><span class="lb-prev" aria-label="上一张"></span><img alt="放大查看"><span class="lb-next" aria-label="下一张"></span><p class="lb-cap"></p>';
     document.body.appendChild(lb);
   }
   var lbImg = lb.querySelector('img');
   var lbCap = lb.querySelector('.lb-cap');
   var lbClose = lb.querySelector('.lb-close');
-  function openZoom(src, cap) {
-    lbImg.src = src; lbCap.textContent = cap || '';
+  var lbPrev = lb.querySelector('.lb-prev');
+  var lbNext = lb.querySelector('.lb-next');
+  var lbList = [];
+  var lbIndex = -1;
+
+  function openZoom(src, cap, triggerEl) {
+    /* 从触发元素的最近网格容器中收集所有可放大图片 */
+    lbList = [];
+    lbIndex = -1;
+    if (triggerEl) {
+      var container = triggerEl.closest('.grid-edit, .grid, .flex-e, .gallery-grid, .pick-grid, main, body');
+      if (container) {
+        var imgs = container.querySelectorAll('[data-zoom] img, .item .img img, .img[data-zoom] img');
+        imgs.forEach(function(im){
+          if (im.src) {
+            lbList.push({ src: im.src, cap: im.getAttribute('alt') || (im.closest('[data-zoom]') && im.closest('[data-zoom]').dataset.caption) || '' });
+          }
+        });
+        lbIndex = lbList.findIndex(function(item){ return item.src === src; });
+      }
+    }
+    if (lbIndex === -1) {
+      lbList = [{ src: src, cap: cap || '' }];
+      lbIndex = 0;
+    }
+    showLbImage();
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
+    updateLbNav();
+  }
+  function showLbImage() {
+    if (lbIndex < 0 || lbIndex >= lbList.length) return;
+    var item = lbList[lbIndex];
+    lbImg.src = item.src;
+    lbCap.textContent = item.cap || '';
+  }
+  function updateLbNav() {
+    lbPrev.style.display = lbList.length > 1 ? '' : 'none';
+    lbNext.style.display = lbList.length > 1 ? '' : 'none';
+  }
+  function lbGo(dir) {
+    if (lbList.length <= 1) return;
+    lbIndex = (lbIndex + dir + lbList.length) % lbList.length;
+    showLbImage();
   }
   function closeZoom() {
     lb.classList.remove('open');
     document.body.style.overflow = '';
     lbImg.src = '';
+    lbList = [];
+    lbIndex = -1;
   }
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-zoom], .img[data-zoom], .item .img, .ab .cell .img, .archive-grid .issue .img');
@@ -396,13 +439,20 @@
       if (img && img.src) {
         e.preventDefault();
         var cap = t.dataset.caption || img.getAttribute('alt') || '';
-        openZoom(img.src, cap);
+        openZoom(img.src, cap, t);
       }
     }
   });
   lbClose.addEventListener('click', closeZoom);
+  lbPrev.addEventListener('click', function(e){ e.stopPropagation(); lbGo(-1); });
+  lbNext.addEventListener('click', function(e){ e.stopPropagation(); lbGo(1); });
   lb.addEventListener('click', function (e) { if (e.target === lb) closeZoom(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeZoom(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeZoom();
+    else if (e.key === 'ArrowLeft') lbGo(-1);
+    else if (e.key === 'ArrowRight') lbGo(1);
+  });
 
   /* ---- 页面过渡：footer logo 点击 → 淡入遮罩 → 跳转 → 新页淡出 ----
      .flogo 点击时遮罩淡入(0→1)，600ms 后跳转；新页面加载时遮罩先满显再淡出。 */

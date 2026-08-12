@@ -473,10 +473,32 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 /* ---------- 灯箱 ---------- */
 #lightbox{position:fixed;inset:0;z-index:200;background:rgba(26,26,26,.96);display:none;align-items:center;justify-content:center;padding:5vh 5vw}
 #lightbox.open{display:flex}
-#lightbox img{max-width:90vw;max-height:88vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.4)}
-#lightbox .lb-close{position:absolute;top:26px;right:32px;color:#f2f2f2;font-size:2.4rem;cursor:pointer;font-family:var(--serif);line-height:1;opacity:.8;transition:opacity .3s}
-#lightbox .lb-close:hover{opacity:1}
+#lightbox img{max-width:90vw;max-height:88vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.4);transition:opacity .3s ease}
+#lightbox.is-switching img{opacity:0}
+/* 关闭按钮：大圆形 + 细线边框，点击区域 48px 易触达 */
+#lightbox .lb-close{position:absolute;top:24px;right:28px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(242,242,242,.3);background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;z-index:3}
+#lightbox .lb-close::before,#lightbox .lb-close::after{content:"";position:absolute;width:18px;height:1.5px;background:#f2f2f2;border-radius:1px}
+#lightbox .lb-close::before{transform:rotate(45deg)}
+#lightbox .lb-close::after{transform:rotate(-45deg)}
+#lightbox .lb-close:hover{background:rgba(255,255,255,.15);border-color:rgba(242,242,242,.6);transform:scale(1.06)}
+/* 左右切换按钮：半透明圆形，紧贴屏幕左右中线 */
+#lightbox .lb-prev,#lightbox .lb-next{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:1px solid rgba(242,242,242,.25);background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;z-index:3}
+#lightbox .lb-prev{left:28px}
+#lightbox .lb-next{right:28px}
+#lightbox .lb-prev::before,#lightbox .lb-next::before{content:"";width:14px;height:14px;border-top:1.5px solid #f2f2f2;border-right:1.5px solid #f2f2f2;border-radius:1px}
+#lightbox .lb-prev::before{transform:rotate(-135deg);margin-left:4px}
+#lightbox .lb-next::before{transform:rotate(45deg);margin-right:4px}
+#lightbox .lb-prev:hover,#lightbox .lb-next:hover{background:rgba(255,255,255,.15);border-color:rgba(242,242,242,.6);transform:translateY(-50%) scale(1.06)}
 #lightbox .lb-cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:rgba(242,242,242,.75);font-size:1.12rem;letter-spacing:.16em}
+/* 移动端：按钮稍小，贴近边缘 */
+@media(max-width:768px){
+  #lightbox .lb-close{width:40px;height:40px;top:16px;right:16px}
+  #lightbox .lb-close::before,#lightbox .lb-close::after{width:15px}
+  #lightbox .lb-prev,#lightbox .lb-next{width:42px;height:42px}
+  #lightbox .lb-prev{left:12px}
+  #lightbox .lb-next{right:12px}
+  #lightbox img{max-width:92vw;max-height:80vh}
+}
 
 /* ---------- 页脚（Them magazine 风格 · 全幅 · 左 logo+SNS / 右双列菜单 + 黑块 hover） ---------- */
 #f{

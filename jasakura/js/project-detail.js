@@ -71,11 +71,28 @@
       a.className = 'item ' + (p.span || 's4');
       if (p.cat) a.setAttribute('data-cat', p.cat);
       a.innerHTML =
-        '<div class="img ar-43" data-zoom><img loading="lazy" alt="' + (p.imgAlt || '') + '" src="' + p.img + '"></div>' +
+        '<div class="img ar-43 is-loading" data-zoom><img loading="lazy" alt="' + (p.imgAlt || '') + '" src="' + p.img + '"></div>' +
         '<div class="lbl"><span>' + (p.photographer || '') + '</span><span>' + (p.date || '') + '</span></div>' +
         '<h3>' + (p.title || '') + '<span class="en">' + (p.titleEn || '') + '</span></h3>' +
         '<div class="credit"><b>' + (p.creditName || '') + '</b> · ' + (p.creditRole || '') + '</div>';
       grid.appendChild(a);
+
+      /* 图片加载完成后淡入显示（与 gallery/index 逻辑一致） */
+      var imgBox = a.querySelector('.img');
+      var img = a.querySelector('img');
+      if (img.complete){
+        imgBox.classList.remove('is-loading');
+        img.classList.add('is-loaded');
+      } else {
+        img.addEventListener('load', function(){
+          imgBox.classList.remove('is-loading');
+          img.classList.add('is-loaded');
+        });
+        img.addEventListener('error', function(){
+          imgBox.classList.remove('is-loading');
+          img.classList.add('is-loaded');
+        });
+      }
     });
   }
 })();
