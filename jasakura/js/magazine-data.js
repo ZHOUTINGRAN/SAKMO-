@@ -32,8 +32,8 @@ window.magazines = [
     titleEn:'QUIET GREENS',
     cover:'images/magazine/002/01.webp',
     description:[
-      '第二期「竹雾」。白露清晨，竹林深处雾气未散，35mm 镜头在湿润空气中铺出一层灰阶。',
-      '本期延续序章的留白美学，加入静物与枯花专题，把"将凉未凉的茶"作为视觉母题贯穿全刊。'
+      '敬请期待',
+      ''
     ],
     lookInside:'index.html',
     shops:[
@@ -48,8 +48,8 @@ window.magazines = [
     titleEn:'CREATURE DIARY',
     cover:'images/magazine/003/01.webp',
     description:[
-      '长线企划第三弹「老乡镇」。窄巷、石屋、午后斜阳，记录正在消失的檐角与集市。',
-      '这是樱茉序第一个长期专题的开篇，将以一年为跨度持续回访六处老镇，见证它们在四季里的呼吸节奏。'
+      '敬请期待',
+      ''
     ],
     lookInside:'project-oldtown.html',
     shops:[
@@ -64,8 +64,8 @@ window.magazines = [
     titleEn:'CONQUER',
     cover:'images/magazine/004/01.webp',
     description:[
-      '长线企划第四弹「新农村」。水泥新房与稻田交错，传统与重建在同一片土地上并置。',
-      '本期以建筑的几何切面切入，对照乡镇的有机生长与农村的规划肌理。'
+      '敬请期待',
+      ''
     ],
     lookInside:'project-newcountry.html',
     shops:[
