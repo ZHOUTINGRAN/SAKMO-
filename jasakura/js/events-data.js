@@ -4,27 +4,27 @@
    ============================================================ */
 window.events = [
   {
-    img: 'images/misc/submit-01.jpg',
-    imgAlt: '窗主题征稿',
-    when: '客座投稿 · 白露 2026 · 截稿 09.20',
-    title: '主题征稿「窗」',
-    titleEn: 'Theme: Window',
-    desc: '窗是光与视线共同的入口。本期征集与"窗"有关的作品——晨光穿过木格、雨夜玻璃上的水痕、或者一扇永远关着的窗。入选作品将与常驻摄影师同台陈列于影像画廊，并附影像解析。'
+    img: 'images/gallery/stilllife/06.webp',
+    imgAlt: '树主题征稿',
+    when: '客座投稿 ·  2026 · 截稿 09.20',
+    title: '主题征稿「树」',
+    titleEn: 'Theme: Tree',
+    desc: '树是风与岁月停留的容器。本期征集与"树"有关的作品——阳光穿过交错枝桠、暮色里孤独伫立的枯木、或是街巷角落静静生长的老树。入选作品将与常驻摄影师同台陈列于影像画廊，并附影像解析。'
   },
   {
-    img: 'images/misc/submit-02.jpg',
-    imgAlt: '岁与光影共创专栏',
+    img: 'images/projects/creatures/02.webp',
+    imgAlt: '生灵日记共创专栏',
     when: '长线共创 · 持续招募 · 滚动截稿',
-    title: '「岁与光影」共创专栏',
-    titleEn: 'Seasons & Light · Co-creation',
-    desc: '以二十四节气为刻度的长线企划，持续接受客座补图。你可以只投一个节气的光，也可以一年跟拍二十四张。陈青主理，每期择优并入"岁与光影"项目页。'
+    title: '「生灵日记」共创专栏',
+    titleEn: 'Creature Diary · Co-creation',
+    desc: '以征集动物主题拍摄的长线企划，持续接受客座补图。向洪平主理，每期择优并入"生灵日记"项目页。'
   },
   {
-    img: 'images/misc/submit-03.jpg',
+    img: 'images/gallery/landscape/01.webp',
     imgAlt: '线下外拍活动',
-    when: '线下外拍 · 秋分 2026 · 09.27',
-    title: '秋分老镇外拍日',
-    titleEn: 'Autumn Field Day',
-    desc: '编辑部组织的半日线下外拍，限 8 人。林叙带路，沿老乡镇走一条已踩过三次的线，终点是收摊前的集市。报名需附三张过往作品；活动免费，差旅与餐食自理。'
+    when: '线下外拍 · 2026 · 10.1',
+    title: '国庆期间重庆两江新区外拍活动',
+    titleEn: 'Chongqing Liangjiang New Area Outdoor Photography Day during National Day Holiday',
+    desc: '摄影部组织的两江新区线下外拍，限 8 人。主编带路，外拍路线目前还在规划。报名需附三张过往作品；活动免费，差旅与餐食自理。'
   }
 ];

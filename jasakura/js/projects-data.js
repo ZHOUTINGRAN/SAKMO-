@@ -33,7 +33,7 @@ window.projects = [
     link: 'project-roadside.html',
     img: 'images/projects/roadside/01.webp',
     imgAlt: '途观',
-    status: 'PROJECT 04 | 进行中',
+    status: 'PROJECT 04 | 已结束',
     title: '途观 Tuguan'
   },
   {

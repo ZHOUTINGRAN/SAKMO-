@@ -1,4 +1,4 @@
-﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -98,34 +98,86 @@
    ============================================================ */
 (function(){
   var articles = window.readingData || [];
+  var section = document.querySelector('.reading-detail');
+
+  /* 渲染文章内容 */
+  function render(article){
+    document.title = article.title + ' — 樱茉序 Sakmo';
+    var img = document.getElementById('rd-img');
+    img.src = article.img; img.alt = article.imgAlt;
+    document.getElementById('rd-cat').textContent = article.cat;
+    document.getElementById('rd-date').textContent = article.date;
+    document.getElementById('rd-title').textContent = article.title;
+    document.getElementById('rd-title-en').textContent = article.titleEn;
+    document.getElementById('rd-author').innerHTML = '<b>' + article.author + '</b> · ' + article.authorRole;
+    document.getElementById('rd-params').textContent = article.params;
+
+    /* 文章正文（首字下沉） */
+    var body = document.getElementById('rd-body');
+    body.innerHTML = article.body.map(function(p, i){
+      if(i === 0) return '<p class="rd-dropcap">' + p + '</p>';
+      return '<p>' + p + '</p>';
+    }).join('');
+
+    /* 循环导航 */
+    var idx = articles.indexOf(article);
+    var prevIdx = (idx - 1 + articles.length) % articles.length;
+    var nextIdx = (idx + 1) % articles.length;
+    document.getElementById('rd-prev').setAttribute('data-id', articles[prevIdx].id);
+    document.getElementById('rd-next').setAttribute('data-id', articles[nextIdx].id);
+  }
+
+  /* 带动画切换文章 */
+  function switchTo(id){
+    var article = articles.find(function(a){ return a.id === id; }) || articles[0];
+    if(!article) return;
+
+    /* 淡出 */
+    section.classList.add('is-switching');
+
+    /* 等待淡出动画完成后更新内容 */
+    setTimeout(function(){
+      render(article);
+      /* 更新 URL */
+      history.pushState({id: id}, '', 'reading-detail.html?id=' + id);
+      /* 滚动到顶部 */
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      /* 淡入 */
+      requestAnimationFrame(function(){
+        section.classList.remove('is-switching');
+      });
+    }, 300);
+  }
+
+  /* 初始加载 */
   var params = new URLSearchParams(location.search);
   var id = params.get('id') || articles[0].id;
   var article = articles.find(function(a){ return a.id === id; }) || articles[0];
-  var idx = articles.indexOf(article);
+  render(article);
 
-  /* 填充内容 */
-  document.title = article.title + ' — 樱茉序 Sakmo';
-  var img = document.getElementById('rd-img');
-  img.src = article.img; img.alt = article.imgAlt;
-  document.getElementById('rd-cat').textContent = article.cat;
-  document.getElementById('rd-date').textContent = article.date;
-  document.getElementById('rd-title').textContent = article.title;
-  document.getElementById('rd-title-en').textContent = article.titleEn;
-  document.getElementById('rd-author').innerHTML = '<b>' + article.author + '</b> · ' + article.authorRole;
-  document.getElementById('rd-params').textContent = article.params;
+  /* 绑定 PREV/NEXT 点击事件（不跳转页面，带动画切换） */
+  document.getElementById('rd-prev').addEventListener('click', function(e){
+    e.preventDefault();
+    switchTo(this.getAttribute('data-id'));
+  });
+  document.getElementById('rd-next').addEventListener('click', function(e){
+    e.preventDefault();
+    switchTo(this.getAttribute('data-id'));
+  });
 
-  /* 文章正文（首字下沉） */
-  var body = document.getElementById('rd-body');
-  body.innerHTML = article.body.map(function(p, i){
-    if(i === 0) return '<p class="rd-dropcap">' + p + '</p>';
-    return '<p>' + p + '</p>';
-  }).join('');
-
-  /* 循环导航 */
-  var prevIdx = (idx - 1 + articles.length) % articles.length;
-  var nextIdx = (idx + 1) % articles.length;
-  document.getElementById('rd-prev').href = 'reading-detail.html?id=' + articles[prevIdx].id;
-  document.getElementById('rd-next').href = 'reading-detail.html?id=' + articles[nextIdx].id;
+  /* 浏览器前进/后退按钮支持 */
+  window.addEventListener('popstate', function(e){
+    var stateId = (e.state && e.state.id) || new URLSearchParams(location.search).get('id') || articles[0].id;
+    var article = articles.find(function(a){ return a.id === stateId; }) || articles[0];
+    section.classList.add('is-switching');
+    setTimeout(function(){
+      render(article);
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      requestAnimationFrame(function(){
+        section.classList.remove('is-switching');
+      });
+    }, 300);
+  });
 })();
 </script>
 

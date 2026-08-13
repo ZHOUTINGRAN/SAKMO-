@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -290,18 +290,19 @@
 })();
 </script>
 
-<!-- 下期预告数据 -->
-<script src="js/next-issue-data.js"></script>
+<!-- 当期活动数据（与 submit.html 共用） -->
+<script src="js/events-data.js"></script>
 <script>
-/* 从 next-issue-data.js 渲染下期预告区域 */
+/* 从 events-data.js 渲染下期预告区域（引用第一个活动） */
 (function(){
-  var d = window.nextIssueData; if(!d) return;
-  var img = document.getElementById('ni-img');       if(img){ img.src = d.img; img.alt = d.imgAlt; }
-  var eb  = document.getElementById('ni-eyebrow');   if(eb)  eb.textContent = d.eyebrow;
-  var ttl = document.getElementById('ni-title');     if(ttl) ttl.innerHTML = d.title + '<span class="en">' + d.titleEn + '</span>';
-  var des = document.getElementById('ni-desc');      if(des) des.textContent = d.desc;
-  var wh  = document.getElementById('ni-when');      if(wh)  wh.textContent = d.when;
-  var lnk = document.getElementById('ni-link');      if(lnk){ lnk.href = d.link; lnk.textContent = d.linkText; }
+  var events = window.events; if(!events || !events.length) return;
+  var e = events[0];
+  var img = document.getElementById('ni-img');       if(img){ img.src = e.img; img.alt = e.imgAlt; }
+  var eb  = document.getElementById('ni-eyebrow');   if(eb)  eb.textContent = 'Open Call · 当期征稿';
+  var ttl = document.getElementById('ni-title');     if(ttl) ttl.innerHTML = e.title + '<span class="en">' + e.titleEn + '</span>';
+  var des = document.getElementById('ni-desc');      if(des) des.textContent = e.desc;
+  var wh  = document.getElementById('ni-when');      if(wh)  wh.textContent = e.when;
+  var lnk = document.getElementById('ni-link');      if(lnk){ lnk.href = 'submit.html'; lnk.textContent = '查看征稿'; }
 })();
 </script>
 </body>

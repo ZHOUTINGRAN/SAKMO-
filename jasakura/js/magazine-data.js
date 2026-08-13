@@ -9,8 +9,17 @@ window.magazines = [
     title:'WHISPERS OF PINES 树语',
     titleEn:'WHISPERS OF PINES',
     cover:'images/magazine/001/01.webp',
-    description:'创刊号「序」。清晨旧巷，撑伞的孤影走过潮湿的青砖——樱茉序的第一页，从一束落在城乡之间的光开始。本期收录十二位共创摄影师的序章作品，建立 A/B 双调对照、长线企划与生灵日记四大板块的雏形。',
-    lookInside:'index.html',
+    description:[
+      '8月创刊号，以「树语」为题。树从不言语，却以年轮记录时间，以枝叶回应风雨。三位摄影师以不同的目光凝视同一件事物——孤树的静默、野林的张力、光影中近乎信仰的安宁。这是关于树的肖像，也是关于观看的方式。',
+       '■特集内摄影',
+       '・独树',
+       '摄影：周亭燃',
+       '・野境孤株',
+       '摄影：YI',
+        '・虔诚',
+            '摄影：尚色教主'
+    ],
+     lookInside:'index.html',
     shops:[
       {name:'Fujisan.co.jp',url:'#'},
       {name:'amazon.co.jp',url:'#'}
@@ -22,7 +31,10 @@ window.magazines = [
     title:'QUIET GREENS 栖绿',
     titleEn:'QUIET GREENS',
     cover:'images/magazine/002/01.webp',
-    description:'第二期「竹雾」。白露清晨，竹林深处雾气未散，35mm 镜头在湿润空气中铺出一层灰阶。本期延续序章的留白美学，加入静物与枯花专题，把"将凉未凉的茶"作为视觉母题贯穿全刊。',
+    description:[
+      '第二期「竹雾」。白露清晨，竹林深处雾气未散，35mm 镜头在湿润空气中铺出一层灰阶。',
+      '本期延续序章的留白美学，加入静物与枯花专题，把"将凉未凉的茶"作为视觉母题贯穿全刊。'
+    ],
     lookInside:'index.html',
     shops:[
       {name:'Fujisan.co.jp',url:'#'},
@@ -35,7 +47,10 @@ window.magazines = [
     title:'CREATURE DIARY 生灵日记',
     titleEn:'CREATURE DIARY',
     cover:'images/magazine/003/01.webp',
-    description:'长线企划第三弹「老乡镇」。窄巷、石屋、午后斜阳，记录正在消失的檐角与集市。这是樱茉序第一个长期专题的开篇，将以一年为跨度持续回访六处老镇，见证它们在四季里的呼吸节奏。',
+    description:[
+      '长线企划第三弹「老乡镇」。窄巷、石屋、午后斜阳，记录正在消失的檐角与集市。',
+      '这是樱茉序第一个长期专题的开篇，将以一年为跨度持续回访六处老镇，见证它们在四季里的呼吸节奏。'
+    ],
     lookInside:'project-oldtown.html',
     shops:[
       {name:'Fujisan.co.jp',url:'#'},
@@ -48,7 +63,10 @@ window.magazines = [
     title:'CONQUER 征服',
     titleEn:'CONQUER',
     cover:'images/magazine/004/01.webp',
-    description:'长线企划第四弹「新农村」。水泥新房与稻田交错，传统与重建在同一片土地上并置。本期以建筑的几何切面切入，对照乡镇的有机生长与农村的规划肌理。',
+    description:[
+      '长线企划第四弹「新农村」。水泥新房与稻田交错，传统与重建在同一片土地上并置。',
+      '本期以建筑的几何切面切入，对照乡镇的有机生长与农村的规划肌理。'
+    ],
     lookInside:'project-newcountry.html',
     shops:[
       {name:'Fujisan.co.jp',url:'#'},

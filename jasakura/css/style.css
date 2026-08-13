@@ -726,7 +726,7 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 @media(max-width:768px){.magazine-detail .flex .l{margin:0 auto 36px}}
 @media(min-width:768px){.magazine-detail .flex .l{width:42.5%;margin-bottom:50px}}
 .magazine-detail .flex .l .img{margin-bottom:16px;box-shadow:2px 2px 15px rgba(0,0,0,.1)}
-.magazine-detail .flex .l .img img{width:100%;height:auto;display:block}
+.magazine-detail .flex .l .img img{width:100%;height:auto;display:block;object-fit:contain}
 @media(min-width:768px){.magazine-detail .flex .l .img{margin-bottom:20px}}
 
 /* LOOK INSIDE 按钮（下划线左→右滑入） */
@@ -743,7 +743,7 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 .magazine-detail .flex .r{width:100%}
 @media(min-width:768px){.magazine-detail .flex .r{width:47.6%}}
 .magazine-detail .flex .r p{color:var(--ink-soft);margin-bottom:28px;line-height:1.8;font-size:1.5rem;letter-spacing:1px}
-@media(min-width:768px){.magazine-detail .flex .r p{margin-bottom:42px}}
+@media(min-width:768px){.magazine-detail .flex .r p{margin-bottom:15px}}
 
 .magazine-detail .flex .r .online i{display:block;margin-bottom:16px;font-size:1.5rem;letter-spacing:1px;font-style:normal;font-weight:700;color:var(--ink)}
 @media(max-width:768px){.magazine-detail .flex .r .online i{text-align:center;width:100%}}
@@ -913,7 +913,8 @@ body.is-fading{opacity:0;pointer-events:none}
 }
 
 /* ---------- 影像解析详情页 ---------- */
-.reading-detail{padding-top:120px;padding-bottom:80px}
+.reading-detail{padding-top:120px;padding-bottom:80px;transition:opacity .3s ease}
+.reading-detail.is-switching{opacity:0;pointer-events:none}
 @media(min-width:768px){.reading-detail{padding-top:160px;padding-bottom:120px}}
 /* 大图 */
 .rd-hero{max-width:1200px;margin:0 auto 56px;padding:0 25px}

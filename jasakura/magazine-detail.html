@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -60,7 +60,7 @@
 
     <!-- 右侧：描述 + 购买链接 -->
     <div class="r">
-      <p data-field="description">加载中…</p>
+      <div data-field="description">加载中…</div>
 
     </div>
   </div>
@@ -177,7 +177,15 @@
     set('[data-field="title"]', mag.title);
     set('[data-field="cover"]', mag.cover, 'src');
     set('[data-field="cover"]', mag.title, 'alt');
-    set('[data-field="description"]', mag.description);
+    /* description 支持字符串或数组（多段文字） */
+    var descEl = document.querySelector('[data-field="description"]');
+    if(descEl){
+      if(Array.isArray(mag.description)){
+        descEl.innerHTML = mag.description.map(function(p){ return '<p>' + p + '</p>'; }).join('');
+      } else {
+        descEl.textContent = mag.description;
+      }
+    }
     set('[data-field="lookInside"]', mag.lookInside, 'href');
 
     // 购买链接
@@ -356,9 +364,9 @@
 
     const isMobile = () => window.innerWidth < 768;
 
-    /* 生成内页图片路径数组（8 张本地内页图，按杂志 id 索引） */
+    /* 生成内页图片路径数组（6 张本地内页图，按杂志 id 索引） */
     function generateGallery(id){
-      return Array.from({length:8}, (_,i) => `images/magazine/${id}/pages/${String(i+1).padStart(2,'0')}.jpg`);
+      return Array.from({length:6}, (_,i) => `images/magazine/${id}/pages/${String(i+1).padStart(2,'0')}.webp`);
     }
 
     /* 加载单张图片（crossOrigin 以便 canvas 读取，不污染画布） */
