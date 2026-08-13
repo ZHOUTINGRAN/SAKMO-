@@ -398,11 +398,14 @@
       if (container) {
         var imgs = container.querySelectorAll('[data-zoom] img, .item .img img, .img[data-zoom] img');
         imgs.forEach(function(im){
-          if (im.src) {
-            lbList.push({ src: im.src, cap: im.getAttribute('alt') || (im.closest('[data-zoom]') && im.closest('[data-zoom]').dataset.caption) || '' });
+          /* 优先使用 src，懒加载图片可能只有 data-src */
+          var imgSrc = im.getAttribute('src');
+          if (!imgSrc) imgSrc = im.getAttribute('data-src');
+          if (imgSrc) {
+            lbList.push({ src: imgSrc, cap: im.getAttribute('alt') || (im.closest('[data-zoom]') && im.closest('[data-zoom]').dataset.caption) || '' });
           }
         });
-        lbIndex = lbList.findIndex(function(item){ return item.src === src; });
+        lbIndex = lbList.findIndex(function(item){ return item.src === src || item.src.endsWith(src.split('/').pop()); });
       }
     }
     if (lbIndex === -1) {
@@ -606,7 +609,18 @@
     var itemCredit = item.querySelector('.credit');
     var itemParams = item.querySelector('.params');
 
-    if(itemImg){ imgEl.src = itemImg.src; imgEl.alt = itemImg.alt; }
+    if(itemImg){
+      /* 懒加载图片可能只有 data-src 没有 src */
+      var realSrc = itemImg.getAttribute('src') || itemImg.getAttribute('data-src');
+      if (realSrc) {
+        imgEl.src = realSrc;
+        /* 同时触发原图加载，这样退出灯箱后图片也已缓存 */
+        if (itemImg.getAttribute('data-src') && !itemImg.getAttribute('src')) {
+          itemImg.src = realSrc;
+        }
+      }
+      imgEl.alt = itemImg.alt;
+    }
     /* 竖图/横图标记：根据卡片容器比例 class 判断 */
     var itemImgWrap = item.querySelector('.img');
     var pdImgWrap   = panel.querySelector('.pd-img');

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -24,7 +24,7 @@
     <p class="crumb"><a href="projects.html">长线企划</a> / Project 04</p>
     <h1>途观<span class="en">Tuguan</span></h1>
     <p class="lead">车窗、服务区、国道、铁轨——移动中一闪而过的风景。这是关于"经过"的摄影：来不及构图，来不及等待，只有一次按下快门的机会。两位摄影师，一走公路、一走铁路。</p>
-    <div class="meta-row"><span>摄影师<i>周野 · 陆深</i></span><span>启程<i>2026 春</i></span><span>状态<i>进行中</i></span></div>
+    <div class="meta-row"><span>摄影师<i>周亭燃</i></span><span>启程<i>2026 春</i></span><span>状态<i>进行中</i></span></div>
   </div>
 </section>
 
@@ -54,33 +54,33 @@
     <div class="grid-edit">
       <a href="javascript:void(0)" class="item s6" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="车窗外的田野"></div>
-        <div class="lbl"><span>陆深</span><span>2026.04</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.04</span></div>
         <h3>车窗外<span class="en">Window View</span></h3>
-        <div class="credit"><b>陆深</b> · 常驻</div>
+        <div class="credit"><b>周亭燃</b> · 常驻</div>
       </a>
       <a href="javascript:void(0)" class="item s3" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="国道服务区"></div>
-        <div class="lbl"><span>周野</span><span>2026.04</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.04</span></div>
         <h3>服务区<span class="en">Rest Area</span></h3>
-        <div class="credit"><b>周野</b> · 客座</div>
+        <div class="credit"><b>周亭燃</b> · 客座</div>
       </a>
       <a href="javascript:void(0)" class="item s3" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="小站站台"></div>
-        <div class="lbl"><span>陆深</span><span>2026.05</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.05</span></div>
         <h3>小站站台<span class="en">Small Platform</span></h3>
-        <div class="credit"><b>陆深</b> · 常驻</div>
+        <div class="credit"><b>周亭燃</b> · 常驻</div>
       </a>
       <a href="javascript:void(0)" class="item s4" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="国道边小卖部"></div>
-        <div class="lbl"><span>周野</span><span>2026.06</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.06</span></div>
         <h3>路边小卖部<span class="en">Roadside Shop</span></h3>
-        <div class="credit"><b>周野</b> · 客座</div>
+        <div class="credit"><b>周亭燃</b> · 客座</div>
       </a>
       <a href="javascript:void(0)" class="item s4" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="铁轨延伸"></div>
-        <div class="lbl"><span>苏砚</span><span>2026.06</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.06</span></div>
         <h3>铁轨尽头<span class="en">Tracks End</span></h3>
-        <div class="credit"><b>苏砚</b> · 客座</div>
+        <div class="credit"><b>周亭燃</b> · 客座</div>
       </a>
     </div>
   </div>
@@ -141,5 +141,13 @@
 
 <script src="js/app.js"></script>
 <script src="js/project-detail.js"></script>
+<script>
+  /* 确保 reveal 元素在异步渲染后可见（IntersectionObserver 可能因异步渲染时机问题失效） */
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); });
+    }, 800);
+  });
+</script>
 </body>
 </html>

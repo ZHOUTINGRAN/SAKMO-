@@ -1,18 +1,18 @@
 {
     "lead":  "车窗、服务区、国道、铁轨——移动中一闪而过的风景。这是关于\"经过\"的摄影：来不及构图，来不及等待，只有一次按下快门的机会。两位摄影师，一走公路、一走铁路。",
-    "photographers":  "周野 · 陆深",
+    "photographers":  "周亭燃",
     "projectNum":  "04",
     "heroImg":  "images/projects/roadside/10.webp",
     "photos":  [
-        { "creditName":"陆深","date":"2026.04","creditRole":"常驻","span":"s6","photographer":"陆深","imgAlt":"车窗外的田野","img":"images/projects/roadside/02.webp","titleEn":"Window View","title":"车窗外","cat":"documentary" },
-        { "creditName":"周野","date":"2026.04","creditRole":"客座","span":"s6","photographer":"周野","imgAlt":"国道服务区","img":"images/projects/roadside/03.webp","titleEn":"Rest Area","title":"服务区","cat":"documentary" },
-        { "creditName":"陆深","date":"2026.04","creditRole":"常驻","span":"s4","photographer":"陆深","imgAlt":"小站站台","img":"images/projects/roadside/04.webp","titleEn":"Small Platform","title":"小站站台","cat":"documentary" },
-        { "creditName":"周野","date":"2026.05","creditRole":"客座","span":"s4","photographer":"周野","imgAlt":"国道边小卖部","img":"images/projects/roadside/05.webp","titleEn":"Roadside Shop","title":"路边小卖部","cat":"documentary" },
-        { "creditName":"苏砚","date":"2026.05","creditRole":"客座","span":"s4","photographer":"苏砚","imgAlt":"铁轨延伸","img":"images/projects/roadside/06.webp","titleEn":"Tracks End","title":"铁轨尽头","cat":"documentary" },
-        { "creditName":"陆深","date":"2026.06","creditRole":"常驻","span":"s3","photographer":"陆深","imgAlt":"公路黄昏","img":"images/projects/roadside/07.webp","titleEn":"Highway Dusk","title":"公路黄昏","cat":"documentary" },
-        { "creditName":"周野","date":"2026.06","creditRole":"客座","span":"s3","photographer":"周野","imgAlt":"隧道入口","img":"images/projects/roadside/08.webp","titleEn":"Tunnel Entry","title":"隧道入口","cat":"documentary" },
-        { "creditName":"苏砚","date":"2026.07","creditRole":"客座","span":"s6","photographer":"苏砚","imgAlt":"列车窗外","img":"images/projects/roadside/09.webp","titleEn":"Train Window","title":"列车窗外","cat":"documentary" },
-        { "creditName":"陆深","date":"2026.07","creditRole":"常驻","span":"s8","photographer":"陆深","imgAlt":"旅途终点","img":"images/projects/roadside/10.webp","titleEn":"Road's End","title":"旅途终点","cat":"documentary" }
+        { "creditName":"周亭燃","date":"2026.04","creditRole":"主编","span":"s6","photographer":"周亭燃","imgAlt":"车窗外的田野","img":"images/projects/roadside/02.webp","titleEn":"Window View","title":"车窗外","cat":"documentary" },
+        { "creditName":"周亭燃","date":"2026.04","creditRole":"主编","span":"s6","photographer":"周亭燃","imgAlt":"国道服务区","img":"images/projects/roadside/03.webp","titleEn":"Rest Area","title":"服务区","cat":"documentary" },
+        { "creditName":"周亭燃","date":"2026.04","creditRole":"主编","span":"s4","photographer":"周亭燃","imgAlt":"小站站台","img":"images/projects/roadside/04.webp","titleEn":"Small Platform","title":"小站站台","cat":"documentary" },
+        { "creditName":"周亭燃","date":"2026.05","creditRole":"主编","span":"s4","photographer":"周亭燃","imgAlt":"国道边小卖部","img":"images/projects/roadside/05.webp","titleEn":"Roadside Shop","title":"路边小卖部","cat":"documentary" },
+        { "creditName":"周亭燃","date":"2026.05","creditRole":"主编","span":"s4","photographer":"周亭燃","imgAlt":"铁轨延伸","img":"images/projects/roadside/06.webp","titleEn":"Tracks End","title":"铁轨尽头","cat":"documentary" },
+        { "creditName":"周亭燃","date":"2026.06","creditRole":"主编","span":"s3","photographer":"周亭燃","imgAlt":"公路黄昏","img":"images/projects/roadside/07.webp","titleEn":"Highway Dusk","title":"公路黄昏","cat":"documentary" },
+        { "creditName":"周亭燃","date":"2026.06","creditRole":"主编","span":"s3","photographer":"周亭燃","imgAlt":"隧道入口","img":"images/projects/roadside/08.webp","titleEn":"Tunnel Entry","title":"隧道入口","cat":"documentary" },
+        { "creditName":"周亭燃","date":"2026.07","creditRole":"主编","span":"s6","photographer":"周亭燃","imgAlt":"列车窗外","img":"images/projects/roadside/09.webp","titleEn":"Train Window","title":"列车窗外","cat":"documentary" },
+        { "creditName":"周亭燃","date":"2026.07","creditRole":"主编","span":"s8","photographer":"周亭燃","imgAlt":"旅途终点","img":"images/projects/roadside/10.webp","titleEn":"Road's End","title":"旅途终点","cat":"documentary" }
     ],
     "titleEn":  "Tuguan",
     "startDate":  "2026 春",

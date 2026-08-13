@@ -14,7 +14,7 @@ window.readingData = [
     author: '林叙',
     authorRole: '常驻摄影师',
     credit: '林叙 · 风光解析',
-    img: 'images/reading/01.jpg',
+    img: 'images/gallery/documentary/01.webp',
     imgAlt: '暮色集市头条解析',
     params: '35mm · f/2.8 · 1/125s · ISO 1600',
     body: [
@@ -33,7 +33,7 @@ window.readingData = [
     author: '苏砚',
     authorRole: '常驻摄影师',
     credit: '苏砚 · 静物解析',
-    img: 'images/reading/02.jpg',
+    img: 'images/gallery/stilllife/01.webp',
     imgAlt: '枯花与亚麻解析',
     params: '90mm · f/4 · 1/30s · ISO 400',
     body: [
@@ -51,7 +51,7 @@ window.readingData = [
     author: '陆深',
     authorRole: '客座摄影师',
     credit: '陆深 · 风光解析',
-    img: 'images/reading/03.jpg',
+    img: 'images/gallery/landscape/01.webp',
     imgAlt: '雾松晨雪解析',
     params: '85mm · f/4 · 1/250s · ISO 100',
     body: [
@@ -69,7 +69,7 @@ window.readingData = [
     author: '周野',
     authorRole: '客座摄影师',
     credit: '周野 · 多人访谈',
-    img: 'images/reading/04.jpg',
+    img: 'images/gallery/landscape/03.webp',
     imgAlt: '晨雾小站解析',
     params: '50mm · f/2.8 · 1/500s · ISO 800',
     body: [
@@ -87,7 +87,7 @@ window.readingData = [
     author: '林叙',
     authorRole: '常驻摄影师',
     credit: '林叙 · 构图解析',
-    img: 'images/reading/05.jpg',
+    img: 'images/gallery/documentary/03.webp',
     imgAlt: '老乡镇屋顶解析',
     params: '35mm · f/11 · 1/100s · ISO 200',
     body: [
@@ -105,7 +105,7 @@ window.readingData = [
     author: '程川',
     authorRole: '客座摄影师',
     credit: '程川 · 多人访谈',
-    img: 'images/reading/06.jpg',
+    img: 'images/gallery/creative/01.webp',
     imgAlt: '生灵日记解析',
     params: '50mm · f/2 · 1/125s · ISO 400',
     body: [
@@ -123,7 +123,7 @@ window.readingData = [
     author: '沈墨',
     authorRole: '常驻摄影师',
     credit: '沈墨 · 单作拆解',
-    img: 'images/reading/07.jpg',
+    img: 'images/gallery/newtopo/01.webp',
     imgAlt: '城市边缘解析',
     params: '28mm · f/8 · 1/160s · ISO 200',
     body: [

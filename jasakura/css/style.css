@@ -4,6 +4,9 @@
    Minimalist editorial · inspired by IMA Magazine
    ============================================================ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+body{overflow-x:hidden}
+a,button{touch-action:manipulation}
 :root{
   --paper:#fafaf8;        /* 近白底 */
   --paper-2:#f2f2ef;      /* 分区底 */
@@ -576,17 +579,17 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
   .grid-edit .s4,.grid-edit .s3{grid-column:span 6}
   .ab-row{grid-template-columns:1fr}
   .cover .frame{aspect-ratio:4/3}
-  /* 移动端 100vw 会包含滚动条宽度导致横向溢出，改用 100% 避免底部可拖动 */
   .cover .frame{width:100%;margin-left:0}
+  .read-feature .img{aspect-ratio:16/9}
+  .bleed{width:100%;margin-left:0}
+  .magazine-detail .pagenation,.project-pagenation,.reading-detail .pagenation,.pagenation{width:100%}
 }
-@media (max-width:768px){
+@media(max-width:768px){
   body{padding-top:60px}
   section{padding:72px 0}
   .sec-head{flex-direction:column;align-items:flex-start;gap:12px}
   .sec-head .r{text-align:left}
-  /* 移动端所有 span 统一占满 12 列（单列堆叠，避免横向溢出） */
   .grid-edit .s3,.grid-edit .s4,.grid-edit .s5,.grid-edit .s6,.grid-edit .s7,.grid-edit .s8{grid-column:span 12}
-  /* 移动端减小网格间距，避免拥挤 */
   .grid-edit{gap:40px 0}
   .quick-4,.creator-grid,.read-list,.archive-grid{grid-template-columns:1fr}
   .cross .links{grid-template-columns:1fr}
@@ -594,6 +597,8 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
   .team-list .person{grid-template-columns:1fr;gap:6px}
   .submit-form{grid-template-columns:1fr;gap:24px}
   .submit-form .field.full,.submit-form .form-action{grid-column:span 1}
+  .flex-e .cell .txts{width:100%;margin:17px auto 0}
+  #menu .in{width:100%}
 }
 
 /* ---------- 抽屉侧边导航（Them magazine 风格） ---------- */

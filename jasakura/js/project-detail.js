@@ -22,6 +22,8 @@
       renderHeroImg(d);
       renderDeepRead(d);
       renderPhotos(d);
+      /* 异步渲染后直接显示所有 reveal 元素，避免 IntersectionObserver 在异步渲染后失效 */
+      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
     })
     .catch(function(e){ console.warn('Failed to load project data:', e); });
 
@@ -76,27 +78,24 @@
       a.className = 'item ' + (p.span || 's4');
       if (p.cat) a.setAttribute('data-cat', p.cat);
       a.innerHTML =
-        '<div class="img ar-43 is-loading" data-zoom><img loading="lazy" alt="' + (p.imgAlt || '') + '" src="' + p.img + '"></div>' +
+        '<div class="img ar-43 is-loading" data-zoom><img decoding="async" alt="' + (p.imgAlt || '') + '" src="' + p.img + '"></div>' +
         '<div class="lbl"><span>' + (p.photographer || '') + '</span><span>' + (p.date || '') + '</span></div>' +
         '<h3>' + (p.title || '') + '<span class="en">' + (p.titleEn || '') + '</span></h3>' +
         '<div class="credit"><b>' + (p.creditName || '') + '</b> · ' + (p.creditRole || '') + '</div>';
       grid.appendChild(a);
 
-      /* 图片加载完成后淡入显示（与 gallery/index 逻辑一致） */
+      /* 图片加载完成后淡入显示 */
       var imgBox = a.querySelector('.img');
       var img = a.querySelector('img');
-      if (img.complete){
+      function markLoaded(){
         imgBox.classList.remove('is-loading');
         img.classList.add('is-loaded');
+      }
+      if (img.complete && img.naturalWidth > 0){
+        markLoaded();
       } else {
-        img.addEventListener('load', function(){
-          imgBox.classList.remove('is-loading');
-          img.classList.add('is-loaded');
-        });
-        img.addEventListener('error', function(){
-          imgBox.classList.remove('is-loading');
-          img.classList.add('is-loaded');
-        });
+        img.addEventListener('load', markLoaded);
+        img.addEventListener('error', markLoaded);
       }
     });
   }

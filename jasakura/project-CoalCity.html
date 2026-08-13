@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -114,5 +114,13 @@
 
 <script src="js/app.js"></script>
 <script src="js/project-detail.js"></script>
+<script>
+  /* 确保 reveal 元素在异步渲染后可见（IntersectionObserver 可能因异步渲染时机问题失效） */
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); });
+    }, 800);
+  });
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -24,7 +24,7 @@
     <p class="crumb"><a href="projects.html">长线企划</a> / Project 06</p>
     <h1>生灵日记<span class="en">Creature Diary</span></h1>
     <p class="lead">街猫、麻雀、窗台虫、流浪狗——城市生灵的日常日记。它们与人共处一城，却自成秩序。这个专题不追求"萌"，只记录那些不设防的瞬间：一只猫在午睡，一只鸟在啄食，一只虫在窗上停了三秒。两位摄影师，一拍猫、一拍鸟。</p>
-    <div class="meta-row"><span>摄影师<i>沈与归 · 周野</i></span><span>启程<i>2026 春</i></span><span>状态<i>进行中</i></span></div>
+    <div class="meta-row"><span>摄影师<i>周亭燃</i></span><span>启程<i>2026 春</i></span><span>状态<i>进行中</i></span></div>
   </div>
 </section>
 
@@ -54,33 +54,33 @@
     <div class="grid-edit">
       <a href="javascript:void(0)" class="item s6" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="墙头午睡的猫"></div>
-        <div class="lbl"><span>沈墨</span><span>2026.04</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.04</span></div>
         <h3>墙头午睡<span class="en">Wall Nap</span></h3>
-        <div class="credit"><b>沈墨</b> · 常驻</div>
+        <div class="credit"><b>周亭燃</b> · 常驻</div>
       </a>
       <a href="javascript:void(0)" class="item s3" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="窗台上的麻雀"></div>
-        <div class="lbl"><span>周野</span><span>2026.04</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.04</span></div>
         <h3>窗台麻雀<span class="en">Sparrow</span></h3>
-        <div class="credit"><b>周野</b> · 客座</div>
+        <div class="credit"><b>周亭燃</b> · 客座</div>
       </a>
       <a href="javascript:void(0)" class="item s3" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="电线杆上的鸟群"></div>
-        <div class="lbl"><span>周野</span><span>2026.05</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.05</span></div>
         <h3>电线会议<span class="en">Wire Meeting</span></h3>
-        <div class="credit"><b>周野</b> · 客座</div>
+        <div class="credit"><b>周亭燃</b> · 客座</div>
       </a>
       <a href="javascript:void(0)" class="item s4" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="巷口猫影"></div>
-        <div class="lbl"><span>沈墨</span><span>2026.05</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.05</span></div>
         <h3>巷口猫影<span class="en">Alley Cat</span></h3>
-        <div class="credit"><b>沈墨</b> · 常驻</div>
+        <div class="credit"><b>周亭燃</b> · 常驻</div>
       </a>
       <a href="javascript:void(0)" class="item s4" data-cat="documentary">
         <div class="img ar-43" data-zoom><img loading="lazy" alt="窗玻璃上的蜗牛"></div>
-        <div class="lbl"><span>陈青</span><span>2026.06</span></div>
+        <div class="lbl"><span>周亭燃</span><span>2026.06</span></div>
         <h3>窗上蜗牛<span class="en">Window Snail</span></h3>
-        <div class="credit"><b>陈青</b> · 客座</div>
+        <div class="credit"><b>周亭燃</b> · 客座</div>
       </a>
     </div>
   </div>
@@ -141,5 +141,13 @@
 
 <script src="js/app.js"></script>
 <script src="js/project-detail.js"></script>
+<script>
+  /* 确保 reveal 元素在异步渲染后可见（IntersectionObserver 可能因异步渲染时机问题失效） */
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); });
+    }, 800);
+  });
+</script>
 </body>
 </html>
