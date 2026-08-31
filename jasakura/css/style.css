@@ -586,6 +586,8 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 }
 @media(max-width:768px){
   body{padding-top:60px}
+  /* 手机端轮播图下移：负 margin 仅用于桌面全幅出血，此处避开品牌 logo 底部（14px padding + 60px 字号 = 74px） */
+  .cover{margin-top:14px}
   section{padding:72px 0}
   .sec-head{flex-direction:column;align-items:flex-start;gap:12px}
   .sec-head .r{text-align:left}
@@ -818,6 +820,25 @@ a:hover .go::after,.go:hover::after{transform:translateX(6px)}
 body{opacity:1;transition:opacity .4s ease}
 body.is-fading{opacity:0;pointer-events:none}
 
+/* ---------- 字体就绪淡入（配合 display=block，消除字体突然出现的生硬感） ---------- */
+/* 字体加载完成前文字处于隐形期（display=block），就绪后由 JS 加 .fonts-ready 触发淡入 */
+html.fonts-loading body{
+  visibility:hidden;      /* 隐形期完全不可见（比 opacity 性能更好，不触发重绘） */
+}
+html.fonts-ready body{
+  visibility:visible;
+  animation:fontReveal .5s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes fontReveal{
+  from{opacity:0}
+  to{opacity:1}
+}
+/* 用户偏好减少动画时直接显示 */
+@media (prefers-reduced-motion: reduce){
+  html.fonts-loading body{visibility:visible}
+  html.fonts-ready body{animation:none}
+}
+
 /* ============================================================
    档案杂志快捷选择（magazine-detail.html 底部 ARCHIVES 轮播）
    纯 CSS 横向滚动 + scroll-snap，无 Swiper.js 依赖
@@ -845,7 +866,7 @@ body.is-fading{opacity:0;pointer-events:none}
 }
 
 .archives .swiper-slide{
-  flex:0 0 auto;width:calc(100% - 20px);          /* 移动端一次显示 1 张多一点 */
+  flex:0 0 auto;width:78%;                        /* 移动端一次显示约 1.3 张，封面不过大 */
   padding:0 10px 0;cursor:pointer;
   user-select:none;text-decoration:none;color:inherit;
 }
@@ -886,7 +907,7 @@ body.is-fading{opacity:0;pointer-events:none}
 
 /* ---------- MORE 按钮卡片 ---------- */
 .archives .swiper-slide.more-slide .in{
-  width:100%;border:0;height:61.2vw;
+  width:100%;border:0;height:47.7vw;
   display:flex;align-items:center;
 }
 @media(min-width:768px){.archives .swiper-slide.more-slide .in{width:60%;height:21.4vw}}

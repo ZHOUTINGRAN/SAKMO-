@@ -2,6 +2,24 @@
    固定导航 · 移动端菜单 · 当前页高亮 · 滚动淡入 · 筛选 · 灯箱放大
    注：所有图片支持点击放大；替换为本地图片时无需改 JS。 */
 (function () {
+  /* ---- 字体就绪淡入（配合 Google Fonts display=block）----
+     加载期：html.fonts-loading → body 隐形（文字不会以回退字体闪现）
+     就绪后：html.fonts-ready → body 淡入 0.5s，消除字体突然出现的生硬感
+     1.2s 兜底：字体加载超时时强制显示，避免网络异常时页面长期空白 */
+  var htmlEl0 = document.documentElement;
+  if (document.fonts && document.fonts.ready) {
+    if (!htmlEl0.classList.contains('fonts-ready')) htmlEl0.classList.add('fonts-loading');
+    var fontsTimer = setTimeout(function(){
+      htmlEl0.classList.remove('fonts-loading');
+      htmlEl0.classList.add('fonts-ready');
+    }, 1200);
+    document.fonts.ready.then(function(){
+      clearTimeout(fontsTimer);
+      htmlEl0.classList.remove('fonts-loading');
+      htmlEl0.classList.add('fonts-ready');
+    });
+  }
+
   /* ---- 抽屉侧边导航（Them magazine 风格） ----
      两线↔关闭交叉淡入按钮 + 右侧白面板 + 大号衬线菜单项（黑块滑入 hover）。 */
   var drawerBtn = document.getElementById('menu-btn');
