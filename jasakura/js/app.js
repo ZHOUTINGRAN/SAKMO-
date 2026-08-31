@@ -9,14 +9,17 @@
   var htmlEl0 = document.documentElement;
   if (document.fonts && document.fonts.ready) {
     if (!htmlEl0.classList.contains('fonts-ready')) htmlEl0.classList.add('fonts-loading');
-    var fontsTimer = setTimeout(function(){
+    /* 淡入动画播完后必须移除 class：animation 的 fill 状态会让 body 成为
+       独立合成层，隔离 header 的 mix-blend-mode，导致白底页面上 logo/菜单按钮不可见 */
+    function fontsReveal(){
       htmlEl0.classList.remove('fonts-loading');
       htmlEl0.classList.add('fonts-ready');
-    }, 1200);
+      setTimeout(function(){ htmlEl0.classList.remove('fonts-ready'); }, 600);
+    }
+    var fontsTimer = setTimeout(fontsReveal, 1200);
     document.fonts.ready.then(function(){
       clearTimeout(fontsTimer);
-      htmlEl0.classList.remove('fonts-loading');
-      htmlEl0.classList.add('fonts-ready');
+      fontsReveal();
     });
   }
 
