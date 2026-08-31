@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -359,6 +359,7 @@
     let currentIdx = 0;        /* 移动端：当前页索引 */
     let currentSpread = 0;     /* 桌面端：当前跨页索引（每跨页 2 图合成 1 张） */
     let isAnimating = false;
+    let pageRatio = 2717/3543; /* 移动端单页宽高比（竖版 ≈0.77），首图加载后按实测值更新 */
     const FLIP_MS = 700;       /* 翻页动画时长（与 CSS transition 一致） */
     const compositeCache = {}; /* 跨页索引 → 合成 dataURL 缓存 */
 
@@ -411,13 +412,13 @@
 
     /* 计算尺寸
        桌面端：横幅 3360:2152 ≈ 1.56:1，按窗口留白适配
-       移动端：单页 4:3，沿用原比例 */
+       移动端：单页竖版（pageRatio ≈ 0.77，内页实测比例），按窗口留白适配 */
     function calcSize(){
       if(isMobile()){
         const padding = 40;
         const maxW = window.innerWidth - padding * 2;
         const maxH = window.innerHeight - padding * 2;
-        const ratio = 4 / 3;
+        const ratio = pageRatio;
         let w, h;
         if(maxW / maxH > ratio){ h = maxH; w = h * ratio; }
         else { w = maxW; h = w / ratio; }
@@ -457,6 +458,11 @@
         updateFrame();
         singleImg.src = gallery[idx];
         singleImg.onload = () => {
+          /* 首图加载后按实测比例校正外框（图片尚未淡入，重定尺寸不可见） */
+          if(singleImg.naturalWidth){
+            const r = singleImg.naturalWidth / singleImg.naturalHeight;
+            if(Math.abs(r - pageRatio) > 0.01){ pageRatio = r; updateFrame(); }
+          }
           setTimeout(() => {
             singleImg.classList.add('is-show');
             setTimeout(() => { isAnimating = false; }, 200);

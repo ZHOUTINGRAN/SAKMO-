@@ -506,7 +506,7 @@
 
   document.addEventListener('click', function (e) {
     /* 统一处理导航链接：footer logo + 抽屉/底部菜单项 + .go 按钮 + .flex-e 卡片 + OTHERS 链接 */
-    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a, .pd-logo a');
+    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a, .pd-logo a, .quick-4 a');
     if (!link) return;
     var href = link.getAttribute('href');
     if (!href || href.charAt(0) === '#') return; /* 跳过纯锚点(#instagram 等) */
