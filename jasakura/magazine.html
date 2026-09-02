@@ -1,10 +1,10 @@
-﻿﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>征稿活动 Events — 樱茉序 Sakmo</title>
-<meta name="description" content="樱茉序 · 征稿活动：投稿规范、当期征稿主题、共创专栏招募。欢迎成为客座创作者。">
+<title>杂志刊物 MAGAZINE — 樱茉序 Sakmo</title>
+<meta name="description" content="樱茉序 Sakmo 电子杂志刊物陈列：树语、栖绿、生灵日记、征服——以专题为册的多人共创影像刊物。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=block" rel="stylesheet">
@@ -19,74 +19,25 @@
   <button id="menu-btn" aria-label="菜单"></button>
 </header>
 
-<!-- ============ 征稿活动 ============ -->
-<section style="padding-top:90px">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="l"><h2>征稿活动<span class="en">Events</span></h2></div>
-      <div class="r">Open Call · 客座投稿</div>
+<main class="page-magazine">
+
+  <!-- ============ 杂志陈列（全幅三列网格 · 数据驱动） ============ -->
+  <section class="magazine-archive" style="padding-top:120px;padding-bottom:80px">
+    <div class="head">
+      <h3 class="h3-common">MAGAZINE</h3>
+      <div class="r">
+        <span class="len">Issues: <i>4</i></span>
+        <div class="current">Page: <i>1</i>/1</div>
+      </div>
     </div>
-    <p class="annot" style="max-width:62ch;margin-bottom:48px;font-size:1.4rem;color:var(--ink-soft);font-family:var(--serif);line-height:1.85">每期随机主题开放客座投稿，常驻与客座同台陈列。无论你拍的是乡镇、田野、城市边缘，还是窗台上一只打盹的猫——只要目光诚实，都欢迎把作品寄给我们。</p>
-
-    <!-- ============ 投稿规范表 ============ -->
-    <div class="sec-head" style="margin-bottom:32px">
-      <div class="l"><h2 style="font-size:clamp(1.8rem,2.4vw,2.2rem)">投稿规范<span class="en">Submission Specs</span></h2></div>
-      <div class="r">Last Updated · 2026.08</div>
+    <div class="flex-4" id="magazine-grid">
+      <!-- JS 从 magazine-data.js 动态渲染杂志卡片 -->
     </div>
-    <dl class="spec-table">
-      <div class="row">
-        <dt>主题 / Theme</dt>
-        <dd>当期征稿主题「树」<span class="sub">窗里与窗外、光的入口与视线的出口——可纪实、可静物、可创意，鼓励与节气气息呼应。</span></dd>
-      </div>
-      <div class="row">
-        <dt>格式 / Format</dt>
-        <dd>单张或组图（4–12 张为一组）<span class="sub">推荐 WebP / AVIF；JPG、PNG、TIFF 亦可。</span></dd>
-      </div>
-      <div class="row">
-        <dt>尺寸 / Size</dt>
-        <dd>长边 ≥ 3000px，色彩 sRGB<span class="sub">单张文件不超过 25MB；组图请打包为 zip。</span></dd>
-      </div>
-      <div class="row">
-        <dt>文件 / File</dt>
-        <dd>请保留 EXIF<span class="sub">投稿者须为原著作权人或已获合法授权；作品需附署名、拍摄时间与一句话手记。</span></dd>
-      </div>
-      <div class="row">
-        <dt>截稿 / Deadline</dt>
-        <dd>2026 · 9 月 20 日 24:00 (UTC+8)<span class="sub">逾期稿件将顺延至下期评估，不另行通知。</span></dd>
-      </div>
-      <div class="row">
-        <dt>投稿方式 / Submit</dt>
-        <dd>邮件至 sakmo@jasakura.cn<span class="sub">主题注明「投稿 · 客座 · 你的署名」；正文附社交账号与作品手记，附件或网盘链接均可。</span></dd>
-      </div>
-    </dl>
-  </div>
-</section>
+  </section>
 
-<!-- ============ 行动条 ============ -->
-<section class="submit-strip" style="padding:96px 0">
-  <div class="wrap">
-    <h3>把你的目光寄给我们<span class="en" style="display:block;font-style:italic;font-weight:400;font-size:1.3rem;color:var(--muted);margin-top:6px">Send Us Your Gaze</span></h3>
-    <p>常驻与客座同台陈列，是樱茉序从一开始就坚持的方式。如果你也相信照片之间的留白比照片本身更重要，欢迎成为下一期的客座创作者。</p>
-    <a href="submit-form.html" class="go">在线投稿 →</a>
-  </div>
-</section>
+</main>
 
-<!-- ============ 当期活动 ============ -->
-<section style="padding-top:48px">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="l"><h2>当期活动<span class="en">Current Calls</span></h2></div>
-      <div class="r">3 Open Calls</div>
-    </div>
-
-    <div id="events-grid">
-      <!-- JS 从 events-data.js 动态渲染 -->
-    </div>
-
-  </div>
-</section>
-
-<!-- ============ 页脚（全幅 · 左 logo+SNS / 右双列菜单 · 细线 hover） ============ -->
+<!-- ============ 页脚（全幅 · 左 logo+SNS / 右双列菜单 · 樱蕊点蕾 hover） ============ -->
 <footer id="f">
   <div class="in">
     <div class="l">
@@ -121,35 +72,35 @@
 </footer>
 
 <script src="js/app.js"></script>
-<script src="js/events-data.js"></script>
+<script src="js/magazine-data.js"></script>
 <script>
 /* ============================================================
-   当期活动 — 从 events-data.js 数据动态渲染
-   修改活动信息只需编辑 js/events-data.js 即可
+   杂志陈列列表 — 从 magazine-data.js 数据动态渲染
+   修改刊物信息只需编辑 js/magazine-data.js 即可
    ============================================================ */
 (function(){
-  if (!window.events || !events.length) return;
-  var grid = document.getElementById('events-grid');
+  if (!window.magazines || !magazines.length) return;
+  var grid = document.getElementById('magazine-grid');
   if (!grid) return;
 
-  events.forEach(function(e){
-    var card = document.createElement('div');
-    card.className = 'event-card';
-    card.innerHTML =
-      '<div class="img" data-zoom><img loading="lazy" alt="' + (e.imgAlt||'') + '" src="' + e.img + '"></div>' +
-      '<div>' +
-        '<div class="when">' + e.when + '</div>' +
-        '<h4>' + e.title + '<span class="en" style="display:block;font-style:italic;font-weight:400;font-size:1.2rem;color:var(--muted);margin-top:4px">' + e.titleEn + '</span></h4>' +
-        '<p>' + e.desc + '</p>' +
+  magazines.forEach(function(m){
+    var cell = document.createElement('a');
+    cell.className = 'cell';
+    cell.href = 'magazine-detail.html?id=' + m.id;
+    cell.innerHTML =
+      '<figure class="img"><span class="scale">' +
+        '<img loading="lazy" alt="No.' + m.id + ' ' + m.title + '" src="' + m.cover + '">' +
+      '</span></figure>' +
+      '<div class="txts">' +
+        '<span>' + m.issue + '</span>' +
+        '<strong>' + m.title + '</strong>' +
       '</div>';
-    grid.appendChild(card);
+    grid.appendChild(cell);
   });
 
   /* 更新头部计数 */
-  var countEl = document.querySelector('.sec-head .r');
-  if (countEl && countEl.textContent.indexOf('Open Calls') !== -1){
-    countEl.textContent = events.length + ' Open Calls';
-  }
+  var lenEl = document.querySelector('.magazine-archive .head .len i');
+  if (lenEl) lenEl.textContent = magazines.length;
 })();
 </script>
 </body>

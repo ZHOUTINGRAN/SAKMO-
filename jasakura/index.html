@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -45,62 +45,89 @@
   </div>
 </section>
 
-<!-- ============ 杂志陈列（全幅四列网格） ============ -->
+<!-- ============ 杂志刊物（主页精选 · 刊架轮播 coverflow，完整陈列见 magazine.html） ============ -->
 <section class="magazine-archive reveal" id="magazine-archive" style="padding-top:80px;padding-bottom:80px">
-  <div class="head">
+  <div class="head head-link">
     <h3 class="h3-common">MAGAZINE</h3>
     <div class="r">
-      <span class="len">Issues: <i>4</i></span>
-      <div class="current">Page: <i>1</i>/1</div>
+      <a href="magazine.html" class="more">全部刊物<span class="ar">→</span></a>
     </div>
   </div>
-  <div class="flex-4" id="magazine-grid">
-    <!-- JS 从 magazine-data.js 动态渲染 8 本杂志卡片 -->
+
+  <div class="rack" id="mag-rack">
+    <button class="rack-arrow prev" id="rack-prev" type="button" aria-label="上一期">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 4.5L8 12l7.5 7.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="rack-stage">
+      <div class="rack-track" id="rack-track">
+        <!-- JS 从 magazine-data.js 渲染封面 -->
+      </div>
+    </div>
+    <button class="rack-arrow next" id="rack-next" type="button" aria-label="下一期">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 4.5L16 12l-7.5 7.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <div class="rack-meta" id="rack-meta">
+    <p class="rack-issue" id="rack-issue"></p>
+    <h3 class="rack-title" id="rack-title"></h3>
+    <a class="rack-open" id="rack-open" href="magazine.html"><span class="en">OPEN ISSUE</span><span class="cn">翻阅本期</span><span class="ar">→</span></a>
+  </div>
+  <div class="rack-dots" id="rack-dots" role="tablist" aria-label="选择刊期"></div>
+</section>
+
+<!-- ============ 专题目录（主页 · 左侧固定展示卡 + 右侧滚动点亮，数据见 js/projects-data.js） ============ -->
+<section class="hp-projects" id="hp-projects-sec">
+  <div class="hp-pin" id="hp-pin">
+    <div class="ps-head">
+      <div class="sec-head sec-head--h3 head-link">
+        <div class="l"><h2>PROJECTS<span class="ja">专题目录</span></h2></div>
+        <div class="r"><a href="projects.html" class="more">全部专题<span class="ar">→</span></a></div>
+      </div>
+    </div>
+    <div class="ps-body">
+      <!-- 左：城市边缘发展 · 固定单独展示 -->
+      <div class="ps-feature" id="ps-feature">
+        <!-- JS 渲染 -->
+      </div>
+      <!-- 右：滚动点亮的专题目录行 -->
+      <div class="ps-rows" id="ps-rows">
+        <!-- JS 渲染 -->
+      </div>
+    </div>
+    <div class="ps-side">
+      <div class="ps-rail" id="ps-rail" role="tablist" aria-label="选择专题"></div>
+      <div class="ps-count"><span id="ps-cur">01</span><i></i><span id="ps-total">06</span></div>
+    </div>
+    <p class="ps-hint">继续滚动 · 专题依次点亮</p>
   </div>
 </section>
 
-<!-- ============ 三大板块快捷入口 ============ -->
-<section class="reveal">
-  <div class="wrap wrap--edge">
-    <div class="sec-head sec-head--h3">
-      <div class="l"><h2>SAKMO IMAGERY<span class="ja">樱茉映像</span></h2></div>
-      <div class="r">Three Sections · 三大板块</div>
-    </div>
-    <div class="quick-4">
-      <a href="gallery.html">
-        <div class="n">01</div>
-        <div class="t">影像画廊</div>
-        <div class="e">Gallery</div>
-        <div class="d">风光 / 纪实 / 新地形 / 静物 / 创意，五类作品共创陈列。</div>
-        <span class="enter">ENTER<em>→</em></span>
-      </a>
-      <a href="projects.html">
-        <div class="n">02</div>
-        <div class="t">专题项目</div>
-        <div class="e">Long-term Projects</div>
-        <div class="d">老乡镇、新农村、城市边缘……六个长期专题持续生长。</div>
-        <span class="enter">ENTER<em>→</em></span>
-      </a>
-      <a href="reading.html">
-        <div class="n">03</div>
-        <div class="t">影像解析</div>
-        <div class="e">Reading</div>
-        <div class="d">单作拆解、多人访谈、技术干货——把照片读厚。</div>
-        <span class="enter">ENTER<em>→</em></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 本期精选 (编辑选片) ============ -->
-<section class="reveal" style="padding-top:0">
-  <div class="wrap wrap--edge">
-    <div class="sec-head sec-head--h3">
+<!-- ============ 本期精选 (编辑选片 · 杂志跨页照片版) ============ -->
+<section class="reveal pick-sec">
+  <div class="pick-head">
+    <div class="sec-head sec-head--h3 head-link">
       <div class="l"><h2>Editor's Pick<span class="ja">本期精选</span></h2></div>
-      <div class="r"><a href="gallery.html">进入画廊 →</a></div>
+      <div class="r"><a href="gallery.html" class="more">进入画廊<span class="ar">→</span></a></div>
     </div>
-    <div class="grid-edit filterable" id="pick-grid">
-      <!-- JS 从 pick-data.js 动态渲染 -->
+  </div>
+  <div class="pick-swiper" id="pick-grid">
+    <div class="pick-track" id="pick-track">
+      <!-- JS 从 pick-data.js 动态渲染：横向拖拽滑动，图片保持原比例不裁切 -->
+    </div>
+    <p class="pick-hint">按住拖拽 · 浏览选片</p>
+  </div>
+</section>
+
+<!-- ============ 影像解析（主页预览 · 编辑目录行，数据见 js/reading-data.js） ============ -->
+<section class="reveal hp-reading" style="padding-top:128px">
+  <div class="wrap wrap--edge">
+    <div class="sec-head sec-head--h3 head-link">
+      <div class="l"><h2>READING<span class="ja">影像解析</span></h2></div>
+      <div class="r"><a href="reading.html" class="more">全部解析<span class="ar">→</span></a></div>
+    </div>
+    <div class="hp-read-list" id="hp-reading">
+      <!-- JS 渲染：最新 3 篇解析目录行 -->
     </div>
   </div>
 </section>
@@ -121,7 +148,7 @@
   </div>
 </section>
 
-<!-- ============ 页脚（Them magazine 风格 · 全幅 · 左 logo+SNS / 右双列菜单 + 黑块 hover） ============ -->
+<!-- ============ 页脚（全幅 · 左 logo+SNS / 右双列菜单 · 细线 hover） ============ -->
 <footer id="f">
   <div class="in">
     <div class="l">
@@ -135,16 +162,16 @@
     <div class="r">
       <div class="flex">
         <div class="cell">
-          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span><i class="u-target"></i></a>
-          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span><i class="u-target"></i></a>
-          <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span><i class="u-target"></i></a>
-          <a href="index.html#magazine-archive" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志专题</span><i class="u-target"></i></a>
+          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span></a>
+          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span></a>
+          <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span></a>
+          <a href="magazine.html" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志刊物</span></a>
         </div>
         <div class="cell">
-          <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span><i class="u-target"></i></a>
-          <a href="creators.html" class="u-menu"><span class="en">ROSTER</span><span class="ja">创作者名册</span><i class="u-target"></i></a>
-          <a href="about.html" class="u-menu"><span class="en">ABOUT</span><span class="ja">关于联络</span><i class="u-target"></i></a>
-          <a href="about.html#archive" class="u-menu"><span class="en">ARCHIVE</span><span class="ja">往期归档</span><i class="u-target"></i></a>
+          <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span></a>
+          <a href="creators.html" class="u-menu"><span class="en">ROSTER</span><span class="ja">创作者名册</span></a>
+          <a href="about.html" class="u-menu"><span class="en">ABOUT</span><span class="ja">关于联络</span></a>
+          <a href="about.html#archive" class="u-menu"><span class="en">ARCHIVE</span><span class="ja">往期归档</span></a>
         </div>
       </div>
     </div>
@@ -159,6 +186,8 @@
 <script src="js/cover-data.js"></script>
 <script src="js/pick-data.js"></script>
 <script src="js/magazine-data.js"></script>
+<script src="js/projects-data.js"></script>
+<script src="js/reading-data.js"></script>
 <script>
 /* 封面幻灯片：从 cover-data.js 数据动态渲染 + 自动播放（6s 切换，淡入淡出 1.4s） */
 (function(){
@@ -203,62 +232,185 @@
 })();
 </script>
 <script>
-/* 杂志陈列卡片：从 magazine-data.js 数据动态渲染 */
+/* 主页 · 刊架轮播（coverflow）：从 magazine-data.js 渲染封面
+   居中为当期，两侧封面斜立微露；自动播放/箭头/圆点/点击侧封切换
+   完整刊物陈列见 magazine.html */
 (function(){
   if (!window.magazines || !magazines.length) return;
-  var grid = document.getElementById('magazine-grid');
-  if (!grid) return;
+  var track = document.getElementById('rack-track');
+  var dotsBox = document.getElementById('rack-dots');
+  var issueEl = document.getElementById('rack-issue');
+  var titleEl = document.getElementById('rack-title');
+  var openEl = document.getElementById('rack-open');
+  var metaEl = document.getElementById('rack-meta');
+  if (!track || !dotsBox) return;
 
-  magazines.forEach(function(m){
-    var cell = document.createElement('a');
-    cell.className = 'cell';
-    cell.href = 'magazine-detail.html?id=' + m.id;
-    cell.innerHTML =
-      '<figure class="img"><span class="scale">' +
-        '<img loading="lazy" alt="No.' + m.id + ' ' + m.title + '" src="' + m.cover + '">' +
-      '</span></figure>' +
-      '<div class="txts">' +
-        '<span>' + m.issue + '</span>' +
-        '<strong>' + m.title + '</strong>' +
-      '</div>';
-    grid.appendChild(cell);
+  var n = magazines.length, idx = 0, timer = null;
+  var slides = [], dots = [];
+
+  /* 标题形如 'WHISPERS OF PINES 树语'：拆出英文刊名与中文 */
+  function splitTitle(t){
+    var m = t.match(/^(.*?)\s*([一-龥]+)\s*$/);
+    return m ? {en:m[1].trim(), zh:m[2]} : {en:t, zh:''};
+  }
+
+  magazines.forEach(function(m, i){
+    var a = document.createElement('a');
+    a.href = 'magazine-detail.html?id=' + m.id;
+    a.className = 'rack-slide';
+    a.setAttribute('aria-label', m.title);
+    a.innerHTML =
+      '<figure><img loading="lazy" alt="No.' + m.id + ' ' + m.title + '" src="' + m.cover + '"></figure>';
+    /* 点击侧封 → 转到当期；点击正中 → 进入详情（默认跳转） */
+    a.addEventListener('click', function(e){
+      if (i !== idx){ e.preventDefault(); go(i); restart(); }
+    });
+    track.appendChild(a);
+    slides.push(a);
+
+    var d = document.createElement('button');
+    d.type = 'button';
+    d.className = 'rack-dot';
+    d.setAttribute('aria-label', '第 ' + (i + 1) + ' 期');
+    d.addEventListener('click', function(){ go(i); restart(); });
+    dotsBox.appendChild(d);
+    dots.push(d);
   });
 
-  /* 更新头部计数 */
-  var lenEl = document.querySelector('.magazine-archive .head .len i');
-  if (lenEl) lenEl.textContent = magazines.length;
+  function layout(){
+    var mobile = window.innerWidth < 768;
+    var tx1 = mobile ? 200 : 356, tx2 = mobile ? 285 : 514;
+
+    slides.forEach(function(s, i){
+      var d = i - idx;
+      if (d > n / 2) d -= n;
+      if (d < -n / 2) d += n;
+      var abs = Math.abs(d);
+      var dir = d === 0 ? 0 : d / abs;
+
+      s.classList.toggle('is-active', d === 0);
+
+      if (abs > 2 || (mobile && abs >= 2)){
+        s.style.opacity = 0;
+        s.style.pointerEvents = 'none';
+        s.style.zIndex = 0;
+        s.style.transform = 'translate(-50%,-50%) translateX(' + (dir * (tx2 + 140)) + 'px) scale(.55)';
+        return;
+      }
+      var tx = d === 0 ? 0 : (abs === 1 ? dir * tx1 : dir * tx2);
+      var scale = d === 0 ? 1 : (abs === 1 ? .78 : .62);
+      var rotY = -dir * (abs === 1 ? 27 : 35);
+      s.style.transform =
+        'translate(-50%,-50%) translateX(' + tx + 'px) translateZ(' + (-abs * 120) +
+        'px) rotateY(' + rotY + 'deg) scale(' + scale + ')';
+      s.style.opacity = d === 0 ? 1 : (abs === 1 ? .6 : .18);
+      s.style.zIndex = 10 - abs;
+      s.style.pointerEvents = 'auto';
+    });
+
+    dots.forEach(function(dot, i){
+      dot.classList.toggle('is-active', i === idx);
+      dot.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+    });
+
+    var m = magazines[idx];
+    var t = splitTitle(m.title);
+    issueEl.textContent = m.issue;
+    titleEl.innerHTML = (t.zh || t.en) +
+      (t.zh && t.en ? '<span class="en">' + t.en + '</span>' : '');
+    openEl.href = 'magazine-detail.html?id=' + m.id;
+
+    /* 期号信息淡入 */
+    metaEl.classList.remove('is-in');
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ metaEl.classList.add('is-in'); });
+    });
+  }
+
+  function go(i){ idx = ((i % n) + n) % n; layout(); }
+  function next(){ go(idx + 1); }
+  function prev(){ go(idx - 1); }
+  function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+  function start(){ stop(); timer = setInterval(next, 3000); }
+  function restart(){ start(); }
+
+  document.getElementById('rack-next').addEventListener('click', function(){ next(); restart(); });
+  document.getElementById('rack-prev').addEventListener('click', function(){ prev(); restart(); });
+
+  var rack = document.getElementById('mag-rack');
+  rack.addEventListener('mouseenter', stop);
+  rack.addEventListener('mouseleave', start);
+  rack.addEventListener('touchstart', stop, {passive:true});
+
+  /* 键盘左右方向键切换 */
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight'){ next(); restart(); }
+    if (e.key === 'ArrowLeft'){ prev(); restart(); }
+  });
+
+  var resizeT = null;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeT);
+    resizeT = setTimeout(layout, 150);
+  });
+
+  layout();
+  start();
 })();
 </script>
 <script>
-/* 本期精选：从 pick-data.js 数据动态渲染
-   只需填写画廊图片路径，标题/分类/摄影师等信息自动从画廊同名 JSON 读取 */
+/* 区块标题整行点击：点标题行任意位置即跳转到对应页面
+   （与右侧 more 链接同址；整行 hover 樱花灯效见 style.css .head-link） */
+(function(){
+  document.querySelectorAll('.head-link').forEach(function(h){
+    var link = h.querySelector('a.more');
+    if (!link) return;
+    h.setAttribute('role', 'link');
+    h.setAttribute('tabindex', '0');
+    h.setAttribute('aria-label', link.textContent.replace(/\s+/g, ' ').trim());
+    function go(){
+      sessionStorage.setItem('page-transition', '1');
+      window.location.href = link.getAttribute('href');
+    }
+    h.addEventListener('click', function(e){ e.preventDefault(); go(); });
+    h.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); }
+    });
+  });
+})();
+</script>
+<script>
+/* 本期精选：横向拖拽滑动（仿 ARCHIVES）—— 图片保持原始比例、统一高度，零裁切
+   标题/分类/日期自动从画廊同名 JSON 读取，数据见 js/pick-data.js */
 (function(){
   if (!window.PICKS || !PICKS.length) return;
-  var grid = document.getElementById('pick-grid');
-  if (!grid) return;
+  var track = document.getElementById('pick-track');
+  var swiper = document.getElementById('pick-grid');
+  if (!track || !swiper) return;
 
-  /* 从图片路径推导 JSON 路径（如 01.jpg → 01.json） */
+  /* 从图片路径推导 JSON 路径（如 01.webp → 01.json） */
   function imgToJsonPath(imgSrc){
     return imgSrc.replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '.json');
   }
+  function pad2(s){ return ('0' + s).slice(-2); }
 
-  /* 逐个渲染精选卡片 */
-  PICKS.forEach(function(p){
-    var link = p.link || 'gallery.html';
-    var span = p.span || 's4';
+  PICKS.forEach(function(p, i){
     var a = document.createElement('a');
-    a.href = link;
-    a.className = 'item ' + span;
+    a.href = p.link || 'gallery.html';
+    a.className = 'pick-slide';
     a.innerHTML =
-      '<div class="img is-loading" data-zoom><img loading="lazy" alt="" src="' + p.img + '"></div>' +
-      '<div class="lbl"><span>　</span><span>　</span></div>' +
-      '<h3>　<span class="en"></span></h3>';
-    grid.appendChild(a);
+      '<figure class="pick-img is-loading"><img loading="lazy" alt="" src="' + p.img + '"></figure>' +
+      '<figcaption class="pick-cap">' +
+        '<span class="pick-no">No.' + pad2(i + 1) + '</span>' +
+        '<span class="pick-meta"><em class="pick-cat">　</em><i></i><em class="pick-date">　</em></span>' +
+        '<h3 class="pick-tt">　<span class="en"></span><span class="pick-ar">→</span></h3>' +
+      '</figcaption>';
+    track.appendChild(a);
 
-    /* 图片加载完成：移除骨架屏 + 淡入显示（与画廊页渲染一致，避免 img 默认 opacity:0 不显示） */
+    /* 图片加载完成：移除骨架底色 + 淡入 */
     var imgEl = a.querySelector('img');
     function onImgReady(){
-      var wrap = a.querySelector('.img');
+      var wrap = a.querySelector('.pick-img');
       if (wrap) wrap.classList.remove('is-loading');
       imgEl.classList.add('is-loaded');
     }
@@ -269,19 +421,18 @@
       imgEl.addEventListener('error', onImgReady);
     }
 
-    /* 异步加载画廊 JSON，填充标题/分类/摄影师等信息 */
+    /* 异步加载画廊 JSON，填充标题/分类/日期 */
     fetch(imgToJsonPath(p.img))
       .then(function(res){ return res.ok ? res.json() : null; })
       .then(function(d){
         if (!d) return;
-        var img = a.querySelector('.img img');
+        var img = a.querySelector('.pick-img img');
         if (img) img.alt = d.title || '';
-        var spans = a.querySelectorAll('.lbl span');
-        if (spans.length >= 2){
-          if (d.category) spans[0].textContent = d.category;
-          if (d.date) spans[1].textContent = d.date;
-        }
-        var h3 = a.querySelector('h3');
+        var cat = a.querySelector('.pick-cat');
+        if (cat && d.category) cat.textContent = d.category;
+        var dt = a.querySelector('.pick-date');
+        if (dt && d.date) dt.textContent = d.date;
+        var h3 = a.querySelector('.pick-tt');
         if (h3){
           h3.childNodes[0].nodeValue = d.title || '';
           var en = h3.querySelector('.en');
@@ -290,11 +441,251 @@
       })
       .catch(function(){ /* JSON 不存在时保持占位空白 */ });
   });
+
+  /* ===== 纯原生拖拽滑动（与杂志详情页 ARCHIVES 同款：transform 平移，松手即停） ===== */
+  var isDown = false, startX = 0, currentX = 0, prevX = 0, moved = false;
+  function getX(e){ return e.clientX || (e.touches && e.touches[0].clientX); }
+  function minX(){
+    var min = swiper.clientWidth - track.scrollWidth;
+    return Math.min(0, min - 24);   /* 末端略留余量，避免最后一张贴边突兀 */
+  }
+  function setTransform(){ track.style.transform = 'translateX(' + currentX + 'px)'; }
+
+  function onDown(e){
+    isDown = true; moved = false;
+    startX = getX(e); prevX = currentX;
+    track.style.transition = 'none';
+    if (e.type === 'mousedown') e.preventDefault();
+  }
+  function onMove(e){
+    if (!isDown) return;
+    var delta = getX(e) - startX;
+    if (Math.abs(delta) > 5){ moved = true; swiper.classList.add('is-dragged'); }
+    currentX = prevX + delta;
+    if (currentX > 0) currentX = 0;
+    if (currentX < minX()) currentX = minX();
+    setTransform();
+    if (e.type === 'mousemove') e.preventDefault();
+  }
+  function onUp(){
+    if (!isDown) return;
+    isDown = false;
+    track.style.transition = '';
+  }
+  /* 拖拽超过 5px 时拦截 click，防止松手误跳转 */
+  swiper.addEventListener('click', function(e){
+    if (moved){ e.preventDefault(); e.stopPropagation(); }
+  }, true);
+  swiper.addEventListener('mousedown', onDown);
+  swiper.addEventListener('mousemove', onMove);
+  swiper.addEventListener('mouseup', onUp);
+  swiper.addEventListener('mouseleave', onUp);
+  swiper.addEventListener('touchstart', onDown, {passive:true});
+  swiper.addEventListener('touchmove', onMove, {passive:true});
+  swiper.addEventListener('touchend', onUp);
 })();
 </script>
 
 <!-- 当期活动数据（与 submit.html 共用） -->
 <script src="js/events-data.js"></script>
+<script>
+/* 主页 · 专题目录：左固定展示卡（城市边缘发展）+ 右侧滚动点亮
+   不劫持滚轮：原生滚动经过本区时，右侧目录行随进度逐一点亮；
+   移动端 / 减少动态效果：退化为普通静态排列。 */
+(function(){
+  if (!window.projects || !projects.length) return;
+  var sec = document.getElementById('hp-projects-sec');
+  var pin = document.getElementById('hp-pin');
+  var featBox = document.getElementById('ps-feature');
+  var rowsBox = document.getElementById('ps-rows');
+  var rail = document.getElementById('ps-rail');
+  var curEl = document.getElementById('ps-cur');
+  if (!sec || !pin || !featBox || !rowsBox || !rail) return;
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function isLive(p){ return p.status.indexOf('进行中') !== -1; }
+  function splitTitle(t){
+    var m = t.match(/^(.*?)\s+([A-Za-z][A-Za-z0-9'&.\s-]*)$/);
+    return m ? {zh:m[1], en:m[2]} : {zh:t, en:''};
+  }
+  function pad2(s){ return ('0' + s).slice(-2); }
+
+  var n = projects.length, idx = -1, rows = [], dots = [];
+
+  /* 左侧固定展示卡：取「城市边缘发展」（取不到则用第三个专题） */
+  var feature = projects.filter(function(p){ return p.link.indexOf('cityedge') !== -1; })[0] || projects[Math.min(2, n - 1)];
+  var ft = splitTitle(feature.title);
+  featBox.innerHTML =
+    '<a class="ps-f-card" href="' + feature.link + '">' +
+      '<figure class="ps-f-img"><img loading="lazy" alt="' + (feature.imgAlt || ft.zh) + '" src="' + feature.img + '"></figure>' +
+      '<div class="ps-f-txt">' +
+        '<span class="ps-tag"><i class="dot ' + (isLive(feature) ? 'is-live' : 'is-done') + '"></i>' +
+          (isLive(feature) ? '进行中' : '已结束') + ' · PROJECT ' + pad2(feature.id) + '</span>' +
+        '<h3 class="ps-title">' + ft.zh + (ft.en ? '<span class="en">' + ft.en + '</span>' : '') + '</h3>' +
+        '<span class="ps-go">进入专题<span class="ar">→</span></span>' +
+      '</div>' +
+    '</a>';
+
+  /* 右侧目录行 */
+  projects.forEach(function(p, i){
+    var t = splitTitle(p.title);
+    var live = isLive(p);
+    var a = document.createElement('a');
+    a.href = p.link;
+    a.className = 'ps-row';
+    a.setAttribute('aria-label', t.zh);
+    a.innerHTML =
+      '<span class="pr-no">No.' + pad2(p.id) + '</span>' +
+      '<span class="pr-ti">' + t.zh + (t.en ? '<em>' + t.en + '</em>' : '') + '</span>' +
+      '<figure class="pr-thumb"><img loading="lazy" alt="" src="' + p.img + '"></figure>' +
+      '<span class="pr-st"><i class="dot ' + (live ? 'is-live' : 'is-done') + '"></i>' + (live ? '进行中' : '已结束') + '</span>';
+    rowsBox.appendChild(a);
+    rows.push(a);
+
+    var d = document.createElement('button');
+    d.type = 'button';
+    d.className = 'ps-dot';
+    d.setAttribute('aria-label', '第 ' + (i + 1) + ' 个专题：' + t.zh);
+    d.addEventListener('click', function(){ jumpTo(i); });
+    rail.appendChild(d);
+    dots.push(d);
+  });
+  var totalEl = document.getElementById('ps-total');
+  if (totalEl) totalEl.textContent = pad2(n);
+
+  function activate(i){
+    if (i === idx) return;
+    idx = i;
+    rows.forEach(function(r, j){ r.classList.toggle('is-active', j === i); });
+    dots.forEach(function(d, j){
+      d.classList.toggle('is-active', j === i);
+      d.setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    if (curEl) curEl.textContent = pad2(i + 1);
+    if (i > 0) pin.classList.add('is-started');
+  }
+
+  /* 移动端或减少动态：静态排列，不钉住 */
+  var mobile = window.matchMedia && window.matchMedia('(max-width:768px)').matches;
+  if (reduce || mobile){
+    sec.classList.add('is-static');
+    rows.forEach(function(r){ r.classList.add('is-active'); });
+    var hint = pin.querySelector('.ps-hint');
+    if (hint) hint.style.display = 'none';
+    return;
+  }
+
+  /* 钉住区高度：舞台 100vh + 每个点亮档约 42vh 行程（短行程，滚动省力） */
+  function setHeight(){ sec.style.height = (100 + n * 42) + 'vh'; }
+  setHeight();
+
+  /* 点击导轨圆点 → 跳到对应滚动位置（唯一的程序化滚动，无锁定） */
+  function jumpTo(i){
+    var r = sec.getBoundingClientRect();
+    var travel = r.height - window.innerHeight;
+    var top = r.top + window.scrollY + travel * (i / n) + 2;
+    window.scrollTo({top: top, behavior: 'smooth'});
+  }
+
+  /* 纯滚动进度驱动：不 preventDefault、不锁定，绝不会卡住 */
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      ticking = false;
+      var r = sec.getBoundingClientRect();
+      var travel = r.height - window.innerHeight;
+      var p = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 0;
+      activate(Math.min(n - 1, Math.floor(p * n)));
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', function(){ setHeight(); onScroll(); });
+
+  activate(0);
+})();
+</script>
+<script>
+/* 主页 · 影像解析预览：「编辑手记」不规则剪贴排版
+   三篇大小/方向/缩进交替，照片为白边倾斜打印件，hover 回正；滚动逐篇浮现
+   每 3 秒流动一篇（窗口推进一格，新篇从第三行流入），全部解析循环露出、不重复，悬停暂停 */
+(function(){
+  if (!window.readingData || !readingData.length) return;
+  var box = document.getElementById('hp-reading');
+  if (!box) return;
+  /* 修正数据里偶发的英文标题整句重复 */
+  function cleanEn(en){
+    if (!en) return '';
+    var half = Math.floor(en.length/2);
+    if (en.slice(half).trim() === en.slice(0,half).trim()) return en.slice(0,half).trim();
+    return en;
+  }
+  var variants = ['r-row--a', 'r-row--b', 'r-row--c'];
+  var PAGE = 3, total = readingData.length, start = 0;
+
+  /* 取当前组：从 start 起连续 3 篇，环绕取模，组内互不重复 */
+  function groupList(){
+    var list = [];
+    for (var k = 0; k < PAGE; k++) list.push(readingData[(start + k) % total]);
+    return list;
+  }
+  function buildHtml(){
+    return groupList().map(function(a, i){
+      var globalIdx = (start + i) % total;
+      return '<a class="r-row ' + variants[i] + '" href="reading-detail.html?id=' + a.id + '" style="transition-delay:' + (i * 0.12) + 's">' +
+        '<figure class="r-thumb"><img loading="lazy" alt="' + (a.imgAlt || a.title) + '" src="' + a.img + '"></figure>' +
+        '<div class="r-body">' +
+          '<span class="r-idx" aria-hidden="true">' + ('0' + (globalIdx + 1)).slice(-2) + '</span>' +
+          '<div class="r-meta"><span class="r-cat">' + a.cat + '</span><span class="r-date">' + a.date + '</span></div>' +
+          '<h3>' + a.title + '<span class="en">' + cleanEn(a.titleEn) + '</span></h3>' +
+          '<span class="r-author">' + a.author + ' · ' + a.authorRole + '</span>' +
+        '</div>' +
+        '<span class="r-arrow" aria-hidden="true">→</span>' +
+      '</a>';
+    }).join('');
+  }
+  box.innerHTML = buildHtml();
+
+  /* 首次：滚动进入视口逐篇浮现（减少动态效果时直接显示） */
+  var rows = Array.prototype.slice.call(box.querySelectorAll('.r-row'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)){
+    rows.forEach(function(r){ r.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, {threshold: 0.18});
+    rows.forEach(function(r){ io.observe(r); });
+  }
+
+  /* ===== 连续流动：每 3 秒窗口推进一篇（末篇滑出、新篇从第三行流入） ===== */
+  var timer = null, paused = false;
+  function rotate(){
+    if (paused) return;
+    box.classList.add('is-switching');
+    setTimeout(function(){
+      start = (start + 1) % total;
+      box.innerHTML = buildHtml();
+      /* 双 rAF 确保浏览器先提交起始态再触发流动入场 */
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        Array.prototype.forEach.call(box.querySelectorAll('.r-row'), function(r){ r.classList.add('is-in'); });
+        box.classList.remove('is-switching');
+      }); });
+    }, 380);
+  }
+  if (!reduce && total > PAGE){
+    timer = setInterval(rotate, 5000);
+    /* 鼠标悬停/触摸时暂停，离开恢复 */
+    box.addEventListener('mouseenter', function(){ paused = true; });
+    box.addEventListener('mouseleave', function(){ paused = false; });
+    box.addEventListener('touchstart', function(){ paused = true; }, {passive:true});
+  }
+})();
+</script>
 <script>
 /* 从 events-data.js 渲染下期预告区域（引用第一个活动） */
 (function(){

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -16,7 +16,6 @@
 
 <!-- ============ SVG sprite（详情页图标） ============ -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-  <symbol id="book" viewBox="0 0 24 24"><path fill="currentColor" d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></symbol>
   <symbol id="blank" viewBox="0 0 24 24"><path fill="currentColor" d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"/></symbol>
   <symbol id="all" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h4v4H4V4m6 0h4v4h-4V4m6 0h4v4h-4V4M4 10h4v4H4v-4m6 0h4v4h-4v-4m6 0h4v4h-4v-4M4 16h4v4H4v-4m6 0h4v4h-4v-4m6 0h4v4h-4v-4z"/></symbol>
   <symbol id="arrow" viewBox="0 0 24 24"><path fill="currentColor" d="M4 11v2h12l-5 5 1.41 1.41L20 12l-7.59-7.41L11 6l5 5H4z"/></symbol>
@@ -49,12 +48,11 @@
         <img data-field="cover" src="" alt="">
       </figure>
 
-      <!-- LOOK INSIDE 按钮 -->
+      <!-- 翻阅内页按钮 -->
       <a class="txt" data-field="lookInside" href="#">
-        <span>LOOK INSIDE</span>
-        <svg><use xlink:href="#book"></use></svg>
-        <i class="u-target1"></i>
-        <i class="u-target2"></i>
+        <span class="en">OPEN PAGES</span>
+        <span class="ja">翻阅内页</span>
+        <svg><use xlink:href="#arrow"></use></svg>
       </a>
     </div>
 
@@ -67,17 +65,13 @@
 
   <!-- ======== 翻页导航 ======== -->
   <div class="pagenation">
-    <a href="#" class="prev u" data-field="prev">
-      <i class="u-target1"></i>
-      <i class="u-target2"></i>
+    <a href="#" class="prev" data-field="prev">
       <span>PREV</span>
     </a>
-    <a href="index.html#magazine-archive" class="all" aria-label="返回全部杂志">
+    <a href="magazine.html" class="all" aria-label="返回全部杂志">
       <svg><use xlink:href="#all"></use></svg>
     </a>
-    <a href="#" class="next u" data-field="next">
-      <i class="u-target1"></i>
-      <i class="u-target2"></i>
+    <a href="#" class="next" data-field="next">
       <span>NEXT</span>
     </a>
   </div>
@@ -110,16 +104,16 @@
     <div class="r">
       <div class="flex">
         <div class="cell">
-          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span><i class="u-target"></i></a>
-          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span><i class="u-target"></i></a>
-          <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span><i class="u-target"></i></a>
-          <a href="index.html#magazine-archive" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志专题</span><i class="u-target"></i></a>
+          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span></a>
+          <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span></a>
+          <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span></a>
+          <a href="magazine.html" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志刊物</span></a>
         </div>
         <div class="cell">
-          <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span><i class="u-target"></i></a>
-          <a href="creators.html" class="u-menu"><span class="en">ROSTER</span><span class="ja">创作者名册</span><i class="u-target"></i></a>
-          <a href="about.html" class="u-menu"><span class="en">ABOUT</span><span class="ja">关于联络</span><i class="u-target"></i></a>
-          <a href="about.html#archive" class="u-menu"><span class="en">ARCHIVE</span><span class="ja">往期归档</span><i class="u-target"></i></a>
+          <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span></a>
+          <a href="creators.html" class="u-menu"><span class="en">ROSTER</span><span class="ja">创作者名册</span></a>
+          <a href="about.html" class="u-menu"><span class="en">ABOUT</span><span class="ja">关于联络</span></a>
+          <a href="about.html#archive" class="u-menu"><span class="en">ARCHIVE</span><span class="ja">往期归档</span></a>
         </div>
       </div>
     </div>
@@ -130,7 +124,7 @@
   </div>
 </footer>
 
-<!-- ============ 全屏杂志跨页浏览模态框（LOOK INSIDE 触发） ============ -->
+<!-- ============ 全屏杂志跨页浏览模态框（OPEN PAGES 触发） ============ -->
 <!-- 桌面端：两张内页图合成为 3360×2152 单张横幅 + 3D 翻页；移动端：单页滑动 -->
 <div class="modal-gallery" id="modalGallery" aria-hidden="true">
   <button class="mg-close" aria-label="关闭"><span></span><span></span></button>
@@ -236,10 +230,10 @@
         wrapper.appendChild(slide);
       });
 
-      // 末尾 MORE 按钮（返回杂志陈列区）
+      // 末尾 MORE 按钮（返回杂志陈列页）
       const more = document.createElement('a');
       more.className = 'swiper-slide more-slide';
-      more.href = 'index.html#magazine-archive';
+      more.href = 'magazine.html';
       const inSpan = document.createElement('span');
       inSpan.className = 'in';
       const moreDiv = document.createElement('div');
@@ -330,7 +324,7 @@
     container.addEventListener('touchend', onUp);
   });
 
-  /* ===== 全屏杂志跨页浏览模态框（LOOK INSIDE 触发） ===== */
+  /* ===== 全屏杂志跨页浏览模态框（OPEN PAGES 触发） ===== */
   /* 桌面端：两张内页图 canvas 合成为 3360×2152 单张横幅 + 3D 翻页；移动端：单页滑动 */
   (function(){
     const modal = document.getElementById('modalGallery');
@@ -634,7 +628,7 @@
       }
     }, { passive: true });
 
-    /* 拦截 LOOK INSIDE 按钮点击 → 打开模态框 */
+    /* 拦截 OPEN PAGES 按钮点击 → 打开模态框 */
     const lookInsideBtn = document.querySelector('[data-field="lookInside"]');
     if(lookInsideBtn){
       lookInsideBtn.addEventListener('click', e => {

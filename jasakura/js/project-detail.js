@@ -67,18 +67,23 @@
     }).join('');
   }
 
-  /* 渲染摄影师视角照片网格 */
+  /* 渲染摄影师视角照片网格（暗房接触印样墙：底片编号 + 滚动逐张显影） */
   function renderPhotos(d){
     var grid = document.querySelector('.grid-edit');
     if (!grid || !d.photos) return;
+    grid.classList.add('lens-grid');
+    /* 摄影师视角区加宽：放宽容器到 1560px，缩小两侧留白 */
+    var lensWrap = grid.closest('.wrap');
+    if (lensWrap) lensWrap.classList.add('wrap--lens');
     grid.innerHTML = '';
-    d.photos.forEach(function(p){
+    d.photos.forEach(function(p, i){
       var a = document.createElement('a');
       a.href = 'javascript:void(0)';
       a.className = 'item ' + (p.span || 's4');
       if (p.cat) a.setAttribute('data-cat', p.cat);
       a.innerHTML =
-        '<div class="img ar-43 is-loading" data-zoom><img decoding="async" alt="' + (p.imgAlt || '') + '" src="' + p.img + '"></div>' +
+        '<div class="img ar-43 is-loading" data-zoom><img decoding="async" alt="' + (p.imgAlt || '') + '" src="' + p.img + '">' +
+        '<span class="lens-no" aria-hidden="true">' + ('0' + (i + 1)).slice(-2) + '</span></div>' +
         '<div class="lbl"><span>' + (p.photographer || '') + '</span><span>' + (p.date || '') + '</span></div>' +
         '<h3>' + (p.title || '') + '<span class="en">' + (p.titleEn || '') + '</span></h3>' +
         '<div class="credit"><b>' + (p.creditName || '') + '</b> · ' + (p.creditRole || '') + '</div>';
@@ -98,5 +103,25 @@
         img.addEventListener('error', markLoaded);
       }
     });
+
+    /* 滚动进入视口逐张浮现（错峰显影；减少动态效果时直接显示） */
+    var items = Array.prototype.slice.call(grid.querySelectorAll('.item'));
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('is-in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (!en.isIntersecting) return;
+          var el = en.target;
+          var idx = items.indexOf(el);
+          el.style.transitionDelay = ((idx % 4) * 0.09) + 's';
+          el.classList.add('is-in');
+          setTimeout(function(){ el.style.transitionDelay = ''; }, 900);
+          io.unobserve(el);
+        });
+      }, {threshold: 0.12});
+      items.forEach(function(el){ io.observe(el); });
+    }
   }
 })();

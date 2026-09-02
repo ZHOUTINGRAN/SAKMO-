@@ -23,13 +23,13 @@
     });
   }
 
-  /* ---- 抽屉侧边导航（Them magazine 风格） ----
-     两线↔关闭交叉淡入按钮 + 右侧白面板 + 大号衬线菜单项（黑块滑入 hover）。 */
+  /* ---- 抽屉侧边导航 ----
+     两线↔关闭交叉淡入按钮 + 右侧白面板 + 大号衬线菜单项（细线生长 hover）。 */
   var drawerBtn = document.getElementById('menu-btn');
   if (drawerBtn) {
-    /* 重建按钮结构：.open 两横线 ↔ .close 两斜线 交叉淡入；每条线内含 u-target1/u-target2 黑块滑入 hover 动画 */
+    /* 重建按钮结构：.open 两横线 ↔ .close 两斜线 交叉淡入；hover 时上线收短（CSS 驱动） */
     drawerBtn.setAttribute('aria-label', '切换导航');
-    drawerBtn.innerHTML = '<span class="open"><i class="t"><em class="u-target1"></em><em class="u-target2"></em></i><i class="b"><em class="u-target1"></em><em class="u-target2"></em></i></span><span class="close"><i class="t"><em class="u-target1"></em><em class="u-target2"></em></i><i class="b"><em class="u-target1"></em><em class="u-target2"></em></i></span>';
+    drawerBtn.innerHTML = '<span class="open"><i class="t"></i><i class="b"></i></span><span class="close"><i class="t"></i><i class="b"></i></span>';
 
     var svgSearch = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>';
     var svgIg = '<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.3 2.2.5.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1 .5 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.8-.5 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1 .4-2.2.5-1.3.1-1.7.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.3-2.2-.5-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1-.5-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.3-1.8.5-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1-.4 2.2-.5C8.4 2.2 8.8 2.2 12 2.2zm0 3.3c-1.8 0-2 0-2.7.1-.7 0-1 .2-1.2.3-.3.1-.5.3-.7.5-.2.2-.4.4-.5.7-.1.3-.2.6-.3 1.2C6.5 7.9 6.5 8.2 6.5 10s0 2.1.1 2.8c0 .7.2 1 .3 1.2.1.3.3.5.5.7.2.2.4.4.7.5.3.1.6.2 1.2.3.7.1.9.1 2.8.1s2.1 0 2.8-.1c.7 0 1-.2 1.2-.3.3-.1.5-.3.7-.5.2-.2.4-.4.5-.7.1-.3.2-.6.3-1.2.1-.7.1-.9.1-2.8s0-2.1-.1-2.8c0-.7-.2-1-.3-1.2-.1-.3-.3-.5-.5-.7-.2-.2-.4-.4-.7-.5-.3-.1-.6-.2-1.2-.3C14.1 5.5 13.8 5.5 12 5.5zm0 2.3a3.2 3.2 0 110 6.4 3.2 3.2 0 010-6.4zm0 5.3a2.1 2.1 0 100-4.2 2.1 2.1 0 000 4.2zm3.4-5.6a.8.8 0 110 1.6.8.8 0 010-1.6z"/></svg>';
@@ -48,13 +48,14 @@
           svgSearch +
         '</form></div>' +
         '<p class="t-label">CONTENTS 栏目</p>' +
-        '<div class="cell"><a href="index.html" class="u-menu"><span class="en">Frontpage</span><span class="ja">卷首首页</span><i class="u-target"></i></a></div>' +
-        '<div class="cell"><a href="gallery.html" class="u-menu"><span class="en">Gallery</span><span class="ja">影像画廊</span><i class="u-target"></i></a></div>' +
-        '<div class="cell"><a href="projects.html" class="u-menu"><span class="en">Projects</span><span class="ja">专题项目</span><i class="u-target"></i></a></div>' +
-        '<div class="cell"><a href="creators.html" class="u-menu"><span class="en">Roster</span><span class="ja">创作者名册</span><i class="u-target"></i></a></div>' +
-        '<div class="cell"><a href="reading.html" class="u-menu"><span class="en">Analytics</span><span class="ja">影像解析</span><i class="u-target"></i></a></div>' +
-        '<div class="cell"><a href="submit.html" class="u-menu"><span class="en">Events</span><span class="ja">征稿活动</span><i class="u-target"></i></a></div>' +
-        '<div class="cell"><a href="about.html" class="u-menu"><span class="en">About</span><span class="ja">关于联络</span><i class="u-target"></i></a></div>' +
+        '<div class="cell"><a href="index.html" class="u-menu"><span class="en">Frontpage</span><span class="ja">卷首首页</span></a></div>' +
+        '<div class="cell"><a href="magazine.html" class="u-menu"><span class="en">Magazine</span><span class="ja">杂志刊物</span></a></div>' +
+        '<div class="cell"><a href="gallery.html" class="u-menu"><span class="en">Gallery</span><span class="ja">影像画廊</span></a></div>' +
+        '<div class="cell"><a href="projects.html" class="u-menu"><span class="en">Projects</span><span class="ja">专题项目</span></a></div>' +
+        '<div class="cell"><a href="creators.html" class="u-menu"><span class="en">Roster</span><span class="ja">创作者名册</span></a></div>' +
+        '<div class="cell"><a href="reading.html" class="u-menu"><span class="en">Analytics</span><span class="ja">影像解析</span></a></div>' +
+        '<div class="cell"><a href="submit.html" class="u-menu"><span class="en">Events</span><span class="ja">征稿活动</span></a></div>' +
+        '<div class="cell"><a href="about.html" class="u-menu"><span class="en">About</span><span class="ja">关于联络</span></a></div>' +
         '<div class="sns">' +
           '<a href="#instagram" aria-label="Instagram">' + svgIg + '</a>' +
           '<a href="https://www.xiaohongshu.com/user/profile/6631e9be00000000030320e9" class="rb" aria-label="小红书" target="_blank" rel="noopener noreferrer">小红书</a>' +
@@ -74,7 +75,7 @@
     function openMenu(){ htmlEl.classList.add('is-menu-open'); document.body.classList.add('is-hidden'); menu.setAttribute('aria-hidden', 'false'); }
     function closeMenu(){ htmlEl.classList.remove('is-menu-open'); document.body.classList.remove('is-hidden'); menu.setAttribute('aria-hidden', 'true'); }
     drawerBtn.addEventListener('click', function(){ htmlEl.classList.contains('is-menu-open') ? closeMenu() : openMenu(); });
-    /* 汉堡按钮 hover：用 .is-hover 类驱动擦拭动画（补充 :hover，确保触发可靠） */
+    /* 汉堡按钮 hover：用 .is-hover 类驱动上线收短（补充 :hover，确保触发可靠） */
     drawerBtn.addEventListener('mouseenter', function(){ drawerBtn.classList.add('is-hover'); });
     drawerBtn.addEventListener('mouseleave', function(){ drawerBtn.classList.remove('is-hover'); });
     menu.querySelector('.bg').addEventListener('click', closeMenu);
@@ -92,33 +93,20 @@
       setTimeout(function(){ location.href = url; }, 350);
     });
 
-    /* 菜单项 hover：黑块从左滑入盖住文字（文字转白），离开时从右滑出。仅桌面。 */
+    /* 菜单项 hover：.is-hover 类补充 :hover，细线生长动画由 CSS 驱动。仅桌面。 */
     var isDesktop = window.matchMedia('(min-width: 768px)').matches && !('ontouchstart' in window);
     if (isDesktop) {
       menu.querySelectorAll('.u-menu').forEach(function(item){
-        var target = item.querySelector('.u-target');
-        if (!target) return;
-        item.addEventListener('mouseenter', function(){
-          item.classList.add('is-hover');
-          target.style.transition = 'none';
-          target.style.transform = 'translateX(-101%)';
-          target.getBoundingClientRect(); // 强制回流，确保从左侧外开始
-          target.style.transition = 'transform .4s cubic-bezier(.2,.7,.2,1)';
-          target.style.transform = 'translateX(0%)';
-        });
-        item.addEventListener('mouseleave', function(){
-          item.classList.remove('is-hover');
-          target.style.transition = 'transform .4s cubic-bezier(.2,.7,.2,1)';
-          target.style.transform = 'translateX(101%)';
-        });
+        item.addEventListener('mouseenter', function(){ item.classList.add('is-hover'); });
+        item.addEventListener('mouseleave', function(){ item.classList.remove('is-hover'); });
       });
     }
   }
 
-  /* ---- 页脚菜单：当前页高亮 + 触摸设备 hover 回退（Them magazine 风格） ---- */
+  /* ---- 页脚菜单：当前页高亮 + 触摸设备 hover 回退 ---- */
   var footerMenus = document.querySelectorAll('#f .u-menu');
   if (footerMenus.length) {
-    /* 当前页高亮：比对文件名，匹配则黑块常驻 + 文字转白。
+    /* 当前页高亮：比对文件名，匹配则常驻细线 + 文字加深。
        带 hash 的链接（如 index.html#magazine-archive）仅当当前页 hash 也匹配时高亮，
        避免与同文件名的无 hash 链接（如 Frontpage）冲突。 */
     var curFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
@@ -134,7 +122,7 @@
         item.classList.add('is-active');
       }
     });
-    /* 桌面非触摸：用 .is-hover 类补充 :hover，确保黑块滑入动画可靠触发 */
+    /* 桌面非触摸：用 .is-hover 类补充 :hover，确保细线生长动画可靠触发 */
     if (window.matchMedia('(min-width: 768px)').matches && !('ontouchstart' in window)) {
       footerMenus.forEach(function (item) {
         item.addEventListener('mouseenter', function () { item.classList.add('is-hover'); });
@@ -505,8 +493,8 @@
   });
 
   document.addEventListener('click', function (e) {
-    /* 统一处理导航链接：footer logo + 抽屉/底部菜单项 + .go 按钮 + .flex-e 卡片 + OTHERS 链接 */
-    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a, .pd-logo a, .quick-4 a');
+    /* 统一处理导航链接：footer logo + 抽屉/底部菜单项 + .go 按钮 + .flex-e 卡片 + 主页专题/解析预览行 + 本期精选幻灯片 */
+    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a, .pd-logo a, .hp-projects a, .hp-reading .r-row, .pick-swiper a');
     if (!link) return;
     var href = link.getAttribute('href');
     if (!href || href.charAt(0) === '#') return; /* 跳过纯锚点(#instagram 等) */
@@ -557,11 +545,11 @@
         '<div class="pd-story" style="display:none"></div>' +
       '</div>' +
     '</div>' +
-    /* 分页导航固定在页面底部：PREV/NEXT 下划线滑入 + ALL 图标旋转 */
+    /* 分页导航固定在页面底部：PREV/NEXT 细线展开 + 樱花粉高亮，ALL 图标微隐 */
     '<div class="pd-pagenation">' +
-      '<a href="javascript:void(0)" class="prev u" aria-label="上一张"><i class="u-target1"></i><i class="u-target2"></i><span>PREV</span></a>' +
+      '<a href="javascript:void(0)" class="prev" aria-label="上一张"><span>PREV</span></a>' +
       '<button class="all" aria-label="返回画廊"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></button>' +
-      '<a href="javascript:void(0)" class="next u" aria-label="下一张"><i class="u-target1"></i><i class="u-target2"></i><span>NEXT</span></a>' +
+      '<a href="javascript:void(0)" class="next" aria-label="下一张"><span>NEXT</span></a>' +
     '</div>';
   document.body.appendChild(panel);
 
