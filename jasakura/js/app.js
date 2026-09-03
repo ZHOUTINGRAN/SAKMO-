@@ -159,13 +159,19 @@
     }, inDrawer ? 350 : 0);
   });
 
-  /* ---- 滚动时缩小 header ---- */
-  var SCROLL_THRESHOLD = 20;
+  /* ---- 滚动时缩小 header：品牌名离开封面轮播图区域后才缩小（不再一滚动就缩） ---- */
+  var coverEl = document.querySelector('.cover');
+  function scrollThreshold(){
+    /* 封面底边滚过品牌名位置（约 header 高度 100px）时触发；无封面的子页面回退 120px */
+    if (coverEl && coverEl.offsetHeight) return Math.max(120, coverEl.offsetHeight - 100);
+    return 120;
+  }
   function handleScroll(){
     var y = window.pageYOffset || document.documentElement.scrollTop;
-    document.body.classList.toggle('is-scrolled', y > SCROLL_THRESHOLD);
+    document.body.classList.toggle('is-scrolled', y > scrollThreshold());
   }
   window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', handleScroll, { passive: true });
   handleScroll();
 
   /* ---- 滚动淡入 ---- */
