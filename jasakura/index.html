@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -162,10 +162,10 @@
     <div class="r">
       <div class="flex">
         <div class="cell">
-          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span></a>
+          <a href="magazine.html" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志刊物</span></a>
           <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span></a>
           <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span></a>
-          <a href="magazine.html" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志刊物</span></a>
+          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span></a>
         </div>
         <div class="cell">
           <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span></a>
@@ -489,9 +489,9 @@
 <!-- 当期活动数据（与 submit.html 共用） -->
 <script src="js/events-data.js"></script>
 <script>
-/* 主页 · 专题目录：左固定展示卡（城市边缘发展）+ 右侧滚动点亮
-   不劫持滚轮：原生滚动经过本区时，右侧目录行随进度逐一点亮；
-   移动端 / 减少动态效果：退化为普通静态排列。 */
+/* 主页 · 专题目录：左影像舞台（六期大图交叉淡入 + 慢速推近）+ 右极简编号索引
+   不劫持滚轮：原生滚动经过本区时，大图逐期轮换、索引逐行点亮、菱形沿导轨游走；
+   点击索引行可平滑跳转到对应专题位置；移动端 / 减少动态效果：退化为普通静态排列。 */
 (function(){
   if (!window.projects || !projects.length) return;
   var sec = document.getElementById('hp-projects-sec');
@@ -500,7 +500,7 @@
   var rowsBox = document.getElementById('ps-rows');
   var rail = document.getElementById('ps-rail');
   var curEl = document.getElementById('ps-cur');
-  if (!sec || !pin || !featBox || !rowsBox || !rail) return;
+  if (!sec || !pin || !featBox || !rowsBox) return;
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -511,23 +511,40 @@
   }
   function pad2(s){ return ('0' + s).slice(-2); }
 
-  var n = projects.length, idx = -1, rows = [], dots = [];
+  var n = projects.length, idx = -1, rows = [], stageImgs = [];
 
-  /* 左侧固定展示卡：取「城市边缘发展」（取不到则用第三个专题） */
-  var feature = projects.filter(function(p){ return p.link.indexOf('cityedge') !== -1; })[0] || projects[Math.min(2, n - 1)];
-  var ft = splitTitle(feature.title);
-  featBox.innerHTML =
-    '<a class="ps-f-card" href="' + feature.link + '">' +
-      '<figure class="ps-f-img"><img loading="lazy" alt="' + (feature.imgAlt || ft.zh) + '" src="' + feature.img + '"></figure>' +
-      '<div class="ps-f-txt">' +
-        '<span class="ps-tag"><i class="dot ' + (isLive(feature) ? 'is-live' : 'is-done') + '"></i>' +
-          (isLive(feature) ? '进行中' : '已结束') + ' · PROJECT ' + pad2(feature.id) + '</span>' +
-        '<h3 class="ps-title">' + ft.zh + (ft.en ? '<span class="en">' + ft.en + '</span>' : '') + '</h3>' +
-        '<span class="ps-go">进入专题<span class="ar">→</span></span>' +
-      '</div>' +
-    '</a>';
+  /* ---- 左：影像舞台（六期大图叠放）+ 换场文字 ---- */
+  var stage = document.createElement('div');
+  stage.className = 'ps-f-stage';
+  projects.forEach(function(p){
+    var t = splitTitle(p.title);
+    var a = document.createElement('a');
+    a.className = 'ps-f-img';
+    a.href = p.link;
+    a.setAttribute('aria-label', t.zh);
+    a.innerHTML = '<img loading="lazy" alt="' + (p.imgAlt || t.zh) + '" src="' + p.img + '">';
+    stage.appendChild(a);
+    stageImgs.push(a);
+  });
+  var txt = document.createElement('div');
+  txt.className = 'ps-f-txt';
+  txt.innerHTML =
+    '<span class="ps-tag"></span>' +
+    '<h3 class="ps-title"><span class="zh"></span><span class="en"></span></h3>' +
+    '<a class="ps-go" href="#">进入专题<span class="ar">→</span></a>';
+  featBox.appendChild(stage);
+  featBox.appendChild(txt);
+  var tagEl = txt.querySelector('.ps-tag'),
+      zhEl = txt.querySelector('.ps-title .zh'),
+      enEl = txt.querySelector('.ps-title .en'),
+      goEl = txt.querySelector('.ps-go');
 
-  /* 右侧目录行 */
+  /* ---- 右：极简编号索引 + 沿竖轨游走的菱形 ---- */
+  var marker = document.createElement('span');
+  marker.className = 'pr-marker';
+  marker.setAttribute('aria-hidden', 'true');
+  rowsBox.appendChild(marker);
+
   projects.forEach(function(p, i){
     var t = splitTitle(p.title);
     var live = isLive(p);
@@ -539,49 +556,75 @@
       '<span class="pr-no">No.' + pad2(p.id) + '</span>' +
       '<span class="pr-ti">' + t.zh + (t.en ? '<em>' + t.en + '</em>' : '') + '</span>' +
       '<figure class="pr-thumb"><img loading="lazy" alt="" src="' + p.img + '"></figure>' +
-      '<span class="pr-st"><i class="dot ' + (live ? 'is-live' : 'is-done') + '"></i>' + (live ? '进行中' : '已结束') + '</span>';
+      '<span class="pr-st"><i class="dot ' + (live ? 'is-live' : 'is-done') + '"></i>' + (live ? '进行中' : '已结束') + '</span>' +
+      '<i class="pr-dot ' + (live ? 'is-live' : 'is-done') + '" aria-hidden="true"></i>';
+    /* 钉住模式下点击索引行 → 跳转到对应滚动位置；静态模式下保持普通链接 */
+    a.addEventListener('click', function(e){
+      if (!sec.classList.contains('is-static')) { e.preventDefault(); jumpTo(i); }
+    });
     rowsBox.appendChild(a);
     rows.push(a);
-
-    var d = document.createElement('button');
-    d.type = 'button';
-    d.className = 'ps-dot';
-    d.setAttribute('aria-label', '第 ' + (i + 1) + ' 个专题：' + t.zh);
-    d.addEventListener('click', function(){ jumpTo(i); });
-    rail.appendChild(d);
-    dots.push(d);
   });
   var totalEl = document.getElementById('ps-total');
   if (totalEl) totalEl.textContent = pad2(n);
+  if (rail) rail.innerHTML = '';
+
+  function moveMarker(i){
+    var r = rows[i];
+    if (r) marker.style.top = (r.offsetTop + r.offsetHeight / 2) + 'px';
+  }
 
   function activate(i){
     if (i === idx) return;
     idx = i;
+    var p = projects[i], t = splitTitle(p.title), live = isLive(p);
+    /* 大图交叉淡入（Ken Burns 由 CSS 在 is-active 上重启） */
+    stageImgs.forEach(function(el, j){ el.classList.toggle('is-active', j === i); });
     rows.forEach(function(r, j){ r.classList.toggle('is-active', j === i); });
-    dots.forEach(function(d, j){
-      d.classList.toggle('is-active', j === i);
-      d.setAttribute('aria-selected', j === i ? 'true' : 'false');
-    });
+    /* 文字换场：更新后重启逐行升起动画 */
+    tagEl.innerHTML = '<i class="dot ' + (live ? 'is-live' : 'is-done') + '"></i>' +
+      (live ? '进行中' : '已结束') + ' · PROJECT ' + pad2(p.id);
+    zhEl.textContent = t.zh;
+    enEl.textContent = t.en || '';
+    goEl.href = p.link;
+    txt.classList.remove('is-in');
+    void txt.offsetWidth;
+    txt.classList.add('is-in');
+    /* 菱形沿竖轨游走 */
+    moveMarker(i);
     if (curEl) curEl.textContent = pad2(i + 1);
     if (i > 0) pin.classList.add('is-started');
   }
 
-  /* 移动端或减少动态：静态排列，不钉住 */
-  var mobile = window.matchMedia && window.matchMedia('(max-width:768px)').matches;
-  if (reduce || mobile){
-    sec.classList.add('is-static');
-    rows.forEach(function(r){ r.classList.add('is-active'); });
-    var hint = pin.querySelector('.ps-hint');
-    if (hint) hint.style.display = 'none';
-    return;
+  /* 模式：钉住轮换（桌面）/ 静态排列（移动端或减少动态）；窗口尺寸变化时实时切换 */
+  var mqMobile = window.matchMedia('(max-width:768px)');
+  var mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mode = null; /* 'pin' | 'static' */
+
+  function setHeight(){ sec.style.height = mode === 'pin' ? (100 + n * 42) + 'vh' : ''; }
+
+  function applyMode(){
+    var st = mqReduce.matches || mqMobile.matches;
+    if (st && mode !== 'static'){
+      mode = 'static';
+      sec.classList.add('is-static');
+      setHeight();
+      rows.forEach(function(r){ r.classList.add('is-active'); });
+      document.documentElement.classList.remove('is-projects-pin');
+      idx = -1; activate(0);
+    } else if (!st && mode !== 'pin'){
+      mode = 'pin';
+      sec.classList.remove('is-static');
+      rows.forEach(function(r, j){ r.classList.toggle('is-active', j === 0); });
+      setHeight();
+      idx = -1; activate(0);
+      onScroll();
+    }
   }
 
-  /* 钉住区高度：舞台 100vh + 每个点亮档约 42vh 行程（短行程，滚动省力） */
-  function setHeight(){ sec.style.height = (100 + n * 42) + 'vh'; }
-  setHeight();
-
-  /* 点击导轨圆点 → 跳到对应滚动位置（唯一的程序化滚动，无锁定） */
+  /* 点击索引行 → 钉住模式下跳到对应滚动位置；静态模式保持普通链接 */
   function jumpTo(i){
+    if (mode !== 'pin') return;
     var r = sec.getBoundingClientRect();
     var travel = r.height - window.innerHeight;
     var top = r.top + window.scrollY + travel * (i / n) + 2;
@@ -591,7 +634,7 @@
   /* 纯滚动进度驱动：不 preventDefault、不锁定，绝不会卡住 */
   var ticking = false;
   function onScroll(){
-    if (ticking) return;
+    if (mode !== 'pin' || ticking) return;
     ticking = true;
     requestAnimationFrame(function(){
       ticking = false;
@@ -599,18 +642,23 @@
       var travel = r.height - window.innerHeight;
       var p = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 0;
       activate(Math.min(n - 1, Math.floor(p * n)));
+      /* 钉住期间（stage 吸顶、专题目录仍在视口行程内）淡出左上角品牌名，避免与 PROJECTS 标题重叠 */
+      var pinned = r.top <= 0 && r.bottom > window.innerHeight;
+      document.documentElement.classList.toggle('is-projects-pin', pinned);
     });
   }
   window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', function(){ setHeight(); onScroll(); });
+  window.addEventListener('resize', function(){ applyMode(); if (mode === 'pin'){ setHeight(); moveMarker(Math.max(0, idx)); onScroll(); } });
+  if (mqMobile.addEventListener) { mqMobile.addEventListener('change', applyMode); mqReduce.addEventListener('change', applyMode); }
 
-  activate(0);
+  applyMode();
 })();
 </script>
 <script>
-/* 主页 · 影像解析预览：「编辑手记」不规则剪贴排版
-   三篇大小/方向/缩进交替，照片为白边倾斜打印件，hover 回正；滚动逐篇浮现
-   每 3 秒流动一篇（窗口推进一格，新篇从第三行流入），全部解析循环露出、不重复，悬停暂停 */
+/* 主页 · 影像解析预览：杂志目录索引（TOC）排版
+   通栏细线分隔的目录行，滚动逐行浮现；悬停任一行右侧浮出现场大图并随鼠标视差游移；
+   每 6.5 秒流动一篇（窗口推进一格，新篇从下方流入），全部解析循环露出、不重复，悬停暂停；
+   移动端 / 减少动态效果：静态排列，不轮换。 */
 (function(){
   if (!window.readingData || !readingData.length) return;
   var box = document.getElementById('hp-reading');
@@ -622,8 +670,11 @@
     if (en.slice(half).trim() === en.slice(0,half).trim()) return en.slice(0,half).trim();
     return en;
   }
-  var variants = ['r-row--a', 'r-row--b', 'r-row--c'];
   var PAGE = 3, total = readingData.length, start = 0;
+  var reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mobileMQ = window.matchMedia('(max-width:768px)');
+  function isReduce(){ return reduceMQ.matches; }
+  function isMobile(){ return mobileMQ.matches; }
 
   /* 取当前组：从 start 起连续 3 篇，环绕取模，组内互不重复 */
   function groupList(){
@@ -631,58 +682,106 @@
     for (var k = 0; k < PAGE; k++) list.push(readingData[(start + k) % total]);
     return list;
   }
-  function buildHtml(){
+  function buildRowsHtml(){
     return groupList().map(function(a, i){
       var globalIdx = (start + i) % total;
-      return '<a class="r-row ' + variants[i] + '" href="reading-detail.html?id=' + a.id + '" style="transition-delay:' + (i * 0.12) + 's">' +
-        '<figure class="r-thumb"><img loading="lazy" alt="' + (a.imgAlt || a.title) + '" src="' + a.img + '"></figure>' +
-        '<div class="r-body">' +
-          '<span class="r-idx" aria-hidden="true">' + ('0' + (globalIdx + 1)).slice(-2) + '</span>' +
-          '<div class="r-meta"><span class="r-cat">' + a.cat + '</span><span class="r-date">' + a.date + '</span></div>' +
+      return '<a class="rd-row" href="reading-detail.html?id=' + a.id + '" data-img="' + a.img + '" style="transition-delay:' + (i * 0.12) + 's">' +
+        '<span class="rd-no" aria-hidden="true">' + ('0' + (globalIdx + 1)).slice(-2) + '</span>' +
+        '<span class="rd-body">' +
+          '<span class="rd-meta"><span class="rd-cat">' + a.cat + '</span><span class="rd-date">' + a.date + '</span></span>' +
           '<h3>' + a.title + '<span class="en">' + cleanEn(a.titleEn) + '</span></h3>' +
-          '<span class="r-author">' + a.author + ' · ' + a.authorRole + '</span>' +
-        '</div>' +
-        '<span class="r-arrow" aria-hidden="true">→</span>' +
+          '<span class="rd-author">' + a.author + ' · ' + a.authorRole + '</span>' +
+        '</span>' +
+        '<span class="rd-arrow" aria-hidden="true">→</span>' +
       '</a>';
     }).join('');
   }
-  box.innerHTML = buildHtml();
 
-  /* 首次：滚动进入视口逐篇浮现（减少动态效果时直接显示） */
-  var rows = Array.prototype.slice.call(box.querySelectorAll('.r-row'));
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !('IntersectionObserver' in window)){
-    rows.forEach(function(r){ r.classList.add('is-in'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
-      });
-    }, {threshold: 0.18});
-    rows.forEach(function(r){ io.observe(r); });
+  /* 悬停浮现的大图预览（独立于轮换内容，重渲染后重新挂载） */
+  var preview = document.createElement('figure');
+  preview.className = 'rd-preview';
+  preview.innerHTML = '<img alt="">';
+  var previewImg = preview.querySelector('img');
+  var hoverRow = null, previewY = 0, targetY = 0, rafId = null;
+
+  function observeRows(){
+    var rows = box.querySelectorAll('.rd-row');
+    if (isReduce() || !('IntersectionObserver' in window)){
+      Array.prototype.forEach.call(rows, function(r){ r.classList.add('is-in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
+        });
+      }, {threshold: 0.15});
+      Array.prototype.forEach.call(rows, function(r){ io.observe(r); });
+    }
   }
+  function render(){
+    box.innerHTML = buildRowsHtml();
+    box.appendChild(preview);
+    observeRows();
+  }
+  render();
 
-  /* ===== 连续流动：每 3 秒窗口推进一篇（末篇滑出、新篇从第三行流入） ===== */
-  var timer = null, paused = false;
+  /* 悬停目录行：图影浮现 + 跟随行位置与鼠标视差（事件委托，轮换后依然有效） */
+  function placePreview(row, clientY){
+    var boxRect = box.getBoundingClientRect();
+    var pr = preview.getBoundingClientRect();
+    var base = row.offsetTop + row.offsetHeight / 2 - pr.height / 2;
+    var parallax = clientY != null ? (clientY - boxRect.top - boxRect.height / 2) * 0.12 : 0;
+    targetY = Math.max(0, Math.min(box.offsetHeight - pr.height, base + parallax));
+    if (!rafId){
+      rafId = requestAnimationFrame(function tick(){
+        previewY += (targetY - previewY) * 0.12;
+        preview.style.top = previewY + 'px';
+        if (Math.abs(targetY - previewY) > 0.5) rafId = requestAnimationFrame(tick);
+        else { preview.style.top = targetY + 'px'; rafId = null; }
+      });
+    }
+  }
+  box.addEventListener('mouseover', function(e){
+    if (isReduce() || isMobile()) return;
+    var row = e.target.closest ? e.target.closest('.rd-row') : null;
+    if (!row || row === hoverRow) return;
+    hoverRow = row;
+    previewImg.src = row.getAttribute('data-img');
+    preview.classList.add('is-show');
+    placePreview(row);
+  });
+  box.addEventListener('mousemove', function(e){
+    if (!hoverRow) return;
+    placePreview(hoverRow, e.clientY);
+  });
+  box.addEventListener('mouseleave', function(){
+    hoverRow = null;
+    preview.classList.remove('is-show');
+  });
+
+  /* ===== 连续流动：窗口定时推进一篇（末篇滑出、新篇从下方流入） ===== */
+  var paused = false;
   function rotate(){
-    if (paused) return;
+    if (paused || isReduce() || isMobile()) return;
     box.classList.add('is-switching');
     setTimeout(function(){
       start = (start + 1) % total;
-      box.innerHTML = buildHtml();
+      hoverRow = null;
+      preview.classList.remove('is-show');
+      render();
       /* 双 rAF 确保浏览器先提交起始态再触发流动入场 */
       requestAnimationFrame(function(){ requestAnimationFrame(function(){
-        Array.prototype.forEach.call(box.querySelectorAll('.r-row'), function(r){ r.classList.add('is-in'); });
+        Array.prototype.forEach.call(box.querySelectorAll('.rd-row'), function(r){ r.classList.add('is-in'); });
         box.classList.remove('is-switching');
       }); });
     }, 380);
   }
-  if (!reduce && total > PAGE){
-    timer = setInterval(rotate, 5000);
-    /* 鼠标悬停/触摸时暂停，离开恢复 */
+  if (total > PAGE){
+    setInterval(rotate, 6500);
+    /* 鼠标悬停/触摸时暂停，离开恢复（移动端/减少动态下 rotate 自行跳过） */
     box.addEventListener('mouseenter', function(){ paused = true; });
     box.addEventListener('mouseleave', function(){ paused = false; });
     box.addEventListener('touchstart', function(){ paused = true; }, {passive:true});
+    box.addEventListener('touchend', function(){ paused = false; }, {passive:true});
   }
 })();
 </script>

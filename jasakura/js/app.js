@@ -50,10 +50,10 @@
         '<p class="t-label">CONTENTS 栏目</p>' +
         '<div class="cell"><a href="index.html" class="u-menu"><span class="en">Frontpage</span><span class="ja">卷首首页</span></a></div>' +
         '<div class="cell"><a href="magazine.html" class="u-menu"><span class="en">Magazine</span><span class="ja">杂志刊物</span></a></div>' +
-        '<div class="cell"><a href="gallery.html" class="u-menu"><span class="en">Gallery</span><span class="ja">影像画廊</span></a></div>' +
         '<div class="cell"><a href="projects.html" class="u-menu"><span class="en">Projects</span><span class="ja">专题项目</span></a></div>' +
-        '<div class="cell"><a href="creators.html" class="u-menu"><span class="en">Roster</span><span class="ja">创作者名册</span></a></div>' +
         '<div class="cell"><a href="reading.html" class="u-menu"><span class="en">Analytics</span><span class="ja">影像解析</span></a></div>' +
+        '<div class="cell"><a href="creators.html" class="u-menu"><span class="en">Roster</span><span class="ja">创作者名册</span></a></div>' +
+        '<div class="cell"><a href="gallery.html" class="u-menu"><span class="en">Gallery</span><span class="ja">影像画廊</span></a></div>' +
         '<div class="cell"><a href="submit.html" class="u-menu"><span class="en">Events</span><span class="ja">征稿活动</span></a></div>' +
         '<div class="cell"><a href="about.html" class="u-menu"><span class="en">About</span><span class="ja">关于联络</span></a></div>' +
         '<div class="sns">' +
