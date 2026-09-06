@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -9,6 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=block" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<!-- 首屏封面图（LCP）：预加载并按视口宽度选尺寸（与封面 <img> 的 srcset 对应），缩短最大内容绘制 -->
+<link rel="preload" as="image" href="images/gallery/documentary/02.webp" fetchpriority="high"
+      imagesrcset="images/gallery/documentary/02-640.webp 640w, images/gallery/documentary/02-1280.webp 1280w, images/gallery/documentary/02.webp 1920w"
+      imagesizes="100vw">
   <link rel="icon" href="images/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="images/favicon.png">
 </head>
@@ -50,7 +54,7 @@
   <div class="head head-link">
     <h3 class="h3-common">MAGAZINE</h3>
     <div class="r">
-      <a href="magazine.html" class="more">全部刊物<span class="ar">→</span></a>
+      <a href="magazine.html" class="more">View More<span class="ar">→</span></a>
     </div>
   </div>
 
@@ -82,7 +86,7 @@
     <div class="ps-head">
       <div class="sec-head sec-head--h3 head-link">
         <div class="l"><h2>PROJECTS<span class="ja">专题目录</span></h2></div>
-        <div class="r"><a href="projects.html" class="more">全部专题<span class="ar">→</span></a></div>
+        <div class="r"><a href="projects.html" class="more">View More<span class="ar">→</span></a></div>
       </div>
     </div>
     <div class="ps-body">
@@ -108,7 +112,7 @@
   <div class="pick-head">
     <div class="sec-head sec-head--h3 head-link">
       <div class="l"><h2>Editor's Pick<span class="ja">本期精选</span></h2></div>
-      <div class="r"><a href="gallery.html" class="more">进入画廊<span class="ar">→</span></a></div>
+      <div class="r"><a href="gallery.html" class="more">View More<span class="ar">→</span></a></div>
     </div>
   </div>
   <div class="pick-swiper" id="pick-grid">
@@ -124,7 +128,7 @@
   <div class="wrap wrap--edge">
     <div class="sec-head sec-head--h3 head-link">
       <div class="l"><h2>READING<span class="ja">影像解析</span></h2></div>
-      <div class="r"><a href="reading.html" class="more">全部解析<span class="ar">→</span></a></div>
+      <div class="r"><a href="reading.html" class="more">View More<span class="ar">→</span></a></div>
     </div>
     <div class="hp-read-list" id="hp-reading">
       <!-- JS 渲染：最新 3 篇解析目录行 -->
@@ -182,6 +186,7 @@
   </div>
 </footer>
 
+<script src="js/resp-manifest.js"></script>
 <script src="js/app.js"></script>
 <script src="js/cover-data.js"></script>
 <script src="js/pick-data.js"></script>
@@ -200,9 +205,12 @@
   /* 从数据生成 HTML */
   COVER_SLIDES.forEach(function(s, i){
     var active = i === 0 ? ' is-active' : '';
+    /* 首图即 LCP：立即加载 + 高优先级（不 lazy）；其余图懒加载 */
+    var imgAttrs = i === 0 ? ' fetchpriority="high" decoding="async"'
+                          : ' loading="lazy" decoding="async"';
     /* 图片层 */
     frame.insertAdjacentHTML('beforeend',
-      '<div class="slide' + active + '"><img loading="lazy" alt="' + (s.imgAlt||'') + '" src="' + s.img + '"></div>');
+      '<div class="slide' + active + '"><img' + imgAttrs + ' alt="' + (s.imgAlt||'') + '" src="' + s.img + '"></div>');
     /* 标题层 */
     titlesBox.insertAdjacentHTML('beforeend',
       '<div class="slide-text' + active + '">' +
@@ -221,6 +229,8 @@
   if (slides.length < 2) return;
   var i = 0;
   setInterval(function(){
+    /* 标签页在后台时跳过切换（浏览器仍会节流触发定时器，这里避免无谓 DOM 重绘） */
+    if (document.hidden) return;
     slides[i].classList.remove('is-active');
     titles[i].classList.remove('is-active');
     annots[i].classList.remove('is-active');
@@ -331,7 +341,7 @@
   function next(){ go(idx + 1); }
   function prev(){ go(idx - 1); }
   function stop(){ if (timer){ clearInterval(timer); timer = null; } }
-  function start(){ stop(); timer = setInterval(next, 3000); }
+  function start(){ stop(); timer = setInterval(function(){ if(!document.hidden) next(); }, 3000); }
   function restart(){ start(); }
 
   document.getElementById('rack-next').addEventListener('click', function(){ next(); restart(); });
@@ -761,7 +771,7 @@
   /* ===== 连续流动：窗口定时推进一篇（末篇滑出、新篇从下方流入） ===== */
   var paused = false;
   function rotate(){
-    if (paused || isReduce() || isMobile()) return;
+    if (paused || document.hidden || isReduce() || isMobile()) return;
     box.classList.add('is-switching');
     setTimeout(function(){
       start = (start + 1) % total;

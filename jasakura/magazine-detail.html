@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=block" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=20260905e">
   <link rel="icon" href="images/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="images/favicon.png">
 </head>
@@ -104,10 +104,10 @@
     <div class="r">
       <div class="flex">
         <div class="cell">
-          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span></a>
+          <a href="magazine.html" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志刊物</span></a>
           <a href="projects.html" class="u-menu"><span class="en">PROJECTS</span><span class="ja">专题项目</span></a>
           <a href="reading.html" class="u-menu"><span class="en">ANALYTICS</span><span class="ja">影像解析</span></a>
-          <a href="magazine.html" class="u-menu"><span class="en">MAGAZINE</span><span class="ja">杂志刊物</span></a>
+          <a href="gallery.html" class="u-menu"><span class="en">GALLERY</span><span class="ja">影像画廊</span></a>
         </div>
         <div class="cell">
           <a href="submit.html" class="u-menu"><span class="en">EVENTS</span><span class="ja">征稿活动</span></a>
@@ -124,28 +124,27 @@
   </div>
 </footer>
 
-<!-- ============ 全屏杂志跨页浏览模态框（OPEN PAGES 触发） ============ -->
-<!-- 桌面端：两张内页图合成为 3360×2152 单张横幅 + 3D 翻页；移动端：单页滑动 -->
+<!-- ============ 全屏杂志内页阅读器（OPEN PAGES 触发 · 单页左右翻阅） ============ -->
 <div class="modal-gallery" id="modalGallery" aria-hidden="true">
-  <button class="mg-close" aria-label="关闭"><span></span><span></span></button>
+  <button class="mg-close" aria-label="关闭"><i class="t"></i><i class="b"></i></button>
   <div class="mg-prev" aria-label="上一页"></div>
   <div class="mg-next" aria-label="下一页"></div>
 
-  <!-- 桌面端合成横幅：单图 + 翻页层 -->
-  <div class="banner">
-    <img class="banner-img" src="" alt="">
-    <div class="banner-flip">
-      <div class="flip-face flip-front"><img src="" alt=""></div>
-      <div class="flip-face flip-back"><img src="" alt=""></div>
+  <!-- 单页舞台：一次显示一整张内页图，左右滑动翻页（JS 注入页面图） -->
+  <div class="mg-reader"><div class="mg-pages" id="mg-pages"></div></div>
+
+  <!-- 跟随鼠标的圆形翻页组件：进入图片左右区域时浮现，点击翻页（移动端隐藏，用滑动手势） -->
+  <div class="mg-cursor" id="mg-cursor" aria-hidden="true">
+    <div class="mc-inner">
+      <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
   </div>
 
-  <!-- 移动端单页外框 -->
-  <div class="mg-frame"><img src="" alt=""></div>
-  <div class="mg-count">1 / 4</div>
+  <div class="mg-count">1 / 6</div>
 </div>
 
 <script src="js/magazine-data.js"></script>
+<script src="js/resp-manifest.js"></script>
 <script src="js/app.js"></script>
 <script>
   /* 根据URL参数加载对应杂志数据 */
@@ -324,8 +323,9 @@
     container.addEventListener('touchend', onUp);
   });
 
-  /* ===== 全屏杂志跨页浏览模态框（OPEN PAGES 触发） ===== */
-  /* 桌面端：两张内页图 canvas 合成为 3360×2152 单张横幅 + 3D 翻页；移动端：单页滑动 */
+  /* ===== 全屏杂志内页阅读器（OPEN PAGES 触发 · 单页左右翻阅） ===== */
+  /* 一次显示一整张内页图（object-fit:contain 不裁切），左右热区/箭头/滑动/键盘翻页；
+     翻页为左右滑入滑出，无翻书合成；到头时对应方向热区淡化禁用。 */
   (function(){
     const modal = document.getElementById('modalGallery');
     if(!modal) return;
@@ -334,260 +334,177 @@
     const prevZone = modal.querySelector('.mg-prev');
     const nextZone = modal.querySelector('.mg-next');
     const count = modal.querySelector('.mg-count');
-
-    /* 移动端单页 */
-    const frame = modal.querySelector('.mg-frame');
-    const singleImg = frame.querySelector('img');
-
-    /* 桌面端合成横幅 */
-    const banner = modal.querySelector('.banner');
-    const bannerImg = banner.querySelector('.banner-img');
-    const flipLayer = banner.querySelector('.banner-flip');
-    const flipFrontImg = flipLayer.querySelector('.flip-front img');
-    const flipBackImg = flipLayer.querySelector('.flip-back img');
-
-    /* 合成横幅尺寸：3360×2152（1.56:1，接近 16:10），每跨页两张 portrait_4_3 图左右拼接 */
-    const COMP_W = 3360, COMP_H = 2152;
+    const reader = modal.querySelector('.mg-reader');
+    const pagesBox = modal.querySelector('.mg-pages');
+    const cursor = modal.querySelector('.mg-cursor');
 
     let gallery = [];
-    let currentIdx = 0;        /* 移动端：当前页索引 */
-    let currentSpread = 0;     /* 桌面端：当前跨页索引（每跨页 2 图合成 1 张） */
+    let pages = [];           /* 注入的 img 元素 */
+    let currentIdx = 0;
     let isAnimating = false;
-    let pageRatio = 2717/3543; /* 移动端单页宽高比（竖版 ≈0.77），首图加载后按实测值更新 */
-    const FLIP_MS = 700;       /* 翻页动画时长（与 CSS transition 一致） */
-    const compositeCache = {}; /* 跨页索引 → 合成 dataURL 缓存 */
+    let closingTimer = null;  /* 关闭离场动画计时器（淡出完成后再真正隐藏） */
+    const CLOSE_MS = 400;     /* 离场时长（与 CSS .is-closing 过渡一致） */
+    let pageRatio = 470/301;  /* 单页宽高比（横向大图 ≈1.56，首图加载后按实测值校正） */
+    const FLIP_MS = 560;      /* 翻页动画时长（与 CSS transition 一致） */
+    const isDesktop = () => window.innerWidth >= 768;
 
-    const isMobile = () => window.innerWidth < 768;
+    /* ---------- 跟随鼠标的圆形翻页组件 ---------- */
+    let curX = 0, curY = 0, tgtX = 0, tgtY = 0, cursorRAF = null, cursorDir = null;
+    function cursorLoop(){
+      curX += (tgtX - curX) * 0.18;
+      curY += (tgtY - curY) * 0.18;
+      cursor.style.transform = `translate3d(${curX}px,${curY}px,0) translate(-50%,-50%)`;
+      cursorRAF = requestAnimationFrame(cursorLoop);
+    }
+    /* dir: 'prev' | 'next' | null —— 仅在左右翻页区浮现圆环；中间区域/到头隐藏 */
+    function setCursor(dir){
+      cursorDir = dir;
+      const onPrev = dir === 'prev';
+      const onNext = dir === 'next';
+      const blocked = (onPrev && currentIdx === 0) || (onNext && currentIdx === gallery.length - 1);
+      cursor.classList.toggle('is-prev', onPrev);
+      cursor.classList.toggle('is-next', onNext);
+      cursor.classList.toggle('is-show', !blocked && (onPrev || onNext));
+    }
+    function hideCursor(){
+      cursorDir = null;
+      cursor.classList.remove('is-prev','is-next','is-show');
+    }
+    /* 点击翻页时的樱花粉闪现反馈（圆环平时透明底，仅此刻填充） */
+    function tapCursor(){
+      if(!isDesktop()) return;
+      cursor.classList.remove('is-tap');
+      void cursor.offsetWidth;  /* 强制重绘，连点也能重新触发动画 */
+      cursor.classList.add('is-tap');
+      setTimeout(() => cursor.classList.remove('is-tap'), 340);
+    }
+    /* 圆环跟随鼠标；仅进入左右各 22% 翻页区时浮现并显示方向箭头；
+       悬停右上角关闭按钮时隐藏圆环，避免两个图标重叠、干扰点击关闭 */
+    modal.addEventListener('mousemove', e => {
+      if(!isDesktop()) return;
+      tgtX = e.clientX; tgtY = e.clientY;
+      if(e.target.closest('.mg-close')){ hideCursor(); return; }
+      const rel = e.clientX / window.innerWidth;
+      if(rel < 0.22) setCursor('prev');
+      else if(rel > 0.78) setCursor('next');
+      else setCursor(null);
+    }, { passive: true });
+    /* 按下即判定区域翻页并闪现粉色圆形（点关闭按钮除外）：
+       左 22% → 上一页，右 22% → 下一页，中间不翻页 */
+    modal.addEventListener('mousedown', e => {
+      if(!isDesktop()) return;
+      if(e.target.closest('.mg-close')) return;
+      const rel = e.clientX / window.innerWidth;
+      if(rel < 0.22){
+        if(currentIdx > 0){ tapCursor(); prev(); }
+      } else if(rel > 0.78){
+        if(currentIdx < gallery.length - 1){ tapCursor(); next(); }
+      }
+    });
+    modal.addEventListener('mouseleave', hideCursor);
 
     /* 生成内页图片路径数组（6 张本地内页图，按杂志 id 索引） */
     function generateGallery(id){
       return Array.from({length:6}, (_,i) => `images/magazine/${id}/pages/${String(i+1).padStart(2,'0')}.webp`);
     }
 
-    /* 加载单张图片（crossOrigin 以便 canvas 读取，不污染画布） */
-    function loadImage(url){
-      return new Promise(resolve => {
-        const im = new Image();
-        im.crossOrigin = 'anonymous';
-        im.onload = () => resolve(im);
-        im.onerror = () => resolve(null);
-        im.src = url;
-      });
-    }
-
-    /* cover 拟合绘制：保持比例填满目标区域，裁切溢出 */
-    function drawCover(ctx, im, dx, dy, dw, dh){
-      if(!im) return;
-      const sr = im.width / im.height, cr = dw / dh;
-      let sw, sh, sx, sy;
-      if(sr > cr){ sh = im.height; sw = sh * cr; sx = (im.width - sw) / 2; sy = 0; }
-      else { sw = im.width; sh = sw / cr; sx = 0; sy = (im.height - sh) / 2; }
-      ctx.drawImage(im, sx, sy, sw, sh, dx, dy, dw, dh);
-    }
-
-    /* 合成第 idx 跨页：两张图左右拼接为 3360×2152 单张 JPEG dataURL（带缓存） */
-    function compositeSpread(idx){
-      if(compositeCache[idx]) return Promise.resolve(compositeCache[idx]);
-      const li = idx * 2, ri = idx * 2 + 1;
-      const half = COMP_W / 2;
-      return Promise.all([loadImage(gallery[li]), loadImage(gallery[ri])]).then(([a, b]) => {
-        const c = document.createElement('canvas');
-        c.width = COMP_W; c.height = COMP_H;
-        const ctx = c.getContext('2d');
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, COMP_W, COMP_H);
-        drawCover(ctx, a, 0, 0, half, COMP_H);
-        drawCover(ctx, b, half, 0, half, COMP_H);
-        const url = c.toDataURL('image/jpeg', 0.92);
-        compositeCache[idx] = url;
-        return url;
-      });
-    }
-
-    /* 计算尺寸
-       桌面端：横幅 3360:2152 ≈ 1.56:1，按窗口留白适配
-       移动端：单页竖版（pageRatio ≈ 0.77，内页实测比例），按窗口留白适配 */
+    /* 按整屏视口计算舞台尺寸（全屏浏览，contain 整图不裁切） */
     function calcSize(){
-      if(isMobile()){
-        const padding = 40;
-        const maxW = window.innerWidth - padding * 2;
-        const maxH = window.innerHeight - padding * 2;
-        const ratio = pageRatio;
-        let w, h;
-        if(maxW / maxH > ratio){ h = maxH; w = h * ratio; }
-        else { w = maxW; h = w / ratio; }
-        return { w: Math.round(w), h: Math.round(h) };
-      }
-      const padding = 80;
-      const maxW = window.innerWidth - padding * 2;
-      const maxH = window.innerHeight - padding * 2;
-      const ratio = COMP_W / COMP_H;  /* 1.5613 */
+      const maxW = window.innerWidth;
+      const maxH = window.innerHeight;
       let w, h;
-      if(maxW / maxH > ratio){ h = maxH; w = h * ratio; }
-      else { w = maxW; h = w / ratio; }
+      if(maxW / maxH > pageRatio){ h = maxH; w = h * pageRatio; }
+      else { w = maxW; h = w / pageRatio; }
       return { w: Math.round(w), h: Math.round(h) };
     }
-
-    /* 更新外框尺寸（移动端单页 / 桌面端横幅） */
     function updateFrame(){
       const { w, h } = calcSize();
-      if(isMobile()){
-        frame.style.width = w + 'px';
-        frame.style.height = h + 'px';
-      } else {
-        banner.style.width = w + 'px';
-        banner.style.height = h + 'px';
-      }
+      reader.style.width = w + 'px';
+      reader.style.height = h + 'px';
     }
 
-    function spreadCount(){ return Math.ceil(gallery.length / 2); }
-
-    /* ---------- 移动端：单页显示 ---------- */
-    function showSingle(idx, isFirst){
-      isAnimating = true;
-      currentIdx = idx;
-      count.textContent = `${idx + 1} / ${gallery.length}`;
-      singleImg.classList.remove('is-show');
-      setTimeout(() => {
-        updateFrame();
-        singleImg.src = gallery[idx];
-        singleImg.onload = () => {
-          /* 首图加载后按实测比例校正外框（图片尚未淡入，重定尺寸不可见） */
-          if(singleImg.naturalWidth){
-            const r = singleImg.naturalWidth / singleImg.naturalHeight;
-            if(Math.abs(r - pageRatio) > 0.01){ pageRatio = r; updateFrame(); }
-          }
-          setTimeout(() => {
-            singleImg.classList.add('is-show');
-            setTimeout(() => { isAnimating = false; }, 200);
-          }, isFirst ? 200 : 0);
-        };
-        singleImg.onerror = () => { isAnimating = false; };
-      }, 150);
-    }
-
-    /* ---------- 桌面端：合成横幅显示（首次打开 / 模式切换，无翻页动画） ---------- */
-    function showSpread(idx, isFirst){
-      isAnimating = true;
-      currentSpread = idx;
-      count.textContent = `${idx + 1} / ${spreadCount()}`;
-      bannerImg.classList.remove('is-show');
-      updateFrame();
-      compositeSpread(idx).then(url => {
-        bannerImg.src = url;
-        bannerImg.onload = () => {
-          setTimeout(() => {
-            bannerImg.classList.add('is-show');
-            setTimeout(() => { isAnimating = false; }, 300);
-          }, isFirst ? 250 : 0);
-        };
-        bannerImg.onerror = () => { isAnimating = false; };
+    /* 刷新所有页面的位置类：当前页居中，之前页置于左侧，之后页置于右侧（默认态） */
+    function render(){
+      pages.forEach((im, j) => {
+        im.classList.toggle('is-cur', j === currentIdx);
+        im.classList.toggle('is-left', j < currentIdx);
       });
-      /* 后台预生成下一跨页，保证翻页时背面图已就绪 */
-      compositeSpread((idx + 1) % spreadCount());
+      count.textContent = `${currentIdx + 1} / ${gallery.length}`;
+      modal.classList.toggle('is-at-start', currentIdx === 0);
+      modal.classList.toggle('is-at-end', currentIdx === gallery.length - 1);
+      setCursor(cursorDir);  /* 翻页后按新页码重算圆形方向（到头自动隐藏） */
     }
 
-    /* 无过渡重置翻层（避免回弹动画） */
-    function resetFlip(){
-      flipLayer.style.transition = 'none';
-      flipLayer.classList.remove('is-flip-next');
-      flipLayer.classList.remove('is-flip-prev');
-      void flipLayer.offsetWidth;  /* 强制重绘 */
-      flipLayer.style.transition = '';
-    }
-
-    /* ---------- 桌面端：下一跨页（横幅绕垂直中轴向左翻转） ---------- */
-    function flipNext(){
+    function goTo(i){
       if(isAnimating) return;
+      i = Math.max(0, Math.min(gallery.length - 1, i));
+      if(i === currentIdx) return;
       isAnimating = true;
-      const nextSpread = (currentSpread + 1) % spreadCount();
-      compositeSpread(nextSpread).then(url => {
-        flipFrontImg.src = bannerImg.src;  /* 正面：当前横幅 */
-        flipBackImg.src = url;             /* 背面：下一横幅 */
-        flipLayer.classList.add('is-flip-next');
-        count.textContent = `${nextSpread + 1} / ${spreadCount()}`;
-        setTimeout(() => {
-          currentSpread = nextSpread;
-          /* 翻层背面（下一横幅）已覆盖 → 更新底层图 */
-          bannerImg.src = url;
-          resetFlip();
-          isAnimating = false;
-          compositeSpread((currentSpread + 1) % spreadCount());
-        }, FLIP_MS);
-      });
+      currentIdx = i;
+      render();
+      setTimeout(() => { isAnimating = false; }, FLIP_MS);
     }
+    const next = () => goTo(currentIdx + 1);
+    const prev = () => goTo(currentIdx - 1);
 
-    /* ---------- 桌面端：上一跨页（横幅绕垂直中轴向右翻转） ---------- */
-    function flipPrev(){
-      if(isAnimating) return;
-      isAnimating = true;
-      const prevSpread = (currentSpread - 1 + spreadCount()) % spreadCount();
-      compositeSpread(prevSpread).then(url => {
-        flipFrontImg.src = bannerImg.src;  /* 正面：当前横幅 */
-        flipBackImg.src = url;             /* 背面：上一横幅 */
-        flipLayer.classList.add('is-flip-prev');
-        count.textContent = `${prevSpread + 1} / ${spreadCount()}`;
-        setTimeout(() => {
-          currentSpread = prevSpread;
-          bannerImg.src = url;
-          resetFlip();
-          isAnimating = false;
-          compositeSpread((currentSpread - 1 + spreadCount()) % spreadCount());
-        }, FLIP_MS);
-      });
-    }
-
-    /* 打开模态框 */
+    /* 打开模态框：注入 6 张内页，回到第一页 */
     function openModal(id){
+      /* 若上一场关闭动画仍在进行，先复位离场态 */
+      clearTimeout(closingTimer);
+      modal.classList.remove('is-closing');
       gallery = generateGallery(id);
-      Object.keys(compositeCache).forEach(k => delete compositeCache[k]);  /* 清缓存 */
+      pagesBox.innerHTML = '';
+      pages = gallery.map((src, i) => {
+        const im = new Image();
+        im.src = src;
+        im.alt = `内页 ${i + 1}`;
+        if(i === 0){
+          im.onload = () => {
+            if(im.naturalWidth){
+              const r = im.naturalWidth / im.naturalHeight;
+              if(Math.abs(r - pageRatio) > 0.01){ pageRatio = r; updateFrame(); }
+            }
+          };
+        }
+        pagesBox.appendChild(im);
+        return im;
+      });
+      currentIdx = 0;
+      cursorDir = null;
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('is-hidden');
-      if(isMobile()){
-        frame.style.width = '0px';
-        frame.style.height = '0px';
-      } else {
-        updateFrame();  /* 桌面端：立即设置真实尺寸，靠 opacity+scale 入场 */
+      lockBodyScroll();
+      updateFrame();
+      /* 桌面端启动圆形组件的鼠标跟随循环 */
+      if(isDesktop() && cursorRAF === null){
+        curX = tgtX = window.innerWidth / 2; curY = tgtY = window.innerHeight / 2;
+        cursorRAF = requestAnimationFrame(cursorLoop);
       }
-      /* 延迟 200ms（等模态框淡入）后显示第一跨页/第一页 */
-      setTimeout(() => {
-        if(isMobile()) showSingle(0, true);
-        else showSpread(0, true);
-      }, 200);
+      /* 延迟 200ms（等模态框淡入）后显示第一页 */
+      setTimeout(render, 200);
     }
 
-    /* 关闭模态框 */
+    /* 关闭模态框：先切 .is-closing 播放离场动画（整层淡出 + 大图回缩 + 关闭钮旋转缩小），
+       动画结束后再真正隐藏，避免 display:none 瞬间切断过渡造成生硬消失 */
     function closeModal(){
+      if(!modal.classList.contains('is-open')) return;
       modal.classList.remove('is-open');
+      modal.classList.add('is-closing');
       modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('is-hidden');
-      singleImg.classList.remove('is-show');
-      bannerImg.classList.remove('is-show');
-      resetFlip();
+      hideCursor();
+      if(cursorRAF !== null){ cancelAnimationFrame(cursorRAF); cursorRAF = null; }
+      clearTimeout(closingTimer);
+      closingTimer = setTimeout(() => {
+        modal.classList.remove('is-closing');
+        unlockBodyScroll();  /* 淡出完成后再解锁背景滚动（锁定时已补偿滚动条宽度，解锁无重排闪烁） */
+        closingTimer = null;
+      }, CLOSE_MS);
     }
 
-    /* 下一页 / 上一页（按模式分发） */
-    function next(){
-      if(isAnimating) return;
-      if(isMobile()) showSingle((currentIdx + 1) % gallery.length);
-      else flipNext();
-    }
-    function prev(){
-      if(isAnimating) return;
-      if(isMobile()) showSingle((currentIdx - 1 + gallery.length) % gallery.length);
-      else flipPrev();
-    }
-
-    /* 事件绑定 */
+    /* 事件绑定：左右边缘 22% 隐形热区点击翻页（.mg-prev/.mg-next），中间区域不翻页 */
     closeBtn.addEventListener('click', closeModal);
     nextZone.addEventListener('click', next);
     prevZone.addEventListener('click', prev);
-    /* 点击横幅翻页：左半 → 上一页，右半 → 下一页（翻层 pointer-events:none，点击穿透） */
-    banner.addEventListener('click', e => {
-      const rect = banner.getBoundingClientRect();
-      if(e.clientX - rect.left < rect.width / 2) prev(); else next();
-    });
 
     /* 键盘控制：← → 翻页，ESC 关闭 */
     document.addEventListener('keydown', e => {
@@ -597,38 +514,20 @@
       if(e.key === 'ArrowRight') next();
     });
 
-    /* 窗口调整：重新计算尺寸；模式切换时重绘当前页 */
-    let lastMobile = isMobile();
+    /* 窗口调整：重新计算舞台尺寸 */
     window.addEventListener('resize', () => {
-      if(!modal.classList.contains('is-open')){ lastMobile = isMobile(); return; }
-      const nowMobile = isMobile();
-      if(nowMobile !== lastMobile){
-        lastMobile = nowMobile;
-        if(nowMobile){
-          currentIdx = currentSpread * 2;
-          showSingle(currentIdx, true);
-        } else {
-          currentSpread = Math.floor(currentIdx / 2);
-          showSpread(currentSpread, true);
-        }
-      } else {
-        updateFrame();
-      }
+      if(modal.classList.contains('is-open')) updateFrame();
     });
 
-    /* 移动端滑动手势（阈值 50px） */
+    /* 触摸滑动手势（阈值 50px）：右滑上一页，左滑下一页 */
     let touchStartX = 0;
-    modal.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
+    modal.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
     modal.addEventListener('touchend', e => {
       const delta = e.changedTouches[0].clientX - touchStartX;
-      if(Math.abs(delta) > 50){
-        if(delta > 0) prev(); else next();
-      }
+      if(Math.abs(delta) > 50){ if(delta > 0) prev(); else next(); }
     }, { passive: true });
 
-    /* 拦截 OPEN PAGES 按钮点击 → 打开模态框 */
+    /* 拦截「翻阅内页」按钮点击 → 打开阅读器 */
     const lookInsideBtn = document.querySelector('[data-field="lookInside"]');
     if(lookInsideBtn){
       lookInsideBtn.addEventListener('click', e => {

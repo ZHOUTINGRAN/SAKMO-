@@ -23,6 +23,23 @@
     });
   }
 
+  /* ---- 背景滚动锁定（菜单抽屉 / 详情面板 / 全屏阅读器打开时共用）----
+     仅加 overflow:hidden 会让 Windows 经典滚动条消失、视口变宽约 15px，
+     解锁瞬间整页重排——即关闭弹层后文字"闪一下"。
+     锁定时给 body 补等量 padding-right，内容宽度在锁定前后保持恒定。 */
+  window.lockBodyScroll = function () {
+    var b = document.body;
+    if (b.classList.contains('is-hidden')) return;
+    var sw = window.innerWidth - document.documentElement.clientWidth;
+    if (sw > 0) b.style.paddingRight = sw + 'px';
+    b.classList.add('is-hidden');
+  };
+  window.unlockBodyScroll = function () {
+    var b = document.body;
+    b.style.paddingRight = '';
+    b.classList.remove('is-hidden');
+  };
+
   /* ---- 抽屉侧边导航 ----
      两线↔关闭交叉淡入按钮 + 右侧白面板 + 大号衬线菜单项（细线生长 hover）。 */
   var drawerBtn = document.getElementById('menu-btn');
@@ -72,8 +89,8 @@
     document.body.appendChild(menu);
 
     var htmlEl = document.documentElement;
-    function openMenu(){ htmlEl.classList.add('is-menu-open'); document.body.classList.add('is-hidden'); menu.setAttribute('aria-hidden', 'false'); }
-    function closeMenu(){ htmlEl.classList.remove('is-menu-open'); document.body.classList.remove('is-hidden'); menu.setAttribute('aria-hidden', 'true'); }
+    function openMenu(){ htmlEl.classList.add('is-menu-open'); window.lockBodyScroll(); menu.setAttribute('aria-hidden', 'false'); }
+    function closeMenu(){ htmlEl.classList.remove('is-menu-open'); window.unlockBodyScroll(); menu.setAttribute('aria-hidden', 'true'); }
     drawerBtn.addEventListener('click', function(){ htmlEl.classList.contains('is-menu-open') ? closeMenu() : openMenu(); });
     /* 汉堡按钮 hover：用 .is-hover 类驱动上线收短（补充 :hover，确保触发可靠） */
     drawerBtn.addEventListener('mouseenter', function(){ drawerBtn.classList.add('is-hover'); });
@@ -149,7 +166,7 @@
     var inDrawer = document.documentElement.classList.contains('is-menu-open');
     if (inDrawer) {
       document.documentElement.classList.remove('is-menu-open');
-      document.body.classList.remove('is-hidden');
+      window.unlockBodyScroll();
       var drawer = document.getElementById('menu');
       if (drawer) drawer.setAttribute('aria-hidden', 'true');
     }
@@ -186,6 +203,100 @@
   } else {
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
+
+  /* ---- 标签页切到后台时暂停所有 CSS 动画（呼吸点/扫光/Ken Burns 等），
+     回到前台自动恢复——标签页不可见时动画无意义却持续消耗 CPU/电量 ---- */
+  document.addEventListener('visibilitychange', function () {
+    document.documentElement.classList.toggle('is-tab-hidden', document.hidden);
+  });
+
+  /* ---- 离屏暂停 Ken Burns 缓慢推近：专题大图滚出视口后暂停动画，回到视口恢复。
+     .ps-f-stage 由页面内联脚本动态创建（app.js 执行时未必存在），故在
+     DOMContentLoaded 后挂载，并用 MutationObserver 补捕获之后动态插入的舞台 ---- */
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var seen = 'WeakSet' in window ? new WeakSet() : null;
+    function start() {
+      var kbIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          e.target.classList.toggle('is-offscreen', !e.isIntersecting);
+        });
+      }, { rootMargin: '80px 0px' });
+      function watch(el) {
+        if (el.nodeType !== 1) return;
+        var stages = el.classList && el.classList.contains('ps-f-stage') ? [el] : el.querySelectorAll ? el.querySelectorAll('.ps-f-stage') : [];
+        Array.prototype.forEach.call(stages, function (s) {
+          if (seen) { if (seen.has(s)) return; seen.add(s); }
+          kbIO.observe(s);
+        });
+      }
+      watch(document.body || document);
+      new MutationObserver(function (muts) {
+        muts.forEach(function (mu) {
+          Array.prototype.forEach.call(mu.addedNodes || [], watch);
+        });
+      }).observe(document.body, { childList: true, subtree: true });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+    else start();
+  })();
+
+  /* ---- 响应式图片增强器 ----
+     依据 js/resp-manifest.js（tools/gen-responsive.js 生成）为 <img> 注入 srcset/sizes，
+     让浏览器按视口宽度/DPR 选择 640w / 1280w / 原图，移动端不再下载全尺寸大图。
+     清单以阻塞 <script> 在 app.js 之前加载（各页面已引入），动态注入仅作兜底；
+     MutationObserver 覆盖 JS 动态注入/换图（封面、刊架、灯箱、阅读器内页等）。 */
+  (function () {
+    function sizesFor(img) {
+      if (img.closest('.cover .frame, .bleed .frame, .modal-gallery .mg-pages')) return '100vw';
+      if (img.closest('.ps-f-stage, .read-feature, .rd-hero, .pd-img')) return '(max-width:768px) 100vw, 55vw';
+      if (img.closest('.magazine-detail .flex .l')) return '(max-width:768px) 90vw, 39vw';
+      if (img.closest('.rack-slide, .pr-thumb')) return '(max-width:768px) 42vw, 240px';
+      return '(max-width:768px) 92vw, 33vw';
+    }
+    function apply(img) {
+      if (!img || img.nodeName !== 'IMG' || img.__respDone || !window.__RESP_MANIFEST) return;
+      var src = (img.getAttribute('src') || '').split('?')[0];
+      img.__respDone = true;
+      if (!src) return;
+      var m = window.__RESP_MANIFEST[src];
+      if (!m) return;
+      var parts = m.v.map(function (v) { return v.src + ' ' + v.w + 'w'; });
+      parts.push(src + ' ' + m.w + 'w');
+      img.setAttribute('srcset', parts.join(', '));
+      img.setAttribute('sizes', sizesFor(img));
+      if (!img.getAttribute('decoding')) img.setAttribute('decoding', 'async');
+    }
+    function scanAll() {
+      Array.prototype.forEach.call(document.images, apply);
+    }
+    function init() {
+      if (!window.__RESP_MANIFEST) return;
+      scanAll();
+      if (!('MutationObserver' in window)) return;
+      new MutationObserver(function (muts) {
+        muts.forEach(function (mu) {
+          if (mu.type === 'attributes' && mu.target.nodeName === 'IMG') {
+            mu.target.__respDone = false;
+            apply(mu.target);
+          } else if (mu.addedNodes) {
+            Array.prototype.forEach.call(mu.addedNodes, function (n) {
+              if (n.nodeType !== 1) return;
+              if (n.nodeName === 'IMG') apply(n);
+              if (n.querySelectorAll) Array.prototype.forEach.call(n.querySelectorAll('img'), apply);
+            });
+          }
+        });
+      }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+    }
+    if (window.__RESP_MANIFEST) init();
+    else {
+      var s = document.createElement('script');
+      s.src = 'js/resp-manifest.js';
+      s.onload = init;
+      document.head.appendChild(s);
+    }
+  })();
 
   /* ---- 筛选 (gallery / creators 等) ----
      用法：容器 .filterable，子项带 data-cat="landscape"（或可选 data-photographer="XX"）；
@@ -357,7 +468,7 @@
             rfFadeTimer = null;
           }, 400);
         }
-        function rfNext(){ rfIdx = (rfIdx + 1) % rfSlides.length; rfShow(rfIdx); }
+        function rfNext(){ if(document.hidden) return; rfIdx = (rfIdx + 1) % rfSlides.length; rfShow(rfIdx); }
         function rfStart(){ rfTimer = setInterval(rfNext, RF_INTERVAL); }
         function rfStop(){ if(rfTimer){ clearInterval(rfTimer); rfTimer = null; } }
         function rfRestart(){ rfStop(); rfStart(); }
@@ -500,7 +611,7 @@
 
   document.addEventListener('click', function (e) {
     /* 统一处理导航链接：footer logo + 抽屉/底部菜单项 + .go 按钮 + .flex-e 卡片 + 主页专题/解析预览行 + 本期精选幻灯片 */
-    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a, .pd-logo a, .hp-projects a, .hp-reading .r-row, .pick-swiper a');
+    var link = e.target.closest('.flogo, .u-menu, .go, .flex-e .cell, .drawer-logo a, .links a, .pd-logo a, .hp-projects a, .hp-reading .rd-row, .pick-swiper a');
     if (!link) return;
     var href = link.getAttribute('href');
     if (!href || href.charAt(0) === '#') return; /* 跳过纯锚点(#instagram 等) */
@@ -508,7 +619,7 @@
     /* 关闭抽屉（如果处于打开状态） */
     if (document.documentElement.classList.contains('is-menu-open')) {
       document.documentElement.classList.remove('is-menu-open');
-      document.body.classList.remove('is-hidden');
+      window.unlockBodyScroll();
       var menuEl = document.getElementById('menu');
       if (menuEl) menuEl.setAttribute('aria-hidden', 'true');
     }
@@ -536,7 +647,7 @@
   panel.setAttribute('aria-hidden', 'true');
   panel.innerHTML =
     '<div class="pd-logo"><a href="index.html"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a></div>' +
-    '<button class="pd-close" aria-label="关闭"><span></span><span></span></button>' +
+    '<button class="pd-close" aria-label="关闭"><i class="t"></i><i class="b"></i></button>' +
     '<div class="pd-inner">' +
       '<div class="pd-img"><img src="" alt=""></div>' +
       '<div class="pd-info">' +
@@ -713,7 +824,7 @@
     panel.scrollTop = 0;
     panel.classList.add('is-open');
     panel.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('is-hidden');
+    window.lockBodyScroll();
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){ panel.classList.add('is-in'); });
     });
@@ -757,7 +868,7 @@
     setTimeout(function(){
       panel.classList.remove('is-open');
       panel.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('is-hidden');
+      window.unlockBodyScroll();
     }, 360);
   }
 
