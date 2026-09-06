@@ -1,0 +1,86 @@
+[
+  {
+    "index": 0,
+    "title": "ARD",
+    "slug": "ard",
+    "format": "landscape",
+    "src": "assets-projects/project-0.webp"
+  },
+  {
+    "index": 1,
+    "title": "Pierre Cathala",
+    "slug": "pierre-cathala",
+    "format": "portrait",
+    "src": "assets-projects/project-1.webp"
+  },
+  {
+    "index": 2,
+    "title": ".Raw",
+    "slug": "raw",
+    "format": "landscape",
+    "src": "assets-projects/project-2.webp"
+  },
+  {
+    "index": 3,
+    "title": "Yeng",
+    "slug": "yeng",
+    "format": "portrait",
+    "src": "assets-projects/project-3.webp"
+  },
+  {
+    "index": 4,
+    "title": "Prada Beauty",
+    "slug": "prada-beauty",
+    "format": "landscape",
+    "src": "assets-projects/project-4.webp"
+  },
+  {
+    "index": 5,
+    "title": "KLSR",
+    "slug": "klsr",
+    "format": "portrait",
+    "src": "assets-projects/project-5.webp"
+  },
+  {
+    "index": 6,
+    "title": "Jean khamkwan",
+    "slug": "jean-khamkwan",
+    "format": "landscape",
+    "src": "assets-projects/project-6.webp"
+  },
+  {
+    "index": 7,
+    "title": "Zhong Lin",
+    "slug": "zhong-lin",
+    "format": "portrait",
+    "src": "assets-projects/project-7.webp"
+  },
+  {
+    "index": 8,
+    "title": "Aishy",
+    "slug": "aishy",
+    "format": "landscape",
+    "src": "assets-projects/project-8.webp"
+  },
+  {
+    "index": 9,
+    "title": "Folio Template",
+    "slug": "folio-template",
+    "format": "portrait",
+    "src": "assets-projects/project-9.webp"
+  },
+  {
+    "index": 10,
+    "title": "Elie Leber",
+    "slug": "elie-leber",
+    "format": "landscape",
+    "src": "assets-projects/project-10.webp"
+  },
+  {
+    "index": 11,
+    "title": "Rue Saint Abel",
+    "slug": "rue-saint-abel",
+    "format": "portrait",
+    "src": "assets-projects/project-11.webp"
+  }
+]
