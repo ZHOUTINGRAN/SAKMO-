@@ -30,7 +30,7 @@ window.readingData = [
     cat: '纪实 / Documentary',
     date: '2026.08',
     title: '工业纪念碑：不再冒烟的烟囱',
-    titleEn: 'Industrial Monument: Chimneys No Longer SmokingIndustrial Monument: Chimneys No Longer Smoking',
+    titleEn: 'Industrial Monument: Chimneys No Longer Smoking',
     author: '周亭燃',
     authorRole: '主编',
     credit: '周亭燃 · 纪实解析',

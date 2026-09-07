@@ -259,10 +259,18 @@
       var src = (img.getAttribute('src') || '').split('?')[0];
       img.__respDone = true;
       if (!src) return;
-      var m = window.__RESP_MANIFEST[src];
-      if (!m) return;
+      /* 同源绝对 URL（如轮播用 img.src 属性赋值换图）→ 剥离协议+主机后按相对路径查清单 */
+      var key = src.replace(/^https?:\/\/[^/]+/i, '');
+      var m = window.__RESP_MANIFEST[key];
+      if (!m) {
+        /* 新 src 无变体清单：必须移除旧 srcset/sizes，否则上一张图的 srcset
+           优先级高于 src，浏览器会一直显示旧图（换图失效的根因） */
+        img.removeAttribute('srcset');
+        img.removeAttribute('sizes');
+        return;
+      }
       var parts = m.v.map(function (v) { return v.src + ' ' + v.w + 'w'; });
-      parts.push(src + ' ' + m.w + 'w');
+      parts.push(key + ' ' + m.w + 'w');
       img.setAttribute('srcset', parts.join(', '));
       img.setAttribute('sizes', sizesFor(img));
       if (!img.getAttribute('decoding')) img.setAttribute('decoding', 'async');
@@ -407,7 +415,9 @@
       /* 收集轮播数据 */
       var rfSlides = [];
       var rfFirstGo = rfTextCol.querySelector('.go');
-      rfSlides.push({ img: rfImgEl.src, imgAlt: rfImgEl.alt, href: rfFirstGo ? rfFirstGo.getAttribute('href') : 'reading-detail.html?id=001', html: rfTextCol.innerHTML });
+      /* 用 getAttribute 取原始相对路径：img.src 属性会解析为绝对 URL，
+         导致增强器清单查不到（srcset 更新失效、轮播图卡在同一张） */
+      rfSlides.push({ img: rfImgEl.getAttribute('src'), imgAlt: rfImgEl.alt, href: rfFirstGo ? rfFirstGo.getAttribute('href') : 'reading-detail.html?id=001', html: rfTextCol.innerHTML });
       document.querySelectorAll('.flex-e .cell').forEach(function(item){
         var img = item.querySelector('.img img');
         var inSpan = item.querySelector('.in span');
@@ -416,7 +426,7 @@
         var itemHref = item.getAttribute('href') || '#';
         var catHtml = inSpan ? inSpan.innerHTML : '';
         rfSlides.push({
-          img: img ? img.src : '',
+          img: img ? (img.getAttribute('src') || '') : '',
           imgAlt: img ? img.alt : '',
           href: itemHref,
           html: '<div class="cat">' + catHtml + '</div>' +
