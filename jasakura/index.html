@@ -1,4 +1,4 @@
-﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -205,12 +205,22 @@
   /* 从数据生成 HTML */
   COVER_SLIDES.forEach(function(s, i){
     var active = i === 0 ? ' is-active' : '';
-    /* 首图即 LCP：立即加载 + 高优先级（不 lazy）；其余图懒加载 */
+    /* 首图即 LCP：立即加载 + 高优先级；其余轮播图同样即时加载（低优先级），
+       保证 6 秒自动换场前已就绪，避免切换瞬间空白闪断（不使用 lazy） */
     var imgAttrs = i === 0 ? ' fetchpriority="high" decoding="async"'
-                          : ' loading="lazy" decoding="async"';
+                          : ' fetchpriority="low" decoding="async"';
+    /* srcset/sizes 在插入时直接写入（数据来自 resp-manifest.js），与 <head> 的
+       preload 精确匹配，避免先按全尺寸 src 发请求、事后再改 srcset 的竞态重复下载 */
+    var resp = '';
+    var rm = window.__RESP_MANIFEST && window.__RESP_MANIFEST[s.img];
+    if (rm){
+      var parts = rm.v.map(function(v){ return v.src + ' ' + v.w + 'w'; });
+      parts.push(s.img + ' ' + rm.w + 'w');
+      resp = ' srcset="' + parts.join(', ') + '" sizes="100vw"';
+    }
     /* 图片层 */
     frame.insertAdjacentHTML('beforeend',
-      '<div class="slide' + active + '"><img' + imgAttrs + ' alt="' + (s.imgAlt||'') + '" src="' + s.img + '"></div>');
+      '<div class="slide' + active + '"><img' + imgAttrs + ' alt="' + (s.imgAlt||'') + '" src="' + s.img + '"' + resp + '></div>');
     /* 标题层 */
     titlesBox.insertAdjacentHTML('beforeend',
       '<div class="slide-text' + active + '">' +
