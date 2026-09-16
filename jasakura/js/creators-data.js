@@ -23,7 +23,7 @@ window.creators = {
     {
       name: '向洪平',
       nameEn: 'Xiang Hongping',
-      role: '常驻 / 图片编辑&摄影',
+      role: '常驻 / 图片排版编辑',
       portrait: 'images/creators/02.webp',
       portraitAlt: '向洪平肖像',
       bio: '图片编辑兼常驻摄影，研习摄影两年半。擅长以平实的镜头捕捉现实场景里细腻的瞬间，持续观察与记录周遭世界。',
