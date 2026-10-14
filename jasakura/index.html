@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -408,9 +408,13 @@
   var swiper = document.getElementById('pick-grid');
   if (!track || !swiper) return;
 
-  /* 从图片路径推导 JSON 路径（如 01.webp → 01.json） */
+  /* 从图片路径推导文案 JSON 路径（images/gallery/landscape/02.webp
+     → gallery-content/landscape/02.json） */
   function imgToJsonPath(imgSrc){
-    return imgSrc.replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '.json');
+    var p = imgSrc.replace(/^https?:\/\/[^\/]+/, '').split('?')[0];
+    var m = p.match(/^images\/gallery\/([a-z0-9_-]+)\/([^\/]+)\.(jpg|jpeg|png|webp|gif|svg)$/i);
+    return m ? 'gallery-content/' + m[1] + '/' + m[2] + '.json'
+             : p.replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '.json');
   }
   function pad2(s){ return ('0' + s).slice(-2); }
 
@@ -441,25 +445,41 @@
       imgEl.addEventListener('error', onImgReady);
     }
 
-    /* 异步加载画廊 JSON，填充标题/分类/日期 */
-    fetch(imgToJsonPath(p.img))
-      .then(function(res){ return res.ok ? res.json() : null; })
-      .then(function(d){
-        if (!d) return;
-        var img = a.querySelector('.pick-img img');
-        if (img) img.alt = d.title || '';
-        var cat = a.querySelector('.pick-cat');
-        if (cat && d.category) cat.textContent = d.category;
-        var dt = a.querySelector('.pick-date');
-        if (dt && d.date) dt.textContent = d.date;
-        var h3 = a.querySelector('.pick-tt');
-        if (h3){
-          h3.childNodes[0].nodeValue = d.title || '';
-          var en = h3.querySelector('.en');
-          if (en && d.titleEn) en.textContent = d.titleEn;
+    /* 填充标题/分类/日期（新照片内联填写，旧照片走画廊 JSON） */
+    function fillCaption(d){
+      if (!d) return;
+      var img = a.querySelector('.pick-img img');
+      if (img && d.title) img.alt = d.title;
+      var cat = a.querySelector('.pick-cat');
+      var dt = a.querySelector('.pick-date');
+      if (cat && d.category) cat.textContent = d.category;
+      if (dt && d.date) dt.textContent = d.date;
+      /* 分类与日期都没有时隐藏整行 meta，避免出现空分隔线 */
+      if (!d.category && !d.date){
+        var meta = a.querySelector('.pick-meta');
+        if (meta) meta.style.display = 'none';
+      }
+      var h3 = a.querySelector('.pick-tt');
+      if (h3 && d.title){
+        h3.childNodes[0].nodeValue = d.title;
+        var en = h3.querySelector('.en');
+        if (en){
+          if (d.titleEn) en.textContent = d.titleEn;
+          else en.style.display = 'none';
         }
-      })
-      .catch(function(){ /* JSON 不存在时保持占位空白 */ });
+      }
+    }
+
+    if (p.title){
+      /* 内联数据（images/gallery/works 新照片无 JSON） */
+      fillCaption(p);
+    } else {
+      /* 异步加载画廊 JSON，填充标题/分类/日期 */
+      fetch(imgToJsonPath(p.img))
+        .then(function(res){ return res.ok ? res.json() : null; })
+        .then(fillCaption)
+        .catch(function(){ /* JSON 不存在时保持占位空白 */ });
+    }
   });
 
   /* ===== 纯原生拖拽滑动（与杂志详情页 ARCHIVES 同款：transform 平移，松手即停） ===== */

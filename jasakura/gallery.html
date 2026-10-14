@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="gallery-cathydolle/site.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500;1,600&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500&display=block" rel="stylesheet">
 <link rel="icon" href="images/favicon.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="images/favicon.png">
 <style>
@@ -48,37 +48,39 @@
     .photo-detail .pd-close:hover i.t{transform:translate(-50%,-50%) rotate(20deg)}
     .photo-detail .pd-close:hover i.b{transform:translate(-50%,-50%) rotate(-20deg)}
   }
-  .photo-detail .pd-inner{position:relative;max-width:1500px;margin:0 auto;padding:120px var(--gut) 120px;display:grid;grid-template-columns:3fr 1fr;gap:64px;align-items:center;min-height:100vh;z-index:2}
-  .photo-detail .pd-img,.photo-detail .pd-info{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+  /* ===== 图片详情：以照片为绝对主角，图注仅保留编号/标题/作者 ===== */
+  .photo-detail .pd-inner{position:relative;max-width:1500px;margin:0 auto;padding:104px var(--gut) 120px;display:flex;align-items:center;justify-content:center;min-height:100vh;z-index:2}
+  .photo-detail .pd-figure{display:flex;flex-direction:column;align-items:center;gap:30px;width:100%;max-width:1080px;margin:0 auto}
+  .photo-detail .pd-img,.photo-detail .pd-cap{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
   .photo-detail.is-in .pd-img{opacity:1;transform:translateY(0)}
-  .photo-detail.is-in .pd-info{opacity:1;transform:translateY(0);transition-delay:.14s}
-  .photo-detail.is-switching .pd-img,.photo-detail.is-switching .pd-info{transition:opacity .32s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(14px) scale(.985)}
+  .photo-detail.is-in .pd-cap{opacity:1;transform:translateY(0);transition-delay:.14s}
+  .photo-detail.is-switching .pd-img,.photo-detail.is-switching .pd-cap{transition:opacity .32s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(14px) scale(.985)}
   .photo-detail.is-switching .pd-img img{transition:transform .32s cubic-bezier(.4,0,.2,1);transform:scale(1.01)}
-  .photo-detail .pd-img{overflow:hidden;background:var(--paper-2);border:1px solid var(--line);box-shadow:0 6px 40px rgba(0,0,0,.10),0 1px 6px rgba(0,0,0,.05);width:fit-content;max-width:100%;justify-self:center}
-  .photo-detail .pd-img img{display:block;max-width:100%;max-height:calc(100vh - 240px);width:auto;height:auto;transform:scale(1.03);transition:transform 1s cubic-bezier(.2,.7,.2,1);object-fit:contain}
+  .photo-detail .pd-img{width:100%;max-width:100%;display:flex;align-items:center;justify-content:center}
+  .photo-detail .pd-img img{display:block;max-width:100%;max-height:calc(100vh - 300px);width:auto;height:auto;transform:scale(1.03);transition:transform 1s cubic-bezier(.2,.7,.2,1);object-fit:contain}
   .photo-detail.is-in .pd-img img{transform:scale(1)}
-  .photo-detail .pd-img.is-portrait{width:fit-content;max-width:100%;justify-self:center}
-  .photo-detail .pd-img.is-landscape{width:100%;justify-self:stretch;display:flex;align-items:center;justify-content:center}
-  .photo-detail .pd-img.is-landscape img{width:100%;height:auto;max-height:calc(100vh - 240px)}
-  .photo-detail .pd-info{display:flex;flex-direction:column;gap:20px;padding-left:40px;border-left:1px solid var(--line)}
-  .photo-detail .pd-info .index{font-family:var(--serif);font-style:italic;font-size:10.5px;color:var(--muted);letter-spacing:.04em}
-  .photo-detail .pd-info .index b{font-weight:600;color:var(--ink);font-style:normal;font-size:13px;letter-spacing:.02em}
-  .photo-detail .pd-info .lbl{font-family:var(--sans);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;gap:14px;align-items:center}
-  .photo-detail .pd-info .lbl span:first-child{color:var(--ink);font-weight:500}
-  .photo-detail .pd-info .lbl span:last-child{position:relative;padding-left:14px}
-  .photo-detail .pd-info .lbl span:last-child::before{content:"";position:absolute;left:0;top:50%;width:6px;height:1px;background:var(--line-2)}
-  .photo-detail .pd-info h3{font-family:var(--serif);font-weight:600;font-size:clamp(24px,3.4vw,34px);line-height:1.12;letter-spacing:.01em;color:var(--ink)}
-  .photo-detail .pd-info h3 .en{display:block;font-style:italic;font-weight:400;font-size:13.5px;color:var(--muted);margin-top:10px;letter-spacing:.03em}
-  .photo-detail .pd-info .credit{font-size:11px;color:var(--ink-soft);letter-spacing:.02em}
-  .photo-detail .pd-info .credit b{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:12.5px}
-  .photo-detail .pd-info .params{font-family:var(--sans);font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.04em;border-top:1px solid var(--line);padding-top:16px;margin-top:6px}
-  .photo-detail .pd-info .pd-note{display:flex;align-items:center;gap:12px;font-family:var(--sans);font-size:7.6px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line-2);padding-top:22px;margin-top:10px}
-  .photo-detail .pd-info .pd-note::before{content:"";display:inline-block;width:26px;height:1px;background:var(--ink-soft);flex:none}
-  .photo-detail .pd-info .desc{font-family:var(--serif);font-size:16px;line-height:1.92;color:var(--ink-soft);letter-spacing:.005em;margin-top:8px;text-align:justify;text-justify:inter-ideograph}
-  .photo-detail .pd-info .desc::first-letter{font-family:var(--serif);font-size:38px;font-weight:600;float:left;line-height:.8;margin:8px 14px 0 0;color:var(--ink)}
-  .photo-detail .pd-info .pd-story-note{display:flex;align-items:center;gap:12px;font-family:var(--sans);font-size:7.6px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line-2);padding-top:22px;margin-top:24px}
-  .photo-detail .pd-info .pd-story-note::before{content:"";display:inline-block;width:26px;height:1px;background:var(--ink-soft);flex:none}
-  .photo-detail .pd-info .pd-story{font-family:var(--serif);font-size:15px;line-height:1.88;color:var(--ink-soft);letter-spacing:.005em;margin-top:8px;text-align:justify;text-justify:inter-ideograph}
+  .photo-detail .pd-img.is-portrait img{max-height:calc(100vh - 320px);max-width:min(100%,480px)}
+  .photo-detail .pd-img.is-square img{max-height:calc(100vh - 300px);max-width:min(100%,620px)}
+  /* 图注：馆藏铭牌式居中排版——细轨饰线 · 馆藏编号 · 英文大斜题 · 中文疏排 · 作者署名 */
+  .photo-detail .pd-cap{width:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center}
+  /* 顶部饰轨：两条细线夹一枚樱花粉菱标 */
+  .photo-detail .pd-cap-rail{display:flex;align-items:center;justify-content:center;gap:14px;width:200px;max-width:60vw}
+  .photo-detail .pd-cap-rail::before,.photo-detail .pd-cap-rail::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line-2))}
+  .photo-detail .pd-cap-rail::after{background:linear-gradient(90deg,var(--line-2),transparent)}
+  .photo-detail .pd-cap-rail i{flex:none;width:6px;height:6px;background:var(--sakura);transform:rotate(45deg);box-shadow:0 0 0 3px var(--paper),0 0 0 3.5px rgba(255,154,193,.28)}
+  /* 馆藏编号 */
+  .photo-detail .pd-plate{margin-top:16px;font-family:var(--sans);font-size:9.5px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
+  .photo-detail .pd-plate em{font-family:var(--serif);font-style:italic;font-size:12px;letter-spacing:.08em;text-transform:none;color:var(--ink-soft);margin-left:8px}
+  .photo-detail .pd-plate em b{font-style:normal;font-weight:400;color:var(--line-2);margin-right:6px}
+  /* 英文主标题：Playfair Display 高对比斜体，时尚画册式的戏剧感 */
+  .photo-detail .pd-title-en{margin:13px 0 0;font-family:"Playfair Display","Cormorant Garamond","Noto Serif SC",Baskerville,serif;font-style:italic;font-weight:400;font-size:clamp(30px,4.2vw,42px);line-height:1.12;letter-spacing:.008em;color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+  /* 中文副标题：大字距疏排，沉为注释层 */
+  .photo-detail .pd-title-zh{margin-top:11px;font-family:var(--serif);font-weight:400;font-size:14px;letter-spacing:.42em;text-indent:.42em;color:var(--ink-soft)}
+  /* 作者署名 */
+  .photo-detail .pd-by{display:flex;flex-direction:column;align-items:center;gap:5px;margin-top:24px}
+  .photo-detail .pd-by-l{font-family:var(--sans);font-size:8.5px;font-weight:500;letter-spacing:.36em;text-transform:uppercase;color:var(--muted)}
+  .photo-detail .pd-by-n{font-family:var(--serif);font-weight:600;font-size:16px;letter-spacing:.14em;color:var(--ink)}
+  .photo-detail .pd-by-n::before,.photo-detail .pd-by-n::after{content:"";display:inline-block;width:14px;height:1px;background:var(--line-2);vertical-align:middle;margin:0 12px 3px}
   .photo-detail .pd-pagenation{position:fixed;bottom:0;left:0;right:0;height:72px;display:flex;align-items:center;justify-content:center;background:var(--paper);border-top:1px solid var(--line);z-index:5;opacity:0;transform:translateY(100%);transition:opacity .5s ease .2s,transform .5s cubic-bezier(.2,.7,.2,1) .2s}
   .photo-detail.is-in .pd-pagenation{opacity:1;transform:translateY(0)}
   .photo-detail .pd-pagenation .prev,.photo-detail .pd-pagenation .next{position:absolute;top:50%;transform:translateY(-50%);display:inline-block;padding-bottom:7px;color:var(--ink);cursor:pointer;text-decoration:none;transition:transform .35s cubic-bezier(.2,.7,.2,1);background:none;border:0}
@@ -101,20 +103,15 @@
     .photo-detail .pd-logo{top:24px;left:26px}
     .photo-detail .pd-logo .en{font-size:20px}
     .photo-detail .pd-logo .ja{font-size:9px}
-    .photo-detail .pd-inner{padding:72px 25px 88px;display:flex;flex-direction:column;gap:14px;min-height:100vh;justify-content:center}
-    .photo-detail .pd-info{display:contents}
-    .photo-detail .pd-info .index{order:1}
-    .photo-detail .pd-info .lbl{order:2}
-    .photo-detail .pd-info h3{order:3;margin-bottom:4px}
-    .photo-detail .pd-info .credit{order:4}
-    .photo-detail .pd-info .params{order:5;margin-bottom:8px}
-    .photo-detail .pd-img{order:10;width:100%;max-width:100%;max-height:calc(100vh - 380px);margin:4px 0}
-    .photo-detail .pd-img img{max-height:calc(100vh - 380px)}
-    .photo-detail .pd-info .pd-note{order:11;margin-top:8px}
-    .photo-detail .pd-info .desc{order:12;font-size:14.5px;line-height:1.85}
-    .photo-detail .pd-info .desc::first-letter{font-size:32px}
-    .photo-detail .pd-info .pd-story-note{order:13}
-    .photo-detail .pd-info .pd-story{order:14;font-size:14px;line-height:1.8}
+    .photo-detail .pd-inner{padding:72px 25px 88px}
+    .photo-detail .pd-figure{gap:18px}
+    .photo-detail .pd-img img{max-height:calc(100vh - 400px)}
+    .photo-detail .pd-img.is-portrait img{max-height:calc(100vh - 410px);max-width:min(100%,74vw)}
+    .photo-detail .pd-img.is-square img{max-height:calc(100vh - 400px);max-width:min(100%,86vw)}
+    .photo-detail .pd-plate{margin-top:13px;font-size:9px;letter-spacing:.3em}
+    .photo-detail .pd-title-en{font-size:clamp(26px,8vw,33px)}
+    .photo-detail .pd-title-zh{font-size:13px;letter-spacing:.3em;text-indent:.3em;margin-top:9px}
+    .photo-detail .pd-by{margin-top:19px}
     .photo-detail .pd-pagenation{height:64px}
     .photo-detail .pd-pagenation .prev span,.photo-detail .pd-pagenation .next span{font-size:15px}
   }
@@ -282,12 +279,12 @@
 
 <section class="max-h-screen overflow-hidden span-w-screen span-ml-2 justify-center bg-white">
 
-  <!-- crosshair -->
-  <div class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-50 flex justify-center items-center mix-blend-difference">
+  <!-- crosshair（深樱色准星 · 淡暗晕保证浅底照片上可见） -->
+  <div class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-50 flex justify-center items-center" style="filter:drop-shadow(0 0 1.5px rgba(26,26,26,.35))">
     <div id="pixelCrosshair" class="relative w-fit h-fit">
-      <div style="border-color:#fff" class="h-[8px] w-[8px] border pointer-events-auto z-[100] cursor-pointer fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-      <div style="clip-path:inset(100%);background-color:#fff" class="h-[10px] w-[10px] pointer-events-auto z-[100] cursor-pointer fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-      <p id="pixelText" class="text-white pl-4 w-fit text-nowrap text-[11px] font-medium uppercase overflow-hidden absolute top-1/2 left-0 transform -translate-y-1/2">
+      <div style="border-color:#E07B9D" class="h-[8px] w-[8px] border pointer-events-auto z-[100] cursor-pointer fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+      <div style="clip-path:inset(100%);background-color:#E07B9D" class="h-[10px] w-[10px] pointer-events-auto z-[100] cursor-pointer fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+      <p id="pixelText" style="color:#E07B9D" class="pl-4 w-fit text-nowrap text-[11px] font-medium uppercase overflow-hidden absolute top-1/2 left-0 transform -translate-y-1/2">
         <span id="projectText" class="translate-y-full block max-md:opacity-0">OPEN PROJECT</span>
       </p>
     </div>
@@ -325,18 +322,19 @@
   <div class="pd-logo"><a href="index.html"><span class="en">Sakmo</span><span class="ja">樱茉序</span></a></div>
   <button class="pd-close" aria-label="关闭"><i class="t"></i><i class="b"></i></button>
   <div class="pd-inner">
-    <div class="pd-img"><img src="" alt=""></div>
-    <div class="pd-info">
-      <div class="index"></div>
-      <div class="lbl"></div>
-      <h3></h3>
-      <div class="credit"></div>
-      <div class="params"></div>
-      <div class="pd-note">PHOTO NOTE / 摄影手记</div>
-      <div class="desc"></div>
-      <div class="pd-story-note" style="display:none">拍摄故事 / STORY</div>
-      <div class="pd-story" style="display:none"></div>
-    </div>
+    <figure class="pd-figure">
+      <div class="pd-img"><img src="" alt=""></div>
+      <figcaption class="pd-cap">
+        <div class="pd-cap-rail"><i aria-hidden="true"></i></div>
+        <div class="pd-plate">Plate N° 05<em><b>/</b>50</em></div>
+        <h3 class="pd-title-en"></h3>
+        <div class="pd-title-zh"></div>
+        <div class="pd-by">
+          <span class="pd-by-l">Photographed by</span>
+          <span class="pd-by-n"></span>
+        </div>
+      </figcaption>
+    </figure>
   </div>
   <div class="pd-pagenation">
     <button type="button" class="prev" aria-label="上一张"><span>PREV</span></button>
@@ -348,20 +346,21 @@
 <script src="gallery-cathydolle/vendor/three.site.js?v=20260906"></script>
 <script src="gallery-cathydolle/vendor/gsap.site.js?v=20260906"></script>
 <script src="js/gallery-data.js"></script>
+<script src="js/gallery-photos-auto.js"></script>
 <script src="js/gallery-show.js"></script>
 <script>
 /* ============================================================
    WebGL 画廊项目数据 — 来自 images/gallery-show/ 展示合集
    · 清单：js/gallery-show.js（文件名数组，编号 = 你想要的顺序）
    · 文件命名：编号-分类-原文件名.webp（元信息自动继承 gallery-data.js）
-   · 编排：横/竖幅交替（各池内按编号升序）
+   · 编排：横/竖幅均匀穿插（少数朝向等间距铺满全程，各池内按编号升序）
    · 纹理三级回退：-1280 → -640 → 原图副本
    · 文字索引（两端双列虚拟窗口）与 WebGL 平面共用同一份数据
    ============================================================ */
 (function(){
   var files = (window.galleryShowFiles || []).slice();
   if (!files.length) return;
-  var items = window.galleryItems || [];
+  var items = (window.galleryItems || []).concat(window.galleryPhotosExtra || []);
   var byImg = {};
   items.forEach(function(p){ byImg[p.img] = p; });
 
@@ -412,14 +411,24 @@
   pool.landscape.sort(function(a, b){ return a.num - b.num; });
   pool.portrait.sort(function(a, b){ return a.num - b.num; });
 
-  /* 横竖交替编排（横幅先，保持画廊节奏；一侧取尽后另一侧连排） */
-  var ordered = [], wantP = false;
-  while (pool.landscape.length || pool.portrait.length){
-    var arr = wantP ? pool.portrait : pool.landscape;
-    if (!arr.length) arr = wantP ? pool.landscape : pool.portrait;
-    if (!arr.length) break;
-    ordered.push(arr.shift());
-    wantP = !wantP;
+  /* 均匀穿插编排：数量少的朝向按等间距铺满全程，
+     避免"严格交替一侧取尽后尾部连排"；池内仍按编号升序。
+     相等时以横幅起头，横竖严格交替。 */
+  var base, spice;
+  if (pool.landscape.length >= pool.portrait.length){
+    base = pool.landscape; spice = pool.portrait;
+  } else {
+    base = pool.portrait; spice = pool.landscape;
+  }
+  var total = base.length + spice.length;
+  var spiceSlots = {};
+  for (var k = 0; k < spice.length; k++){
+    spiceSlots[Math.round((k + 0.5) * total / spice.length)] = true;
+  }
+  var ordered = [], bi = 0, si = 0;
+  for (var slot = 0; slot < total; slot++){
+    if (spiceSlots[slot] && si < spice.length) ordered.push(spice[si++]);
+    else ordered.push(base[bi++]);
   }
 
   function toProject(p, idx){
@@ -429,6 +438,7 @@
       photographer: p.photographer,
       slug: 'show-' + p.num,
       format: isPortraitRatio(p.ratio) ? 'portrait' : 'landscape',
+      ratio: p.ratio,
       src: p.base + '-1280.webp',
       fallback: p.base + '-640.webp',
       original: p.base + '.' + p.ext,
@@ -491,7 +501,8 @@
       lastWin = win;
       for (var k = 0; k < 12; k++){
         var st = SLOT[k];
-        var idx = ((k < 6 ? win - 6 + k : win + k - 6) + total) % total;
+        var raw = k < 6 ? win - 6 + k : win + k - 6;
+        var idx = ((raw % total) + total) % total;
         var pr = projects[idx];
         st.item = idx;
         st.li.setAttribute('data-slug', pr.slug);
@@ -537,84 +548,37 @@
   var panel = document.getElementById('photoDetail');
   var imgEl      = panel.querySelector('.pd-img img');
   var imgWrap    = panel.querySelector('.pd-img');
-  var indexEl    = panel.querySelector('.pd-info .index');
-  var lblEl      = panel.querySelector('.pd-info .lbl');
-  var titleEl    = panel.querySelector('.pd-info h3');
-  var creditEl   = panel.querySelector('.pd-info .credit');
-  var paramsEl   = panel.querySelector('.pd-info .params');
-  var descEl     = panel.querySelector('.pd-info .desc');
-  var storyNoteEl= panel.querySelector('.pd-story-note');
-  var storyEl    = panel.querySelector('.pd-story');
+  var plateEl    = panel.querySelector('.pd-cap .pd-plate');
+  var titleEnEl  = panel.querySelector('.pd-cap .pd-title-en');
+  var titleZhEl  = panel.querySelector('.pd-cap .pd-title-zh');
+  var byEl       = panel.querySelector('.pd-cap .pd-by');
+  var byNameEl   = panel.querySelector('.pd-cap .pd-by-n');
   var prevBtn    = panel.querySelector('.pd-pagenation .prev');
   var nextBtn    = panel.querySelector('.pd-pagenation .next');
   var allBtn     = panel.querySelector('.pd-pagenation .all');
   var closeBtn   = panel.querySelector('.pd-close');
 
   var currentIdx = -1;
-  var detailCache = {};
   var projects = [];
-
-  /* 与 js/app.js 相同的回退手记生成逻辑 */
-  function generateDesc(title, category, credit){
-    var descs = {
-      '山色空蒙':'清晨五点，山雾尚未散去。三层山脊在雾气中自然分层，35mm 镜头在山腰等待了四十分钟才等到这一刻。后期仅做灰阶微调，保留胶片特有的颗粒质感。',
-      '雾松晨雪':'零下十二度的清晨，松枝上结满雾凇。85mm 中焦段压缩空间，f/4 光圈让背景微微虚化，突出前景松针的冰晶纹理。曝光补偿 +1/3 档以防雪面发灰。',
-      '暮色集市':'黄昏的集市正在收摊，晾晒的衣物在电线上方随风摆动。35mm 广角收纳了整条街巷的烟火气，f/2.8 的浅景深让前景人物若隐若现。',
-      '渡口归人':'最后一班渡船靠岸，归人匆匆登船。50mm 标准焦段接近人眼视角，f/2 光圈在低光环境下仍保持足够进光量，ISO 800 是画质与快门的妥协。',
-      '边缘之郊':'城市扩张的临界地带，空旷的道路与电杆在阴天下显得克制而冷静。24mm 超广角拉伸了空间纵深感，f/11 小光圈确保全景清晰。',
-      '仓体几何':'工业仓库的立面在灰天下呈现纯粹的几何切割。28mm 广角强化了建筑的线条感，低饱和色彩让画面接近黑白，却保留了一丝温度。',
-      '枯花与亚麻':'枯萎的花枝插在陶罐里，搁在亚麻布上。90mm 微距镜头将景深压到极浅，窗光的漫射让画面蒙上一层禅意。这是对"消逝"的一次静物书写。',
-      '窗光':'老木窗的格栅在白墙上投下斜影，光与影构成了一幅无需修饰的极简画面。自然光下的 1/60 秒，手持拍摄的临界点。',
-      '檐下滴水':'雨后的老屋檐还在滴水，每一滴都在青石上砸出微小的涟漪。高速快门 1/1000s 凝固了水滴的瞬间，f/5.6 确保前景足够清晰。',
-      '田间小路':'稻田之间的窄路，两侧是金黄的稻穗。35mm 镜头平视拍摄，f/8 光圈让远景近景同样清晰，午后侧光为画面增添了层次。',
-      '旧站台':'无人等候的旧站台，铁轨延伸向远方。50mm 镜头压缩了铁轨的透视，低角度拍摄让站台显得更加孤寂。',
-      '阳台猫':'午后阳台上打盹的猫，阳光在它身上画出温暖的光斑。85mm 中焦在不打扰的前提下靠近，f/2.8 的浅景深让背景柔化。'
-    };
-    if (descs[title]) return descs[title];
-    var catMap = {landscape:'风光', documentary:'纪实', newtopographic:'新地形', stilllife:'静物', creative:'创意'};
-    var catName = catMap[category] || '摄影';
-    return title + '——一幅在沉默中等待被发现的' + catName + '作品。摄影师以克制的构图和精确的曝光，记录下光线在某个瞬间停留的方式。' + (credit ? credit + '的镜头下，日常被还原为一种近乎仪式的观看。' : '这是一张需要安静观看的照片。');
-  }
-
-  /* 图片同名 .json 旁车描述（如 images/gallery/landscape/02.webp → 02.json） */
-  function loadDetail(imgSrc){
-    var jsonPath = imgSrc.split('?')[0].replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '.json');
-    if (detailCache[jsonPath] !== undefined) return Promise.resolve(detailCache[jsonPath]);
-    return fetch(jsonPath)
-      .then(function(res){ return res.ok ? res.json() : null; })
-      .then(function(data){ detailCache[jsonPath] = data; return data; })
-      .catch(function(){ detailCache[jsonPath] = null; return null; });
-  }
 
   function setContent(idx){
     var pr = projects[idx];
     if (!pr) return;
     /* 大图用原图（.webp 基图，浏览器已缓存尺寸版本） */
     imgEl.src = pr.img;
-    imgEl.alt = pr.imgAlt;
+    imgEl.alt = pr.imgAlt || pr.titleZh || '';
     imgWrap.classList.toggle('is-portrait', pr.format === 'portrait');
     imgWrap.classList.toggle('is-landscape', pr.format !== 'portrait');
+    imgWrap.classList.toggle('is-square', pr.ratio === 'ar-1');
 
-    indexEl.innerHTML = '<b>N° ' + String(idx + 1).padStart(2, '0') + '</b> / 影像画廊';
-    lblEl.innerHTML = '<span>' + (pr.catLabel || '') + '</span><span>' + (pr.date || '') + '</span>';
-    titleEl.innerHTML = (pr.titleZh || '') + '<span class="en">' + (pr.title || '') + '</span>';
-    creditEl.innerHTML = '<b>' + (pr.photographer || '') + '</b>' + (pr.role ? ' · ' + pr.role : '');
-    paramsEl.textContent = pr.params || '';
-    descEl.textContent = generateDesc(pr.titleZh, pr.cat, pr.photographer);
-    storyNoteEl.style.display = 'none';
-    storyEl.style.display = 'none';
-    storyEl.textContent = '';
-
-    loadDetail(pr.img).then(function(data){
-      /* 仅在仍是当前照片时应用，避免 PREV/NEXT 快切串内容 */
-      if (currentIdx !== idx || !data) return;
-      if (data.description) descEl.textContent = data.description;
-      if (data.story){
-        storyEl.textContent = data.story;
-        storyNoteEl.style.display = '';
-        storyEl.style.display = '';
-      }
-    });
+    /* 馆藏铭牌：编号 / 英文大斜题 / 中文疏排 / 作者署名 */
+    plateEl.innerHTML = 'Plate N° ' + String(idx + 1).padStart(2, '0') +
+      '<em><b>/</b>' + String(projects.length).padStart(2, '0') + '</em>';
+    titleEnEl.textContent = pr.title || pr.titleZh || '';
+    titleZhEl.textContent = pr.titleZh && pr.titleZh !== pr.title ? pr.titleZh : '';
+    titleZhEl.style.display = titleZhEl.textContent ? '' : 'none';
+    byNameEl.textContent = pr.photographer || '';
+    byEl.style.display = pr.photographer ? '' : 'none';
   }
 
   function openPanel(idx){

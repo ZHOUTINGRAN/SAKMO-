@@ -1,19 +1,31 @@
 /* ============================================================
    影像画廊数据（gallery.html 使用）
-   添加新图片只需两步：
-     1. 把图片放进 images/gallery/{分类文件夹}/
-     2. 在下方数组里添加一条记录
-   图片格式支持 .jpg / .webp / .png 等（推荐 .webp 体积更小）
-   详细描述仍用同名 JSON 文件（点击图片时加载）
-   ============================================================ */
 
-/* 分类文件夹对应关系：
-   landscape     → images/gallery/landscape/     风光
-   documentary   → images/gallery/documentary/   纪实
-   newtopo       → images/gallery/newtopo/       新地形
-   stilllife     → images/gallery/stilllife/     静物
-   creative      → images/gallery/creative/      创意
-*/
+   ◆ 添加照片（最常用）——一键程序，无需手改本文件 ◆
+      运行：node tools/add-gallery-photo.js
+      按提示给出：照片文件、分类、中文标题、英文标题、作者
+      程序自动：转 webp、自动编号、加入轮播舞台（第 51、52… 张）、
+               生成手机端小图。新照片数据写入 gallery-photos-auto.js
+
+   ◆ 更换已有照片 ◆
+      用新图覆盖 images/gallery/{分类}/编号.webp，
+      运行 node tools/gen-responsive.js（自动重生成小尺寸变体）
+
+   ◆ 点击图片后的详情页展示什么？ ◆
+      只展示：作品名称（中英）+ 作者。不再展示参数/分类/手记，
+      因此新照片无需编写任何介绍文案。
+      （gallery-content/*.json 仅服务首页"本期精选"，与画廊详情页无关）
+
+   ◆ 修改本批 50 张老照片的标题 / 作者 / 卡片大小 ◆
+      编辑本文件下方数组；程序新增的照片在 gallery-photos-auto.js
+
+   分类文件夹对应关系：
+     landscape   → images/gallery/landscape/    风光
+     documentary → images/gallery/documentary/  纪实
+     newtopo     → images/gallery/newtopo/      新地形
+     stilllife   → images/gallery/stilllife/    静物
+     creative    → images/gallery/creative/     创意
+   ============================================================ */
 
 window.galleryItems = [
   /* ---------- 风光 LANDSCAPE ---------- */

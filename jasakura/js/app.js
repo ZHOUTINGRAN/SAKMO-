@@ -695,12 +695,15 @@
   var allBtn   = panel.querySelector('.pd-pagenation .all');
 
   /* ---- JSON 描述文件加载 ----
-     每张图片可对应一个同名的 .json 描述文件（如 01.jpg → 01.json）。
+     画廊图片的文案统一放在 gallery-content/{分类}/{编号}.json
+     （如 images/gallery/landscape/02.webp → gallery-content/landscape/02.json）。
      存在则用 JSON 中的 description/story 覆盖 generateDesc 的结果；不存在则回退。 */
   var detailCache = {};
   function imgToJsonPath(imgSrc){
-    var path = imgSrc.replace(/^https?:\/\/[^\/]+/, '').split('?')[0];
-    return path.replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '.json');
+    var p = imgSrc.replace(/^https?:\/\/[^\/]+/, '').split('?')[0];
+    var m = p.match(/^images\/gallery\/([a-z0-9_-]+)\/([^\/]+)\.(jpg|jpeg|png|webp|gif|svg)$/i);
+    return m ? 'gallery-content/' + m[1] + '/' + m[2] + '.json'
+             : p.replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '.json');
   }
   function loadDetail(jsonPath){
     if(detailCache[jsonPath] !== undefined) return Promise.resolve(detailCache[jsonPath]);

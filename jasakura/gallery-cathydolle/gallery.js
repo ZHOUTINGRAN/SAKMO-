@@ -656,7 +656,10 @@ void main(){
         var i, s;
         return (null != (i = e.userData.originalIndex) ? i : 1 / 0) - (null != (s = t.userData.originalIndex) ? s : 1 / 0);
       });
-      let e = [], t = this.numberOfPlanes.length, i = t - this.referenceIndex;
+      /* 参考（居中）照片原设计固定为第 6 张；照片不足 6 张时回退到最后一张 */
+      let e = [], t = this.numberOfPlanes.length;
+      this.referenceIndex = Math.min(this.referenceIndex, t - 1);
+      let i = t - this.referenceIndex;
       for (let s = 0; s < t; s++) {
         let n = (i + s) % t;
         e.push(this.numberOfPlanes[n]);
