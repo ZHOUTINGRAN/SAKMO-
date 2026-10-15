@@ -561,11 +561,38 @@
   var currentIdx = -1;
   var projects = [];
 
+  /* 手机端详情优先 1280 变体（体积小，DPR2/3 下清晰）；
+     无 1280 变体的图（原图本就 ≤1280 宽，多为竖图）直接用原图，
+     不走偏软的 640；桌面端始终用原图保证质感 */
+  var mobileMQ = window.matchMedia('(max-width: 768px)');
+  function detailSrc(pr){
+    if (!mobileMQ.matches) return pr.img;
+    if (pr.src && /-1280\.webp$/.test(pr.src)) return pr.src;
+    return pr.img;
+  }
+
+  /* 预加载缓存：打开面板及每次切换后预热相邻两张，下一次点击基本秒切 */
+  var preloadCache = {};
+  function preloadPhoto(pr){
+    if (!pr) return;
+    var u = detailSrc(pr);
+    if (!preloadCache[u]){
+      preloadCache[u] = new Image();
+      preloadCache[u].src = u;
+    }
+  }
+  function preloadNeighbours(idx){
+    var n = projects.length;
+    if (n < 2) return;
+    preloadPhoto(projects[(idx + 1) % n]);
+    preloadPhoto(projects[(idx - 1 + n) % n]);
+  }
+
   function setContent(idx){
     var pr = projects[idx];
     if (!pr) return;
-    /* 大图用原图（.webp 基图，浏览器已缓存尺寸版本） */
-    imgEl.src = pr.img;
+    /* 大图：手机走 1280 变体，桌面走原图（浏览器均已缓存对应版本） */
+    imgEl.src = detailSrc(pr);
     imgEl.alt = pr.imgAlt || pr.titleZh || '';
     imgWrap.classList.toggle('is-portrait', pr.format === 'portrait');
     imgWrap.classList.toggle('is-landscape', pr.format !== 'portrait');
@@ -585,6 +612,7 @@
     if (idx < 0 || idx >= projects.length) return;
     currentIdx = idx;
     setContent(idx);
+    preloadNeighbours(idx);
     panel.classList.remove('is-in');
     panel.scrollTop = 0;
     panel.classList.add('is-open');
@@ -593,6 +621,7 @@
       requestAnimationFrame(function(){ panel.classList.add('is-in'); });
     });
   }
+  var switchToken = 0;
   function switchPanel(dir){
     if (currentIdx < 0) return;
     var n = projects.length;
@@ -601,15 +630,34 @@
     panel.classList.remove('is-in');
     panel.classList.add('is-switching');
     panel.scrollTop = 0;
-    setTimeout(function(){
-      setContent(next);
-      panel.classList.remove('is-switching');
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ panel.classList.add('is-in'); });
-      });
-    }, 340);
+
+    /* 等目标图下载就绪后再换内容：图片与图注同一刻更新，
+       避免手机慢网下"文字已换、图片还停在上一张"。
+       token 作废慢网期间被新点击/关闭取代的旧等待 */
+    var myToken = ++switchToken;
+    var startedAt = Date.now();
+    function commit(){
+      if (myToken !== switchToken) return;
+      var elapsed = Date.now() - startedAt;
+      var wait = Math.max(0, 340 - elapsed); /* 至少播完 340ms 淡出 */
+      setTimeout(function(){
+        if (myToken !== switchToken) return;
+        setContent(next);
+        preloadNeighbours(next);
+        panel.classList.remove('is-switching');
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){ panel.classList.add('is-in'); });
+        });
+      }, wait);
+    }
+    var probe = new Image();
+    probe.onload = commit;
+    probe.onerror = commit; /* 加载失败也放行（setContent 内 img 自身会再尝试） */
+    probe.src = detailSrc(projects[next]);
+    if (probe.complete) commit();
   }
   function closePanel(){
+    switchToken++; /* 作废任何进行中的切换等待 */
     panel.classList.remove('is-in');
     panel.classList.remove('is-switching');
     setTimeout(function(){
