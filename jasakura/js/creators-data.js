@@ -12,7 +12,7 @@ window.creators = {
       role: '主编 / 摄影 · Editor-in-Chief',
       portrait: 'images/creators/01.webp',
       portraitAlt: '周亭燃肖像',
-      bio: '樱茉序主编。生于重庆渝北（2007）。创作游走于新地形、风光、人文纪实与画意摄影之间，同时统筹全刊选题与版面节奏，是这本电子杂志最初的执笔人。',
+      bio: '樱茉序主编。生于重庆渝北（2007）。创作游走于新地形、风光、人文纪实与画意摄影之间，同时统筹全刊选题与版面节奏，是这本电子杂志的执笔人。',
       specs: 'SONY A7M4<br>Nikomat FTN（35mm mechanical SLR）',
       link: 'gallery.html'
     }
@@ -91,13 +91,13 @@ window.creators = {
       link: 'gallery.html'
     },
     {
-      name: '待补充',
-      nameEn: 'TBD',
+      name: '洁净盗匪',
+      nameEn: 'Jiejing Daofei',
       role: '常驻 / 摄影',
       portrait: 'images/creators/09.webp',
-      portraitAlt: '肖像',
-      bio: '',
-      specs: '',
+      portraitAlt: '洁净盗匪肖像',
+      bio: '地球online一名喜欢摄影的NPC，摄影风格不限，热衷于捕捉生活中的小美好。来通过我的镜头，看我所看到的。',
+      specs: '尼康 Z52',
       link: 'gallery.html'
     }
    ],
