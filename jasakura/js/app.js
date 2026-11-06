@@ -80,7 +80,7 @@
         '</div>' +
         '<p class="t-label">OTHERS 其他</p>' +
         '<div class="links">' +
-          '<a href="https://raw.githubusercontent.com/ZHOUTINGRAN/SAKMO-/main/jasakura/downloads/sakmo-filmstrip.apk" download>下载 Sakmo Filmstrip</a>' +
+          '<a href="https://raw.githubusercontent.com/ZHOUTINGRAN/SAKMO-/main/downloads/sakmo-filmstrip.apk" download>下载 Sakmo Filmstrip</a>' +
           '<a href="submit.html">共创专栏与招募</a>' +
           '<a href="about.html#archive">往期归档</a>' +
           '<a href="about.html#copyright">版权声明</a>' +
